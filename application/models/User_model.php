@@ -22,23 +22,44 @@
 		}
 
 		// Log user in
-		public function login($email, $password){
+		public function login($login_data){
 
-			// validate
-			// read the code, its easy to understand than comments, i think so :-P
-			$this->db->where('pencil_db_users_password', $password);
-			$this->db->where('pencil_db_users_email', $email);
-
-			$result = $this->db->get('pencil_db_users');
-
-			if($result->num_rows() == 1){
-				return $result->row(0)->pencil_db_users_id;
-			}else{
-				return false;
+			$condition = "pencil_db_users_email =" . "'" . $login_data['l_email'] . "' AND " . "pencil_db_users_password =" . "'" . $login_data['l_password'] . "'";
+			$this->db->select('*');
+			$this->db->from('pencil_db_users');
+			$this->db->where($condition);
+			$this->db->limit(1);
+			$query = $this->db->get();
+			
+			if ($query->num_rows() == 1) {
+			return true;
+			} else {
+			return false;
 			}
 		}
 
 
+		// Read whole user data
+		public function get_user_datas($l_email) {
+
+			$condition = "pencil_db_users_email =" . "'" . $l_email . "'";
+			$this->db->select('*');
+			$this->db->from('pencil_db_users');
+			$this->db->where($condition);
+			$this->db->limit(1);
+			$query = $this->db->get();
+			
+			if ($query->num_rows() == 1) {
+			return $query->result();
+			} else {
+			return false;
+			}
+			}
+		
+		public function get_all_users(){
+				$query = $this->db->get('pencil_db_users');
+				return $query->result_array();
+		}
 
 		// check whether the username is already taken
 		public function check_username_exists($username){

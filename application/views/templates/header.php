@@ -44,6 +44,12 @@
 		            </div>
 		          </li>
 		        </ul>
+				<?php if($this->session->userdata('is_admin') == 'yes'){
+
+					echo "<li><a class='white-text waves-effect' href=".base_url()."users/admin>Admin</a></li>";
+
+				}
+				?>
 		        <!-- logout -->
 			    <li><a class="white-text waves-effect" href="<?php echo base_url(); ?>users/logout">Logout</a></li>
 				<?php endif; ?>
@@ -153,6 +159,16 @@
 		      echo "
 		      <script>
 		         M.toast({html: 'Category deleted!', classes: 'rounded'});
+		      </script>";
+		    }
+		?>
+
+		<?php
+		    if($this->session->flashdata('user_deleted'))
+		     {
+		      echo "
+		      <script>
+		         M.toast({html: 'User deleted!', classes: 'rounded'});
 		      </script>";
 		    }
 		?>

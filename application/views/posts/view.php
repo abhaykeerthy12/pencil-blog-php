@@ -103,7 +103,7 @@
 	<!-- add comment section over -->
 
 	<!-- edit and delete buttons -->
-	<?php if($this->session->userdata('user_id') == $post['pencil_db_posts_user_id']): ?>
+	<?php if($this->session->userdata('user_id') == $post['pencil_db_posts_user_id'] || $this->session->userdata('is_admin') == 'yes'): ?>
 		<hr>
 		<!-- edit button -->
 		<a class="btn-floating btn-large waves-effect waves-light halfway-fab left green z-depth-5" href="<?php echo base_url(); ?>posts/edit/<?php echo $post['pencil_db_posts_slug']; ?>"><i class="fas fa-pencil-alt"></i></a><br><br>

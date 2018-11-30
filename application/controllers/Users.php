@@ -46,37 +46,60 @@
 				$this->load->view('templates/footer');
 
 			}else{
-				// get email
-				$email = $this->input->post('login_email');
-				// get password
-				$password = md5($this->input->post('login_password'));
-
-				// login user
-				$user_id = $this->User_model->login($email, $password);
-
-				if($user_id){
-					// create session
-					$user_data = array(
-						'user_id' => $user_id,
-						'user_email' => $email,
-						'logged_in' => true
+				$login_data = array(
+					'l_email' => $this->input->post('login_email'),
+					'l_password' => md5($this->input->post('login_password'))
 					);
-
+					$result = $this->User_model->login($login_data);
+		
+					if ($result == TRUE) {
+					
+					$l_email = $this->input->post('login_email');
+					$result = $this->User_model->get_user_datas($l_email);
+					if ($result != false) {
+					$user_data = array(
+					'user_id' => $result[0]->pencil_db_users_id,
+					'user_name' => $result[0]->pencil_db_users_name,
+					'user_email' => $result[0]->pencil_db_users_email,
+					'is_admin' => $result[0]->pencil_db_users_is_admin,
+					'logged_in' => true
+		
+					);
+		
 					// created 'userdata' session
 					$this->session->set_userdata($user_data);
-
 					// set message
 					$this->session->set_flashdata('user_loggedin', 'You are now logged in');
 					redirect('posts');
-
-				}else{
-					// set message
-					$this->session->set_flashdata('login_failed', 'Login is Invalid');
-					redirect('users/login');
-
+		
+					}else{
+						// set message
+						$this->session->set_flashdata('login_failed', 'Login is Invalid');
+						redirect('users/login');
+		
+						}
+					}
 				}
+		}
 
+
+		public function admin(){
+
+			if(!$this->session->userdata('logged_in')){
+				redirect('users/login');
 			}
+			
+			if($this->session->userdata('is_admin') == 'yes'){
+
+				$data['title'] = 'Administration';
+
+				$data['users'] = $this->User_model->get_all_users();
+
+				$this->load->view('templates/header');
+				$this->load->view('users/admin' ,$data);
+				$this->load->view('templates/footer');
+			}
+
 		}
 
 		public function logout(){
@@ -84,11 +107,23 @@
 			// unset user data
 			$this->session->unset_userdata('user_id');
 			$this->session->unset_userdata('user_email');
+			$this->session->unset_userdata('user_name');
+			$this->session->unset_userdata('is_active');
 			$this->session->unset_userdata('logged_in');
 
 			// set message
 			$this->session->set_flashdata('user_loggedout', 'You are now logged out');
 			redirect('users/login');
+		}
+
+		public function delete($u_id){
+			// delete the post with matching id
+			$this->db->where('pencil_db_users_id', $u_id);
+			$this->db->delete('pencil_db_users');
+			$this->db->where('pencil_db_posts_user_id', $u_id);
+			$this->db->delete('pencil_db_posts');
+			$this->session->set_flashdata('user_deleted', 'the user is deleted');
+			redirect('users/admin');
 		}
 
 
