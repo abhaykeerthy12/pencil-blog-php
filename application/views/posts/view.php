@@ -13,7 +13,12 @@
 
 	<div class="card-content">
 		<!-- date -->
-		<small class="chip z-depth-1">Posted on: &nbsp<?php echo $post['pencil_db_posts_created_date']; ?></small>
+		<small class="chip z-depth-1">Posted on: &nbsp<?php
+			  $show_date = date('d-m-y', strtotime(str_replace('-','/', $post['pencil_db_posts_created_date'])));
+			  $show_time = date('h:i a', strtotime(str_replace('-','/', $post['pencil_db_posts_created_date'])));
+			  $show_cat = $post['pencil_db_categories_name'] ;
+			  echo $show_date.' at '.$show_time.' in '.$show_cat;		
+		?></small>
 		<!-- body -->
 		<p><?php echo $post['pencil_db_posts_body'] ?></p>
 	</div><br>
@@ -62,6 +67,29 @@
 			<?php echo validation_errors(); ?>
 			<!-- form starts -->
 			<?php echo form_open('comments/create/' . $post['pencil_db_posts_id']); ?>
+				
+			<?php if($post['pencil_db_posts_user_id'] == $this->session->userdata('user_id') || $this->session->userdata('logged_in')): ?>
+
+			  <input type="hidden" id="comment_name" name="comment_name" value="<?php echo $this->session->userdata('user_name') ?>">
+			  <input type="hidden" id="comment_email" name="comment_email" value="<?php echo $this->session->userdata('user_email') ?>">
+			  <!-- comment body field -->
+				<div class="col s12">
+					<div class="row">
+						    <div class="input-field col s12">
+						      <textarea type="text" class="materialize-textarea" id="comment_body" name="comment_body" required></textarea>
+						      <label for="comment_body">Body</label>
+							</div>
+					</div>
+				</div>
+				<!-- passing slug hidden for further processing -->
+				<input type="hidden" name="comment_post_slug" value="<?php echo $post['pencil_db_posts_slug']; ?>">
+				<!-- submit button -->
+				<button type="submit" class="btn waves-effect waves-light deep-purple">Comment</button>			  
+				<?php echo form_close(); ?>
+				<!-- form over -->				
+
+			<?php else: ?>
+
 				<!-- name field -->
 			    <div class="col s12">
 					<div class="row">
@@ -96,7 +124,7 @@
 
 			<?php echo form_close(); ?>
 			<!-- form over -->
-
+			<?php endif; ?>
 		</div>
 		</li>
 	</ul>

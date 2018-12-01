@@ -31,6 +31,7 @@ class Post_model extends CI_Model
         }
 
         // if the slug is true i.e, requesting any special post, get it, to show it in view page
+        $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
         $query = $this->db->get_where('pencil_db_posts', array('pencil_db_posts_slug' => $slug));
         return $query->row_array();
 
