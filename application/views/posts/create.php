@@ -4,7 +4,7 @@
 
 <div id="create_card" class="card container z-depth-5">
 	<!-- title -->
-	<h4><?= $title; ?></h4><br>
+	<h4><?=$title;?></h4><br>
 
 <!-- form starts (it is multipart because we are passing image)-->
 	<div class="row">
@@ -26,15 +26,15 @@
 				<select name="post_category">
 
 				  <!-- fetch category names from database -->
-				  <?php foreach($categories as $category): ?>
+				  <?php foreach ($categories as $category): ?>
 				  	<option value="<?php echo $category['pencil_db_categories_id']; ?>"><?php echo $category['pencil_db_categories_name']; ?></option>
-				  <?php endforeach; ?>
+				  <?php endforeach;?>
 
 				</select>
 
 			</div>
 		</div>
-		
+
 		<!-- image upload field -->
 		 <div class="file-field input-field">
 		      <div class="btn deep-purple waves-effect waves-light">
@@ -45,7 +45,7 @@
 			    <input class="file-path validate" type="text" placeholder="Tap to select an Image">
 			  </div>
    		 </div>
-		
+
 		<!-- body field -->
 		<div class="row">
 			<p>&nbsp&nbsp&nbspBody</p>

@@ -1,15 +1,15 @@
 <!-- page starts -->
 <!-- looping through the posts array which contains post data from database -->
 
-<h4 class="center-align"><?= $title ?></h4>
+<h4 class="center-align"><?=$title?></h4>
 
-<?php foreach ($posts as $post) : ?>
+<?php foreach ($posts as $post): ?>
 <br>
 
 <div class="row card z-depth-5 hoverable">
 	<div class="col s12 m6 l4">
 		<!-- post image -->
-		<img class="responsive-img card" 
+		<img class="responsive-img card"
 		src="<?php echo site_url(); ?>assets/images/posts/<?php echo $post['pencil_db_posts_post_image']; ?>">
 	</div>
 
@@ -27,13 +27,13 @@
 		<p class="flow-text"><?php echo word_limiter($post['pencil_db_posts_body'], 35); ?></p>
 
 		<!-- read more button (its a floating button) -->
-		<a class="btn btn-floating btn-large halfway-fab waves-effect waves-light deep-purple z-depth-5" 
-			href="<?php echo site_url('/posts/'.$post['pencil_db_posts_slug']) ?>"><i class="fas fa-angle-double-right"></i></a>
+		<a class="btn btn-floating btn-large halfway-fab waves-effect waves-light deep-purple z-depth-5"
+			href="<?php echo site_url('/posts/' . $post['pencil_db_posts_slug']) ?>"><i class="fas fa-angle-double-right"></i></a>
 	</div>
 </div>
 
 <br>
-<?php endforeach; ?>
+<?php endforeach;?>
 <!-- loop ends -->
 <!-- pagination -->
 <div class="index_pagination center">

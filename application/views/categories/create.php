@@ -4,7 +4,7 @@
 
 <div id="create_card" class="card container z-depth-5">
 	<!-- title -->
-	<h4 class="center-align"><?= $title; ?></h4><br>
+	<h4 class="center-align"><?=$title;?></h4><br>
 
 <!-- form starts (it is multipart because in case we pass category images in future)-->
 <div class="row container">

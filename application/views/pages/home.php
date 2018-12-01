@@ -22,7 +22,7 @@
 				</div>
 			</div>
 		</header>
-		
+
 		<div class="wrapper">
 
 		<!-- explore -->
@@ -35,27 +35,27 @@
 						<div class="card-panel">
 							<i class="fas fa-tachometer-alt fa-5x"></i>
 							<h3>Fast</h3>
-							<p>Pencil is build with perfomance and <br>optimization in mind</p>						
+							<p>Pencil is build with perfomance and <br>optimization in mind</p>
 						</div>
 					</div>
 					<div class="col s12 m4">
 						<div class="card-panel">
 							<i class="fas fa-anchor fa-5x"></i>
 							<h3>Robust</h3>
-							<p>We use the latest and greatest <br>technology available, reliable</p>						
+							<p>We use the latest and greatest <br>technology available, reliable</p>
 						</div>
 					</div>
 					<div class="col s12 m4">
 						<div class="card-panel">
 							<i class="fas fa-shield-alt fa-5x"></i>
 							<h3>Secure</h3>
-							<p>Internet privacy is a past, not us<br>We don't track you</p>						
+							<p>Internet privacy is a past, not us<br>We don't track you</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		
+
 
 		<!-- features -->
 		<section class="features center">
@@ -97,10 +97,10 @@
 			</div>
 		</section>
 
-		
 
 
-		
+
+
 
 		</div>
 

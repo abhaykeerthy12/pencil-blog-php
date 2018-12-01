@@ -1,158 +1,160 @@
-<?php 
+<?php
 
-	class Posts extends CI_Controller{
-		
-		public function index($offset = 0)
-		{	
-			// pagination config
-			$config['base_url'] = base_url() . 'posts/index/';
-			$config['total_rows'] = $this->db->count_all('pencil_db_posts');
-			$config['per_page'] = 3;
-			$config['uri_segment'] = 3;
-			$config['attributes'] = array('class' => 'index_pagination');
+class Posts extends CI_Controller
+{
 
-			// initialize pagination
-			$this->pagination->initialize($config);
+    public function index($offset = 0)
+    {
+        // pagination config
+        $config['base_url']    = base_url() . 'posts/index/';
+        $config['total_rows']  = $this->db->count_all('pencil_db_posts');
+        $config['per_page']    = 3;
+        $config['uri_segment'] = 3;
+        $config['attributes']  = array('class' => 'index_pagination');
 
-			$data['title'] = 'Latest Posts';
+        // initialize pagination
+        $this->pagination->initialize($config);
 
-			// get posts with limits rules and limits passed (paginate)
-			$data['posts'] = $this->Post_model->get_posts(FALSE, $config['per_page'], $offset);
+        $data['title'] = 'Latest Posts';
 
-			$this->load->view('templates/header');
-			$this->load->view('posts/index', $data);
-			$this->load->view('templates/footer');
+        // get posts with limits rules and limits passed (paginate)
+        $data['posts'] = $this->Post_model->get_posts(false, $config['per_page'], $offset);
 
-		}
+        $this->load->view('templates/header');
+        $this->load->view('posts/index', $data);
+        $this->load->view('templates/footer');
 
-		public function view($slug = NULL)
-		{
+    }
 
-			// view the page selected in the list of posts in index page
-			$data['post'] = $this->Post_model->get_posts($slug);
-			$post_id = $data['post']['pencil_db_posts_id'];
+    public function view($slug = null)
+    {
 
-			// also get comments for the same post
-			$data['comments'] = $this->Comment_model->get_comments($post_id);
+        // view the page selected in the list of posts in index page
+        $data['post'] = $this->Post_model->get_posts($slug);
+        $post_id      = $data['post']['pencil_db_posts_id'];
 
-			// if there is no post like that, show 404 error
-			if (empty($data['post'])) {
-				show_404();
-			}
+        // also get comments for the same post
+        $data['comments'] = $this->Comment_model->get_comments($post_id);
 
-			$data['title'] = $data['post']['pencil_db_posts_title'];
-			
-			$this->load->view('templates/header');
-			$this->load->view('posts/view', $data);
-			$this->load->view('templates/footer');
+        // if there is no post like that, show 404 error
+        if (empty($data['post'])) {
+            show_404();
+        }
 
-		}
+        $data['title'] = $data['post']['pencil_db_posts_title'];
 
-		public function create()
-		{
-			// check if logged in
-			if(!$this->session->userdata('logged_in')){
-				redirect('users/login');
-			}
+        $this->load->view('templates/header');
+        $this->load->view('posts/view', $data);
+        $this->load->view('templates/footer');
 
-			$data['title'] = 'Create Post';
+    }
 
-			// get the category list from the category table
-			$data['categories'] = $this->Post_model->get_categories();
+    public function create()
+    {
+        // check if logged in
+        if (!$this->session->userdata('logged_in')) {
+            redirect('users/login');
+        }
 
-			$this->form_validation->set_rules('post_title', 'Title', 'required');
-			$this->form_validation->set_rules('post_body', 'Body', 'required');
+        $data['title'] = 'Create Post';
 
-			if($this->form_validation->run() == FALSE){
-				$this->load->view('templates/header');
-				$this->load->view('posts/create', $data);
-				$this->load->view('templates/footer');
-			}else{
+        // get the category list from the category table
+        $data['categories'] = $this->Post_model->get_categories();
 
-				// upload image (don't touch anything, its working fine with the current config :-P )
-				$config['upload_path'] = './assets/images/posts';
-				$config['allowed_types'] = 'gif|jpg|png|jpeg';
-				$config['max_size'] = '0';
-				$config['max_width'] = '0';
-				$config['max_height'] = '0';
+        $this->form_validation->set_rules('post_title', 'Title', 'required');
+        $this->form_validation->set_rules('post_body', 'Body', 'required');
 
-				$this->load->library('upload', $config);
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header');
+            $this->load->view('posts/create', $data);
+            $this->load->view('templates/footer');
+        } else {
 
-				if (!$this->upload->do_upload('userfile')) {
-					$errors = array('error' => $this->upload->display_errors());
-					$post_image = 'no_image.jpg';
-				}else{
-					$data = array('upload_data' => $this->upload->data());
-					$post_image = $_FILES['userfile']['name'];
-				}
+            // upload image (don't touch anything, its working fine with the current config :-P )
+            $config['upload_path']   = './assets/images/posts';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size']      = '0';
+            $config['max_width']     = '0';
+            $config['max_height']    = '0';
 
-				$this->Post_model->create_post($post_image);
+            $this->load->library('upload', $config);
 
-				// set message
-				$this->session->set_flashdata('post_created', 'Your post has been created');
-				redirect('posts');
-			}
+            if (!$this->upload->do_upload('userfile')) {
+                $errors     = array('error' => $this->upload->display_errors());
+                $post_image = 'no_image.jpg';
+            } else {
+                $data       = array('upload_data' => $this->upload->data());
+                $post_image = $_FILES['userfile']['name'];
+            }
 
-		}
+            $this->Post_model->create_post($post_image);
 
-		public function delete($id){
+            // set message
+            $this->session->set_flashdata('post_created', 'Your post has been created');
+            redirect('posts');
+        }
 
-			// check if logged in
-			if(!$this->session->userdata('logged_in')){
-				redirect('users/login');
-			}
-			// delete the posts with matching id
-			$this->Post_model->delete_post($id);
-			$this->session->set_flashdata('post_deleted', 'Your post has been deleted');
-			redirect('posts');
-		}
+    }
 
-		public function edit($slug){
+    public function delete($id)
+    {
 
-			// note that this function is only for rendering the editing page
-			// this function doesn't really edit post, there is a difference :-P
+        // check if logged in
+        if (!$this->session->userdata('logged_in')) {
+            redirect('users/login');
+        }
+        // delete the posts with matching id
+        $this->Post_model->delete_post($id);
+        $this->session->set_flashdata('post_deleted', 'Your post has been deleted');
+        redirect('posts');
+    }
 
-			// check if logged in
-			if(!$this->session->userdata('logged_in')){
-				redirect('users/login');
-			}
+    public function edit($slug)
+    {
 
-			$data['post'] = $this->Post_model->get_posts($slug);
+        // note that this function is only for rendering the editing page
+        // this function doesn't really edit post, there is a difference :-P
 
+        // check if logged in
+        if (!$this->session->userdata('logged_in')) {
+            redirect('users/login');
+        }
 
-			// check user
-			if($this->session->userdata('user_id') != $this->Post_model->get_posts($slug)['pencil_db_posts_user_id']){
-				redirect('posts');
-			}
+        $data['post'] = $this->Post_model->get_posts($slug);
 
-			// get the list of categories
-			$data['categories'] = $this->Post_model->get_categories();
+        // check user
+        if ($this->session->userdata('user_id') != $this->Post_model->get_posts($slug)['pencil_db_posts_user_id']) {
+            redirect('posts');
+        }
 
-			// if the post doesn't exists, show 404 error
-			if (empty($data['post'])) {
-				show_404();
-			}
+        // get the list of categories
+        $data['categories'] = $this->Post_model->get_categories();
 
-			$data['title'] = 'Edit post';
-			
+        // if the post doesn't exists, show 404 error
+        if (empty($data['post'])) {
+            show_404();
+        }
 
-			$this->load->view('templates/header');
-			$this->load->view('posts/edit', $data);
-			$this->load->view('templates/footer');
-		}
+        $data['title'] = 'Edit post';
 
-		public function update(){
+        $this->load->view('templates/header');
+        $this->load->view('posts/edit', $data);
+        $this->load->view('templates/footer');
+    }
 
-			// the actual edit function, this calls the update post function in the model
+    public function update()
+    {
 
-			// check if logged in
-			if(!$this->session->userdata('logged_in')){
-				redirect('users/login');
-			}
+        // the actual edit function, this calls the update post function in the model
 
-			$this->Post_model->update_post();
-			$this->session->set_flashdata('post_updated', 'Your post has been updated');
-			redirect('posts');
-		}
+        // check if logged in
+        if (!$this->session->userdata('logged_in')) {
+            redirect('users/login');
+        }
 
-	}
+        $this->Post_model->update_post();
+        $this->session->set_flashdata('post_updated', 'Your post has been updated');
+        redirect('posts');
+    }
+
+}

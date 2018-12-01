@@ -1,161 +1,140 @@
 /* courgette-regular - latin */
+
 @font-face {
-  font-family: 'Courgette';
-  font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/courgette-v5-latin/courgette-v5-latin-regular.eot'); /* IE9 Compat Modes */
-  src: local('Courgette Regular'), local('Courgette-Regular'),
-       url('../fonts/courgette-v5-latin/courgette-v5-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('../fonts/courgette-v5-latin/courgette-v5-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-       url('../fonts/courgette-v5-latin/courgette-v5-latin-regular.woff') format('woff'), /* Modern Browsers */
-       url('../fonts/courgette-v5-latin/courgette-v5-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('../fonts/courgette-v5-latin/courgette-v5-latin-regular.svg#Courgette') format('svg'); /* Legacy iOS */
+    font-family: 'Courgette';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/courgette-v5-latin/courgette-v5-latin-regular.eot');
+    /* IE9 Compat Modes */
+    src: local('Courgette Regular'), local('Courgette-Regular'), url('../fonts/courgette-v5-latin/courgette-v5-latin-regular.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */
+    url('../fonts/courgette-v5-latin/courgette-v5-latin-regular.woff2') format('woff2'),
+    /* Super Modern Browsers */
+    url('../fonts/courgette-v5-latin/courgette-v5-latin-regular.woff') format('woff'),
+    /* Modern Browsers */
+    url('../fonts/courgette-v5-latin/courgette-v5-latin-regular.ttf') format('truetype'),
+    /* Safari, Android, iOS */
+    url('../fonts/courgette-v5-latin/courgette-v5-latin-regular.svg#Courgette') format('svg');
+    /* Legacy iOS */
 }
-
-
-#head_title_pencil, #about_head{
-	font-family: 'Courgette';
+#head_title_pencil, #about_head {
+    font-family: 'Courgette';
 }
-
-#about_head{
-  padding-top: 60px;
+#about_head {
+    padding-top: 60px;
 }
-
 header, main, footer {
-      padding-left: 300px;
- }
-
-@media only screen and (max-width : 992px) {
-      header, main, footer {
+    padding-left: 300px;
+}
+@media only screen and (max-width: 992px) {
+    header, main, footer {
         padding-left: 0;
-      }
-   }
-
-body{
-	background-color: #E0E0E6;	
-
+    }
 }
-
-.sidenav .white-text{
-	font-size: 16px;
+body {
+    background-color: #E0E0E6;
 }
-
+.sidenav .white-text {
+    font-size: 16px;
+}
 /* label focus color */
-.input-field input[type=text]:focus + label, .materialize-textarea:focus:not([readonly]) + label , .input-field input[type=email]:focus + label, .input-field input[type=password]:focus + label{
- color: #673ab7 !important;
-}
 
+.input-field input[type=text]:focus+label, .materialize-textarea:focus:not([readonly])+label, .input-field input[type=email]:focus+label, .input-field input[type=password]:focus+label {
+    color: #673ab7 !important;
+}
 /* label underline focus color */
-.input-field input[type=text]:focus, .materialize-textarea:focus:not([readonly]) , .input-field input[type=email]:focus, .input-field input[type=password]:focus{
- border-bottom: 1px solid #673ab7 !important;
- box-shadow: 0 1px 0 0 #673ab7 !important;
-}
 
-.container{
-	width: 90%;
-
+.input-field input[type=text]:focus, .materialize-textarea:focus:not([readonly]), .input-field input[type=email]:focus, .input-field input[type=password]:focus {
+    border-bottom: 1px solid #673ab7 !important;
+    box-shadow: 0 1px 0 0 #673ab7 !important;
 }
-
-#view_post_card{
-  display: table;
+.container {
+    width: 90%;
 }
-
-#view_page_img{
-	margin: auto;
-	width: 500px;
-  display: table-cell;
-  vertical-align: middle;
+#view_post_card {
+    display: table;
 }
- #about_card{
-  font-size: 15px;
- }
-
-#about_card h2{
-  font-size: 25px;
- }
-
-#view_post_page_card, #create_card, #edit_card, #about_card{
-	padding: 20px 20px 20px 20px;
-	align-content: center;
-	width: 100%;
-	margin: auto;
+#view_page_img {
+    margin: auto;
+    width: 500px;
+    display: table-cell;
+    vertical-align: middle;
 }
-
-#create_card h4, #edit_card h4{
-	text-align: center;
+#about_card {
+    font-size: 15px;
 }
-
-#error_p{
-  padding: 10px;
-  margin: 0px;
+#about_card h2 {
+    font-size: 25px;
 }
-
-#cat-delete{
-  display: inline;
+#view_post_page_card, #create_card, #edit_card, #about_card {
+    padding: 20px 20px 20px 20px;
+    align-content: center;
+    width: 100%;
+    margin: auto;
 }
-
-table a{
-  color: black;
+#create_card h4, #edit_card h4 {
+    text-align: center;
 }
-
-tr{
-  border: none;
+#error_p {
+    padding: 10px;
+    margin: 0px;
 }
-
-.index_pagination{
-  letter-spacing: 10px;
+#cat-delete {
+    display: inline;
 }
-.index_pagination strong{
-  padding: 8px 13px;
-  padding-left: 20px;
-  margin: 5px;
-  font-size: 18px;
-  border: 1px #ccc solid;
-  border-radius: 20px;
-  background-color: #eee;
+table a {
+    color: black;
 }
-.index_pagination a{
-  padding: 8px 13px;
-  padding-left: 20px;
-  margin: 5px;
-  color: #673ab7;
-  font-size: 18px;
-  border: 1px #ccc solid;
-  border-radius: 20px;
-  background-color: #eee;
+tr {
+    border: none;
 }
-
+.index_pagination {
+    letter-spacing: 10px;
+}
+.index_pagination strong {
+    padding: 8px 13px;
+    padding-left: 20px;
+    margin: 5px;
+    font-size: 18px;
+    border: 1px #ccc solid;
+    border-radius: 20px;
+    background-color: #eee;
+}
+.index_pagination a {
+    padding: 8px 13px;
+    padding-left: 20px;
+    margin: 5px;
+    color: #673ab7;
+    font-size: 18px;
+    border: 1px #ccc solid;
+    border-radius: 20px;
+    background-color: #eee;
+}
 /*This will work for firefox*/
+
 @-moz-document url-prefix() {
-
-@media (min-width:1045px) and (min-width:1025px) and (min-width:1281px) and (min-width:961px){
-    #view_page_img{
-       margin-left: 21%;
+    @media (min-width: 1045px) and (min-width:1025px) and (min-width:1281px) and (min-width:961px) {
+        #view_page_img {
+            margin-left: 21%;
+        }
     }
-  }
-@media (min-width:641px){
-  #view_page_img{
-       margin-left: 12%;
+    @media (min-width:641px) {
+        #view_page_img {
+            margin-left: 12%;
+        }
     }
 }
-
-}
-
 /*This will work for firefox*/
+
 @-moz-document url-prefix() {
-
-@media (min-width:641px){
-  #view_page_img{
-       margin-left: 12%;
+    @media (min-width: 641px) {
+        #view_page_img {
+            margin-left: 12%;
+        }
     }
-}
-
-
-@media (min-width:1045px) and (min-width:1025px) and (min-width:1281px) and (min-width:961px){
-    #view_page_img{
-       margin-left: 23%;
+    @media (min-width:1045px) and (min-width:1025px) and (min-width:1281px) and (min-width:961px) {
+        #view_page_img {
+            margin-left: 23%;
+        }
     }
-  }
-
-
 }

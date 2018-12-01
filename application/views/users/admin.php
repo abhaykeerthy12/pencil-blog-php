@@ -1,15 +1,15 @@
 
 
-<h4 class="center-align"><?= $title ?></h4><br>
+<h4 class="center-align"><?=$title?></h4><br>
 <table class="white hoverable centered z-depth-5">
 <thead>
-    <tr> 
+    <tr>
         <td colspan="2"><h5 class="center-align">Manage Users</h5></td>
     </tr>
 </thead>
 <tbody>
 <!-- loop through the categories array and get each category  -->
-<?php foreach($users as $user): ?>
+<?php foreach ($users as $user): ?>
 <tr>
 	<!-- column with shows category names -->
     <td><h6><?php echo ucfirst($user['pencil_db_users_name']); ?></h6></td>
@@ -19,7 +19,7 @@
         <td><button type="submit" class="btn red waves-effect waves-light"><i class="fas fa-trash"></i></button></td>
     </form>
 </tr>
-<?php endforeach; ?>
+<?php endforeach;?>
 <!-- loop ends -->
 </tbody>
 </table>

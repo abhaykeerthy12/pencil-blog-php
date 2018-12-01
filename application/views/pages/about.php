@@ -1,4 +1,4 @@
-<h2 class="center-align"><?= $title ?></h2>
+<h2 class="center-align"><?=$title?></h2>
 
 <!-- fake EULA starts-->
 <div class="card">
@@ -11,11 +11,11 @@
 	 	<div class="collapsible-body">
 		<div id="about_card" class="card container flow-text">
 			<h2>Welcome to Pencil</h2>
-				<p>These terms and conditions outline the rules and regulations for the use of Pencil's Website.</p> <br /> 
-				<span style="text-transform: capitalize;"> Pencil</span> is located at:<br /> 
+				<p>These terms and conditions outline the rules and regulations for the use of Pencil's Website.</p> <br />
+				<span style="text-transform: capitalize;"> Pencil</span> is located at:<br />
 				<address> , <br />Kerala - , India<br />
 				</address>
-				<p>By accessing this website we assume you accept these terms and conditions in full. Do not continue to use Pencil's website 
+				<p>By accessing this website we assume you accept these terms and conditions in full. Do not continue to use Pencil's website
 				if you do not accept all of the terms and conditions stated on this page.</p>
 				<p>The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice
 				and any or all Agreements: “Client”, “You” and “Your” refers to you, the person accessing this website
@@ -27,10 +27,10 @@
 				of provision of the Company’s stated services/products, in accordance with and subject to, prevailing law
 				of India. Any use of the above terminology or other words in the singular, plural,
 				capitalisation and/or he/she or they, are taken as interchangeable and therefore as referring to same.</p><h2>Cookies</h2>
-				<p>We employ the use of cookies. By using Pencil's website you consent to the use of cookies 
+				<p>We employ the use of cookies. By using Pencil's website you consent to the use of cookies
 				in accordance with Pencil’s privacy policy.</p><p>Most of the modern day interactive web sites
 				use cookies to enable us to retrieve user details for each visit. Cookies are used in some areas of our site
-				to enable the functionality of this area and ease of use for those people visiting. Some of our 
+				to enable the functionality of this area and ease of use for those people visiting. Some of our
 				affiliate / advertising partners may also use cookies.</p><h2>License</h2>
 				<p>Unless otherwise stated, Pencil and/or it’s licensors own the intellectual property rights for
 				all material on Pencil. All intellectual property rights are reserved. You may view and/or print
@@ -163,7 +163,7 @@
 				<p>To the extent that the website and the information and services on the website are provided free of charge,
 				we will not be liable for any loss or damage of any nature.</p>
 			<h2></h2>
-				<p></p>	
+				<p></p>
 		</div>
 	</div>
 	</li>

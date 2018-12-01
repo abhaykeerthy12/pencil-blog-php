@@ -4,7 +4,7 @@
 
 <div id="create_card" class="card center container z-depth-5">
 	<!-- title -->
-	<h2 class="center-align"><?= $title ?></h2>
+	<h2 class="center-align"><?=$title?></h2>
 	<div class="row">
 	<?php echo form_open_multipart('users/register'); ?>
 
@@ -41,8 +41,8 @@
 	<div class="col s12">
 		<div class="row">
 				<!-- password field -->
-			    <div class="input-field col s12">					
-				  <input type="password" name="signup_password" id="signup_password" required>			      
+			    <div class="input-field col s12">
+				  <input type="password" name="signup_password" id="signup_password" required>
 			      <label for="signup_password">Password</label>
 				</div>
 		</div>
@@ -58,7 +58,7 @@
 		</div>
 	</div>
 	<a class="center black-text" href="<?php echo base_url(); ?>users/login">Already a member?</a>
-	
+
 	<!-- submit button (it is a floating button so it has more classes from materializecss)-->
 	<button type="submit" name="create_post_btn" class="btn-floating btn-large halfway-fab waves-effect waves-light deep-purple z-depth-5"><i class="fas fa-plus"></i></button>
 
