@@ -31,8 +31,9 @@
 				  <?php endforeach;?>
 
 				</select>
-
+				<p style="font-size: 12px;"><a class="black-text right"href="<?php echo base_url(); ?>categories/create">Didn't found desired category?</a></p>
 			</div>
+			
 		</div>
 
 		<!-- image upload field -->
