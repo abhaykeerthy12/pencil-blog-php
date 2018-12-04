@@ -124,7 +124,9 @@ class Posts extends CI_Controller
 
         // check user
         if ($this->session->userdata('user_id') != $this->Post_model->get_posts($slug)['pencil_db_posts_user_id']) {
-            redirect('posts');
+            if( $this->session->userdata('is_admin') != 'yes'){
+                redirect('posts');
+            }           
         }
 
         // get the list of categories
@@ -152,7 +154,24 @@ class Posts extends CI_Controller
             redirect('users/login');
         }
 
-        $this->Post_model->update_post();
+        // upload image (don't touch anything, its working fine with the current config :-P )
+        $config['upload_path']   = './assets/images/posts';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['max_size']      = '0';
+        $config['max_width']     = '0';
+        $config['max_height']    = '0';
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('userfile')) {
+            $errors     = array('error' => $this->upload->display_errors());
+        } else {
+            $data       = array('upload_data' => $this->upload->data());
+            $post_image = $_FILES['userfile']['name'];
+        }
+
+
+        $this->Post_model->update_post($post_image);
         $this->session->set_flashdata('post_updated', 'Your post has been updated');
         redirect('posts');
     }

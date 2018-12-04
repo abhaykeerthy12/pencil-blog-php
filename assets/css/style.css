@@ -66,7 +66,7 @@ body {
 #about_card h2 {
     font-size: 25px;
 }
-#view_post_page_card, #create_card, #edit_card, #about_card {
+#view_post_page_card, #create_card, #edit_card, #about_card, #profile_page_card {
     padding: 20px 20px 20px 20px;
     align-content: center;
     width: 100%;
@@ -110,6 +110,12 @@ tr {
     border-radius: 20px;
     background-color: #eee;
 }
+
+#profile_pic{
+    width: 220px;
+    height: 220px;
+}
+
 /*This will work for firefox*/
 
 @-moz-document url-prefix() {
@@ -134,7 +140,7 @@ tr {
     }
     @media (min-width:1045px) and (min-width:1025px) and (min-width:1281px) and (min-width:961px) {
         #view_page_img {
-            margin-left: 23%;
+            margin-left: 21%;
         }
     }
 }

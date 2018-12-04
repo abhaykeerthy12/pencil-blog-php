@@ -1,6 +1,25 @@
 <?php
 class Users extends CI_Controller
 {
+    // profile
+    public function profile(){
+
+        // check if logged in
+        if (!$this->session->userdata('logged_in')) {
+            redirect('users/login');
+        }
+        
+        $data['title'] = "Profile";
+
+        $id = $this->session->userdata('user_id');
+
+        $data['posts'] = $this->Post_model->get_posts_by_user($id);
+
+        $this->load->view('templates/header');
+        $this->load->view('users/profile', $data);
+        $this->load->view('templates/footer');
+    }
+
     // signup
     public function register()
     {
@@ -20,12 +39,28 @@ class Users extends CI_Controller
 
         } else {
 
-            // encrypt password (using too old md5, need to change this, remind me :-P)
-            // note:-->> the md5 version is working with ease, thats why i used it...
-            $hashed_password = md5($this->input->post('signup_password'));
+            // upload image (don't touch anything, its working fine with the current config :-P )
+            $config['upload_path']   = './assets/images/profile';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size']      = '0';
+            $config['max_width']     = '0'; 
+            $config['max_height']    = '0';
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('userfile')) {
+                $errors     = array('error' => $this->upload->display_errors());
+                $user_image = 'no_image.png';
+            } else {
+                $data       = array('upload_data' => $this->upload->data());
+                $user_image = $_FILES['userfile']['name'];
+            }
+
+            // encrypt password 
+            $hashed_password = password_hash($this->input->post('signup_password'), PASSWORD_DEFAULT);
 
             // pass the encrypted version of the password, other datas are easily available on the other side...
-            $this->User_model->register($hashed_password);
+            $this->User_model->register($hashed_password, $user_image);
 
             // set message
             $this->session->set_flashdata('user_registered', 'You are now registered, you can log in');
@@ -49,9 +84,10 @@ class Users extends CI_Controller
             $this->load->view('templates/footer');
 
         } else {
+            
             $login_data = array(
                 'l_email'    => $this->input->post('login_email'),
-                'l_password' => md5($this->input->post('login_password')),
+                'l_password' => $this->input->post('login_password')
             );
             $result = $this->User_model->login($login_data);
 
@@ -62,8 +98,11 @@ class Users extends CI_Controller
                 if ($result != false) {
                     $user_data = array(
                         'user_id'    => $result[0]->pencil_db_users_id,
+                        'user_image' => $result[0]->pencil_db_users_image,
                         'user_name'  => $result[0]->pencil_db_users_name,
+                        'user_username'  => $result[0]->pencil_db_users_username,
                         'user_email' => $result[0]->pencil_db_users_email,
+                        'user_password' => $result[0]->pencil_db_users_password,
                         'is_admin'   => $result[0]->pencil_db_users_is_admin,
                         'logged_in'  => true,
 
@@ -85,6 +124,55 @@ class Users extends CI_Controller
         }
     }
 
+     // profile
+     public function edit(){
+
+        // check if logged in
+        if (!$this->session->userdata('logged_in')) {
+            redirect('users/login');
+        }
+        
+        $data['title'] = "Edit";
+
+        $this->load->view('templates/header');
+        $this->load->view('users/edit', $data);
+        $this->load->view('templates/footer');
+    }
+
+
+    public function update()
+    {
+
+        // the actual edit function, this calls the update post function in the model
+
+        // check if logged in
+        if (!$this->session->userdata('logged_in')) {
+            redirect('users/login');
+        }
+
+        // upload image (don't touch anything, its working fine with the current config :-P )
+        $config['upload_path']   = './assets/images/profile';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['max_size']      = '0';
+        $config['max_width']     = '0';
+        $config['max_height']    = '0';
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('userfile')) {
+            $errors     = array('error' => $this->upload->display_errors());
+        } else {
+            $data       = array('upload_data' => $this->upload->data());
+            $user_image = $_FILES['userfile']['name'];
+        }
+
+
+        $this->User_model->update_user($user_image);
+        $this->session->set_flashdata('user_updated', 'Your data has been updated');
+        redirect('users/logout');
+    }
+
+    // admin
     public function admin()
     {
 
@@ -105,14 +193,52 @@ class Users extends CI_Controller
 
     }
 
+    // change password
+    public function change_password(){
+
+        // check if logged in
+        if (!$this->session->userdata('logged_in')) {
+            redirect('users/login');
+        }
+
+        $data['title'] = 'Change Password';
+
+        $this->form_validation->set_rules('new_password', 'Password', 'required');
+        $this->form_validation->set_rules('new_password_confirm', 'Confirm password', 'matches[new_password]');
+
+        if ($this->form_validation->run() === false) {
+            $this->load->view('templates/header');
+            $this->load->view('users/change_password', $data);
+            $this->load->view('templates/footer');
+
+        } else {
+
+
+            $password = md5($this->input->post('new_password'));
+        
+
+            $result = $this->User_model->change_password($password);
+
+
+            $this->load->view('templates/header');
+            $this->load->view('users/change_password', $data);
+            $this->load->view('templates/footer');
+            redirect('users/logout');
+        }
+    }
+
+    // logout
     public function logout()
     {
 
         // unset user data
         $this->session->unset_userdata('user_id');
         $this->session->unset_userdata('user_email');
+        $this->session->unset_userdata('user_password');
+        $this->session->unset_userdata('user_image');
         $this->session->unset_userdata('user_name');
-        $this->session->unset_userdata('is_active');
+        $this->session->unset_userdata('user_username');
+        $this->session->unset_userdata('is_admin');
         $this->session->unset_userdata('logged_in');
         $this->session->sess_destroy();
 

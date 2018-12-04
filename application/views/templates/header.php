@@ -25,8 +25,6 @@
 			    <li><a class="white-text waves-effect" href="<?php echo base_url(); ?>posts">Blog</a></li>
 			    <!-- categories -->
 			    <li><a class="white-text waves-effect" href="<?php echo base_url(); ?>categories">Categories</a></li>
-			    <!-- about -->
-			    <li><a class="white-text waves-effect" href="<?php echo base_url(); ?>about">About</a></li>
 
 			    <!-- here comes the twist, if any user is logged in, show create stuff links and logout option-->
 			    <?php if ($this->session->userdata('logged_in')): ?>
@@ -44,12 +42,14 @@
 		            </div>
 		          </li>
 		        </ul>
+				  <!-- profile -->
+				  <li><a class="white-text waves-effect" href="<?php echo base_url(); ?>users/profile">Profile</a></li>
 				<?php if ($this->session->userdata('is_admin') == 'yes') {
 
     echo "<li><a class='white-text waves-effect' href=" . base_url() . "users/admin>Admin</a></li>";
 
 }
-?>
+?>	
 		        <!-- logout -->
 			    <li><a class="white-text waves-effect" href="<?php echo base_url(); ?>users/logout">Logout</a></li>
 				<?php endif;?>
@@ -59,6 +59,8 @@
 			    	<li><a class="white-text waves-effect" href="<?php echo base_url(); ?>users/login">Login</a></li>
 			    	<li><a class="white-text waves-effect" href="<?php echo base_url(); ?>users/register">Signup</a></li>
 				<?php endif;?>
+				<!-- about -->
+				<li><a class="white-text waves-effect" href="<?php echo base_url(); ?>about">About</a></li>
 
 		</ul>
 		<!-- handburger menu when a small screen size is detected -->

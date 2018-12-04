@@ -37,6 +37,11 @@ class Post_model extends CI_Model
 
     }
 
+    public function get_posts_by_user($id){
+        $query = $this->db->get_where('pencil_db_posts', array('pencil_db_posts_user_id' => $id));
+        return $query->num_rows();
+    }
+
     public function create_post($post_image)
     {
 
@@ -68,9 +73,11 @@ class Post_model extends CI_Model
         return true;
     }
 
-    public function update_post()
+    public function update_post($post_image)
     {
-
+        if(!$post_image){
+            $post_image = $this->input->post('userfile1');
+        }
         // similar to the create function, refer that function to understand
         // i'm just lazy to type again :-D
 
@@ -81,6 +88,7 @@ class Post_model extends CI_Model
             'pencil_db_posts_slug'        => $slug,
             'pencil_db_posts_body'        => $this->input->post('post_body'),
             'pencil_db_posts_category_id' => $this->input->post('post_category'),
+            'pencil_db_posts_post_image'  => $post_image,
         );
 
         $this->db->where('pencil_db_posts_id', $this->input->post('post_id'));

@@ -10,7 +10,9 @@
 <tbody>
 <!-- loop through the categories array and get each category  -->
 <?php foreach ($users as $user): ?>
-<tr>
+<?php if($user['pencil_db_users_is_admin'] == 'no') : ?>
+<tr>    
+    
 	<!-- column with shows category names -->
     <td><h6><?php echo ucfirst($user['pencil_db_users_name']); ?></h6></td>
 
@@ -18,7 +20,9 @@
 	<form action="<?php echo base_url(); ?>users/delete/<?php echo $user['pencil_db_users_id'] ?>" method="POST">
         <td><button type="submit" class="btn red waves-effect waves-light"><i class="fas fa-trash"></i></button></td>
     </form>
+
 </tr>
+<?php endif; ?>
 <?php endforeach;?>
 <!-- loop ends -->
 </tbody>

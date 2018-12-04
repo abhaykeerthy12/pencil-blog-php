@@ -5,7 +5,7 @@
 		<!-- title -->
 		<h2 class="center-align"><?php echo ucfirst($post['pencil_db_posts_title']); ?></h2>
 	</div>
-	<div class="cols12">
+	<div class="col s12">
 		<!-- image -->
 		<img id="view_page_img" class="hoverable responsive-img z-depth-5"
 			 src="<?php echo site_url(); ?>assets/images/posts/<?php echo $post['pencil_db_posts_post_image']; ?>"><br><br>

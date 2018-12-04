@@ -8,7 +8,7 @@
 <div class="row">
 
 <!-- form starts -->
-<?php echo form_open('posts/update'); ?>
+<?php echo form_open_multipart('posts/update'); ?>
 
 	<!-- this hidden field is to get posts id for updating -->
 	<input type="hidden" name="post_id" value="<?php echo $post['pencil_db_posts_id']; ?>">
@@ -41,6 +41,19 @@
 
 	</div>
 	</div>
+
+	<input type="hidden" name="userfile1" size="20" value="<?php echo $post['pencil_db_posts_post_image']; ?>">
+
+	<!-- image upload field -->
+	<div class="file-field input-field">
+		      <div class="btn deep-purple waves-effect waves-light">
+		        <span>Image</span>
+		        <input type="file" name="userfile" size="20">
+		      </div>
+			  <div class="file-path-wrapper">
+			    <input class="file-path validate" type="text" placeholder="Tap to select an Image">
+			  </div>
+   		 </div>
 
 	<!-- body field -->
 	<div class="row">

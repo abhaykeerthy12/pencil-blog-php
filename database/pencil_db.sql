@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 30, 2018 at 01:25 PM
+-- Generation Time: Dec 04, 2018 at 05:49 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -75,6 +75,7 @@ CREATE TABLE `pencil_db_posts` (
 
 CREATE TABLE `pencil_db_users` (
   `pencil_db_users_id` int(11) NOT NULL,
+  `pencil_db_users_image` varchar(255) NOT NULL,
   `pencil_db_users_name` varchar(255) NOT NULL,
   `pencil_db_users_email` varchar(255) NOT NULL,
   `pencil_db_users_username` varchar(255) NOT NULL,

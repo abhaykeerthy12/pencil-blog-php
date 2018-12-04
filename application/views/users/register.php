@@ -57,10 +57,26 @@
 				</div>
 		</div>
 	</div>
+
+	<div class="row">
+	<div class="col s12">
+			<!-- image upload field -->
+			<div class="file-field input-field">
+			<div class="btn deep-purple waves-effect waves-light">
+					<span>Profile Pic</span>
+					<input type="file" name="userfile" size="20">
+			</div>
+			<div class="file-path-wrapper">
+					<input class="file-path validate" type="text" placeholder="Upload a profile picture">
+			</div>
+			</div>
+		</div>
+	</div>        
+		        
 	<a class="center black-text" href="<?php echo base_url(); ?>users/login">Already a member?</a>
 
 	<!-- submit button (it is a floating button so it has more classes from materializecss)-->
-	<button type="submit" name="create_post_btn" class="btn-floating btn-large halfway-fab waves-effect waves-light deep-purple z-depth-5"><i class="fas fa-plus"></i></button>
+	<button type="submit" name="create_post_btn" class="btn-floating btn-large halfway-fab waves-effect waves-light deep-purple z-depth-5"><i class="fab fa-telegram-plane"></i></button>
 
 	<?php echo form_close(); ?>
 	</div>
