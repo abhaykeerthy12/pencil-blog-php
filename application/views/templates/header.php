@@ -44,12 +44,6 @@
 		        </ul>
 				  <!-- profile -->
 				  <li><a class="white-text waves-effect" href="<?php echo base_url(); ?>users/profile">Profile</a></li>
-				<?php if ($this->session->userdata('is_admin') == 'yes') {
-
-    echo "<li><a class='white-text waves-effect' href=" . base_url() . "users/admin>Admin</a></li>";
-
-}
-?>	
 		        <!-- logout -->
 			    <li><a class="white-text waves-effect" href="<?php echo base_url(); ?>users/logout">Logout</a></li>
 				<?php endif;?>
@@ -129,7 +123,7 @@ if ($this->session->flashdata('post_deleted')) {
 ?>
 
 		<?php
-if ($this->session->flashdata('user_loggedin')) {
+if ($this->session->flashdata('user_logged_in')) {
     echo "
 		      <script>
 		         M.toast({html: 'Logged In!', classes: 'rounded'});
@@ -139,11 +133,12 @@ if ($this->session->flashdata('user_loggedin')) {
 
 
 		<?php
-if ($this->session->flashdata('user_loggedout')) {
+if ($this->session->flashdata('user_logged_out')) {
     echo "
 		      <script>
 		         M.toast({html: 'Logged Out!', classes: 'rounded'});
-		      </script>";
+				</script>";
+	$this->session->sess_destroy();
 }
 ?>
 
@@ -162,7 +157,29 @@ if ($this->session->flashdata('user_deleted')) {
 		      <script>
 		         M.toast({html: 'User deleted!', classes: 'rounded'});
 		      </script>";
+}?>
+<?php
+if ($this->session->flashdata('comment_deleted')) {
+    echo "
+		      <script>
+		         M.toast({html: 'Comment deleted!', classes: 'rounded'});
+		      </script>";
 }
 ?>
-
+<?php
+if ($this->session->flashdata('old_password_error')) {
+    echo "
+		      <script>
+		         M.toast({html: 'Current password is wrong, Enter correct one!', classes: 'rounded'});
+		      </script>";
+}
+?>
+<?php
+if ($this->session->flashdata('comment_created')) {
+    echo "
+		      <script>
+		         M.toast({html: 'Comment created!', classes: 'rounded'});
+		      </script>";
+}
+?>
 

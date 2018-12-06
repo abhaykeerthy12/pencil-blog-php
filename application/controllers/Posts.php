@@ -3,14 +3,15 @@
 class Posts extends CI_Controller
 {
 
+    // list all posts
     public function index($offset = 0)
     {
         // pagination config
-        $config['base_url']    = base_url() . 'posts/index/';
-        $config['total_rows']  = $this->db->count_all('pencil_db_posts');
-        $config['per_page']    = 3;
+        $config['base_url'] = base_url() . 'posts/index/';
+        $config['total_rows'] = $this->db->count_all('pencil_db_posts');
+        $config['per_page'] = 3;
         $config['uri_segment'] = 3;
-        $config['attributes']  = array('class' => 'index_pagination');
+        $config['attributes'] = array('class' => 'index_pagination');
 
         // initialize pagination
         $this->pagination->initialize($config);
@@ -26,15 +27,20 @@ class Posts extends CI_Controller
 
     }
 
+    // view a single post
     public function view($slug = null)
     {
 
         // view the page selected in the list of posts in index page
         $data['post'] = $this->Post_model->get_posts($slug);
-        $post_id      = $data['post']['pencil_db_posts_id'];
+        $post_id = $data['post']['pencil_db_posts_id'];
+        $u_id = $data['post']['pencil_db_posts_user_id'];
 
         // also get comments for the same post
         $data['comments'] = $this->Comment_model->get_comments($post_id);
+
+        // also get author of the post
+        $data['user'] = $this->Post_model->get_author($u_id);
 
         // if there is no post like that, show 404 error
         if (empty($data['post'])) {
@@ -49,6 +55,7 @@ class Posts extends CI_Controller
 
     }
 
+    // create a post
     public function create()
     {
         // check if logged in
@@ -71,19 +78,19 @@ class Posts extends CI_Controller
         } else {
 
             // upload image (don't touch anything, its working fine with the current config :-P )
-            $config['upload_path']   = './assets/images/posts';
+            $config['upload_path'] = './assets/images/posts';
             $config['allowed_types'] = 'gif|jpg|png|jpeg';
-            $config['max_size']      = '0';
-            $config['max_width']     = '0';
-            $config['max_height']    = '0';
+            $config['max_size'] = '0';
+            $config['max_width'] = '0';
+            $config['max_height'] = '0';
 
             $this->load->library('upload', $config);
 
             if (!$this->upload->do_upload('userfile')) {
-                $errors     = array('error' => $this->upload->display_errors());
+                $errors = array('error' => $this->upload->display_errors());
                 $post_image = 'no_image.jpg';
             } else {
-                $data       = array('upload_data' => $this->upload->data());
+                $data = array('upload_data' => $this->upload->data());
                 $post_image = $_FILES['userfile']['name'];
             }
 
@@ -96,6 +103,7 @@ class Posts extends CI_Controller
 
     }
 
+    // delete a post
     public function delete($id)
     {
 
@@ -124,9 +132,9 @@ class Posts extends CI_Controller
 
         // check user
         if ($this->session->userdata('user_id') != $this->Post_model->get_posts($slug)['pencil_db_posts_user_id']) {
-            if( $this->session->userdata('is_admin') != 'yes'){
+            if ($this->session->userdata('is_admin') != 'yes') {
                 redirect('posts');
-            }           
+            }
         }
 
         // get the list of categories
@@ -155,21 +163,20 @@ class Posts extends CI_Controller
         }
 
         // upload image (don't touch anything, its working fine with the current config :-P )
-        $config['upload_path']   = './assets/images/posts';
+        $config['upload_path'] = './assets/images/posts';
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
-        $config['max_size']      = '0';
-        $config['max_width']     = '0';
-        $config['max_height']    = '0';
+        $config['max_size'] = '0';
+        $config['max_width'] = '0';
+        $config['max_height'] = '0';
 
         $this->load->library('upload', $config);
 
         if (!$this->upload->do_upload('userfile')) {
-            $errors     = array('error' => $this->upload->display_errors());
+            $errors = array('error' => $this->upload->display_errors());
         } else {
-            $data       = array('upload_data' => $this->upload->data());
+            $data = array('upload_data' => $this->upload->data());
             $post_image = $_FILES['userfile']['name'];
         }
-
 
         $this->Post_model->update_post($post_image);
         $this->session->set_flashdata('post_updated', 'Your post has been updated');

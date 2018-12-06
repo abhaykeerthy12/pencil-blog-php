@@ -37,9 +37,23 @@ class Post_model extends CI_Model
 
     }
 
-    public function get_posts_by_user($id){
-        $query = $this->db->get_where('pencil_db_posts', array('pencil_db_posts_user_id' => $id));
-        return $query->num_rows();
+    // get posts by a particular user
+    public function get_posts_by_user($id, $view = false)
+    {
+
+        // if the view parameter is true,i.e if we need to show the whole post, just get all data
+        if ($view) {
+            $this->db->order_by('pencil_db_posts.pencil_db_posts_id', 'DESC');
+            $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
+            $query = $this->db->get_where('pencil_db_posts', array('pencil_db_posts_user_id' => $id));
+            return $query->result_array();
+        } else {
+
+            // if the view parameter is false,i.e if we just need the no.of.posts by the user, get it
+            $query = $this->db->get_where('pencil_db_posts', array('pencil_db_posts_user_id' => $id));
+            return $query->num_rows();
+        }
+
     }
 
     public function create_post($post_image)
@@ -52,12 +66,12 @@ class Post_model extends CI_Model
 
         // create the data array
         $data = array(
-            'pencil_db_posts_title'       => $this->input->post('post_title'),
-            'pencil_db_posts_slug'        => $slug,
-            'pencil_db_posts_body'        => $this->input->post('post_body'),
+            'pencil_db_posts_title' => $this->input->post('post_title'),
+            'pencil_db_posts_slug' => $slug,
+            'pencil_db_posts_body' => $this->input->post('post_body'),
             'pencil_db_posts_category_id' => $this->input->post('post_category'),
-            'pencil_db_posts_post_image'  => $post_image,
-            'pencil_db_posts_user_id'     => $this->session->userdata('user_id'),
+            'pencil_db_posts_post_image' => $post_image,
+            'pencil_db_posts_user_id' => $this->session->userdata('user_id'),
         );
 
         // insert the data
@@ -75,7 +89,7 @@ class Post_model extends CI_Model
 
     public function update_post($post_image)
     {
-        if(!$post_image){
+        if (!$post_image) {
             $post_image = $this->input->post('userfile1');
         }
         // similar to the create function, refer that function to understand
@@ -84,11 +98,11 @@ class Post_model extends CI_Model
         $slug = url_title($this->input->post('post_title'));
 
         $data = array(
-            'pencil_db_posts_title'       => $this->input->post('post_title'),
-            'pencil_db_posts_slug'        => $slug,
-            'pencil_db_posts_body'        => $this->input->post('post_body'),
+            'pencil_db_posts_title' => $this->input->post('post_title'),
+            'pencil_db_posts_slug' => $slug,
+            'pencil_db_posts_body' => $this->input->post('post_body'),
             'pencil_db_posts_category_id' => $this->input->post('post_category'),
-            'pencil_db_posts_post_image'  => $post_image,
+            'pencil_db_posts_post_image' => $post_image,
         );
 
         $this->db->where('pencil_db_posts_id', $this->input->post('post_id'));
@@ -103,6 +117,18 @@ class Post_model extends CI_Model
         $query = $this->db->get('pencil_db_categories');
         return $query->result_array();
 
+    }
+
+    // get the data of the post author by using his id
+    public function get_author($u_id)
+    {
+
+        $query = $this->db->get_where('pencil_db_users', array('pencil_db_users_id' => $u_id));
+        if ($query->num_rows() == 1) {
+            return $query->row_array();
+        } else {
+            return false;
+        }
     }
 
     public function get_posts_by_category($category_id)

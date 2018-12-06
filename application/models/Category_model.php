@@ -14,7 +14,7 @@ class Category_model extends CI_Model
 
         // create an array with data entered by the user
         $data = array(
-            'pencil_db_categories_name'    => ucfirst($this->input->post('category_name')),
+            'pencil_db_categories_name' => ucfirst($this->input->post('category_name')),
             'pencil_db_categories_user_id' => $this->session->userdata('user_id'),
         );
 

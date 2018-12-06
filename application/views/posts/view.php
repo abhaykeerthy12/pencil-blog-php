@@ -23,8 +23,32 @@
 		<p><?php echo $post['pencil_db_posts_body'] ?></p>
 	</div><br>
 	<hr>
+	
+	<!-- about author -->
+	<section class="center">
+			
+			<div class="row">
+			
+					<div class="col s12 m12 l12">
+						<div class="card-panel">
+						<h4 class="center-align" style="margin-top: 2px;">Author</h4>
+							<img style="width: 100px;height: 100px;" class="circle responsive-img" src="<?php echo site_url(); ?>assets/images/profile/<?php echo $user['pencil_db_users_image'];?>">
+							
+							<h5 style="margin-top: 7px;"><?php echo ucfirst($user['pencil_db_users_name']); ?></h5>
+								<p style="margin-top: 1px;"class="chip"><?php echo $user['pencil_db_users_username']; ?></p>
+								
+								<p><?php echo $user['pencil_db_users_bio'];?></p>
+								
+								<a href="<?php echo site_url('users/authorposts/' . $user['pencil_db_users_id']); ?>" class="btn deep-purple">Explore other creations by <?php echo $user['pencil_db_users_name']; ?></a>
 
+								
+            </div>        
+					</div>
+				</div>
+  	   
+</section>
 
+	<hr>
 	<!-- comments section-->
 	<h5>Comments</h5>
 	<!-- check if any comments are present -->
@@ -41,7 +65,17 @@
 			      <br>
 			      <p><?php echo $comment['pencil_db_comments_body']; ?></p>
 			      </blockquote>
+							<?php if($this->session->userdata('user_id') == $post['pencil_db_posts_user_id'] || $this->session->userdata('is_admin') == 'yes') : ?>
+							<form action="<?php echo base_url(); ?>comments/delete/<?php echo $comment['pencil_db_comments_id'] ?>" method="POST">
+								<!-- passing slug hidden for further processing -->
+								<input type="hidden" name="comment_post_slug" value="<?php echo $post['pencil_db_posts_slug']; ?>">
+								<p><button type="submit" class="btn-floating red accent-3 right waves-effect waves-light"><i class="fas fa-trash"></i></button></p><br><br>
+							</form>
+							<?php endif; ?>
 			    </li>
+					
+					
+					
 			 </ul>
 
 		<?php endforeach;?>
@@ -138,9 +172,16 @@
 		<!-- delete button -->
 	    <?php echo form_open('posts/delete/' . $post['pencil_db_posts_id']); ?>
 
-	        <button type="submit" class="btn-floating btn-large waves-effect waves-light z-depth-5 halfway-fab red modal-trigger"><i class="fas fa-trash"></i></button>
+	        <button type="submit" class="btn-floating btn-large waves-effect waves-light z-depth-5 halfway-fab red accent-3 modal-trigger"><i class="fas fa-trash"></i></button>
 	    </form>
 	<?php endif;?>
 
 </div>
 <br>
+
+
+
+				
+      
+
+

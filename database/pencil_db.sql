@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 04, 2018 at 05:49 PM
+-- Generation Time: Dec 06, 2018 at 05:39 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -79,6 +79,7 @@ CREATE TABLE `pencil_db_users` (
   `pencil_db_users_name` varchar(255) NOT NULL,
   `pencil_db_users_email` varchar(255) NOT NULL,
   `pencil_db_users_username` varchar(255) NOT NULL,
+  `pencil_db_users_bio` text NOT NULL,
   `pencil_db_users_password` varchar(255) NOT NULL,
   `pencil_db_users_is_admin` varchar(3) NOT NULL DEFAULT 'no',
   `pencil_db_users_created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP

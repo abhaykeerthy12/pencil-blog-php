@@ -38,6 +38,15 @@
 		</div>
 	</div>
 
+	<!-- bio field -->
+	<div class="row">
+		    <div class="input-field col s12">
+		      <textarea id="signup_bio" class="materialize-textarea" name="signup_bio" required></textarea>
+					<label for="signup_bio">Bio</label>
+		    </div>
+		</div>
+
+
 	<div class="col s12">
 		<div class="row">
 				<!-- password field -->

@@ -111,11 +111,6 @@ tr {
     background-color: #eee;
 }
 
-#profile_pic{
-    width: 220px;
-    height: 220px;
-}
-
 /*This will work for firefox*/
 
 @-moz-document url-prefix() {

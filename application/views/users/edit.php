@@ -37,6 +37,14 @@
 	</div>
   </div>
 
+	<!-- bio field -->
+	<div class="row">
+		    <div class="input-field col s12">
+		      <textarea id="signup_bio" class="materialize-textarea" name="user_bio" required><?php echo $this->session->userdata('user_bio'); ?></textarea>
+					<label for="signup_bio">Bio</label>
+		    </div>
+	</div>
+
   <!-- email field -->
 	<div class="col s12">
 		<div class="row">

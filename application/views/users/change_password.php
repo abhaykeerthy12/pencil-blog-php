@@ -7,6 +7,17 @@
 	<h4 class="center-align"><?=$title;?></h4><br>
 	<div class="row">
 	<?php echo form_open('users/change_password'); ?>
+
+	<div class="col s12">
+		<div class="row">
+				<!-- old password field -->
+			    <div class="input-field col s12">
+			      <input type="password" id="old_password" name="old_password">
+			      <label for="old_password">Current Password</label>
+				</div>
+		</div>
+	</div>
+
 	<div class="col s12">
 		<div class="row">
 				<!-- new password field -->

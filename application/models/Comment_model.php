@@ -14,9 +14,9 @@ class Comment_model extends CI_Model
         // create the data array
         $data = array(
             'pencil_db_comments_post_id' => $post_id,
-            'pencil_db_comments_name'    => $this->input->post('comment_name'),
-            'pencil_db_comments_email'   => $this->input->post('comment_email'),
-            'pencil_db_comments_body'    => $this->input->post('comment_body'),
+            'pencil_db_comments_name' => $this->input->post('comment_name'),
+            'pencil_db_comments_email' => $this->input->post('comment_email'),
+            'pencil_db_comments_body' => $this->input->post('comment_body'),
 
         );
 
