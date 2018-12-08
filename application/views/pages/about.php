@@ -7,13 +7,13 @@
 	<p class="center-align">@ The Pencil Team</p>
 <ul class="collapsible">
 <li>
-	 	<div class="collapsible-header"><h5>Terms and Conditions(EULA)</h5></div>
+	 	<div class="collapsible-header center"><h5>Terms and Conditions(EULA)</h5></div>
 	 	<div class="collapsible-body">
 		<div id="about_card" class="card container flow-text">
 			<h2>Welcome to Pencil</h2>
 				<p>These terms and conditions outline the rules and regulations for the use of Pencil's Website.</p> <br />
-				<span style="text-transform: capitalize;"> Pencil</span> is located at:<br />
-				<address> , <br />Kerala - , India<br />
+				<span style="text-transform: capitalize;"> <h5>Pencil</h5></span> is located at:<br />
+				<address>Kerala - , India<br />
 				</address>
 				<p>By accessing this website we assume you accept these terms and conditions in full. Do not continue to use Pencil's website
 				if you do not accept all of the terms and conditions stated on this page.</p>

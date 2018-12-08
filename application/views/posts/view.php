@@ -39,7 +39,7 @@
 								
 								<p><?php echo $user['pencil_db_users_bio'];?></p>
 								
-								<a href="<?php echo site_url('users/authorposts/' . $user['pencil_db_users_id']); ?>" class="btn deep-purple">Explore other creations by <?php echo $user['pencil_db_users_name']; ?></a>
+								<a href="<?php echo site_url('users/authorposts/' . $user['pencil_db_users_id']); ?>" class="btn deep-purple">Explore all creations by <?php echo $user['pencil_db_users_name']; ?></a>
 
 								
             </div>        
@@ -66,10 +66,10 @@
 			      <p><?php echo $comment['pencil_db_comments_body']; ?></p>
 			      </blockquote>
 							<?php if($this->session->userdata('user_id') == $post['pencil_db_posts_user_id'] || $this->session->userdata('is_admin') == 'yes') : ?>
-							<form action="<?php echo base_url(); ?>comments/delete/<?php echo $comment['pencil_db_comments_id'] ?>" method="POST">
+							<form action="<?php echo base_url(); ?>comments/delete/<?php echo $comment['pencil_db_comments_id'] ?>" method="POST"><hr>
 								<!-- passing slug hidden for further processing -->
 								<input type="hidden" name="comment_post_slug" value="<?php echo $post['pencil_db_posts_slug']; ?>">
-								<p><button type="submit" class="btn-floating red accent-3 right waves-effect waves-light"><i class="fas fa-trash"></i></button></p><br><br>
+								<p><button type="submit" class="btn-floating red accent-3 right waves-effect waves-light"><i class="fas fa-trash"></i></button></p><br>
 							</form>
 							<?php endif; ?>
 			    </li>

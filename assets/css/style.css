@@ -110,6 +110,9 @@ tr {
     border-radius: 20px;
     background-color: #eee;
 }
+.collapsible-header{
+    display: block;
+}
 
 /*This will work for firefox*/
 
@@ -139,3 +142,4 @@ tr {
         }
     }
 }
+
