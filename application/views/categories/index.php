@@ -3,7 +3,7 @@
 <tbody>
 <!-- loop through the categories array and get each category  -->
 <?php foreach ($categories as $category): ?>
-<tr>
+<tr class="hoverable">
 	<!-- column with shows category names -->
 	<td><h6><a href="<?php echo site_url('/categories/posts/' . $category['pencil_db_categories_id']); ?>"><div style="height:100%;width:100%"><?php echo ucfirst($category['pencil_db_categories_name']); ?></div></a></h6></td>
 

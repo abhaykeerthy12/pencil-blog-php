@@ -38,6 +38,8 @@
 	    <?php endforeach;?>
 
 	</select>
+	<div class="center"><a href="<?php echo base_url(); ?>categories/create" class="blact-text"><p style="font-size: 12px;" class="chip">Didn't found desired category?</p></a></div>
+			
 
 	</div>
 	</div>

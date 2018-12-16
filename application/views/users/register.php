@@ -82,7 +82,7 @@
 		</div>
 	</div>        
 		        
-	<a class="center black-text" href="<?php echo base_url(); ?>users/login">Already a member?</a>
+	<a class="center black-text chip" href="<?php echo base_url(); ?>users/login">Already a member?</a>
 
 	<!-- submit button (it is a floating button so it has more classes from materializecss)-->
 	<button type="submit" name="create_post_btn" class="btn-floating btn-large halfway-fab waves-effect waves-light deep-purple z-depth-5"><i class="fab fa-telegram-plane"></i></button>

@@ -73,7 +73,7 @@
 	 </div>
 	 </div>
 
-	<a href="<?php echo base_url(); ?>users/change_password/<?php echo $this->session->userdata('user_id'); ?>" class="black-text"><p class="center-align">change password?</p></a>
+	<div class="center"><a href="<?php echo base_url(); ?>users/change_password/<?php echo $this->session->userdata('user_id'); ?>" class="black-text"><p class="chip">change password?</p></a><span><br><br><em>You will be logged out for the changes to take effect</em></span></div>
 
 	<!-- the submit button (it is a floating button so it has more classes from materializecss) -->
 	<button type="submit" name="edit_post_btn" class="btn-floating btn-large halfway-fab waves-effect waves-light deep-purple z-depth-5"><i class="fas fa-plus"></i></button>
@@ -86,5 +86,13 @@
 	<?php echo validation_errors('<p id="error_p" class="red lighten-3 center-align">', '</p>'); ?>
 	<br>
 </div>
+
 <!-- page ends -->
+<br>
+<br>
+	<div class="container">
+	<div id="delete_bar" class="card red accent-3 container z-depth-5">
+		<a href="<?php echo base_url(); ?>users/self_distruct" class="black-text"><h5 class="center-align white-text">Delete account</h5></a>
+	</div>
+</div>
 <br>

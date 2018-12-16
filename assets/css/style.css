@@ -66,7 +66,7 @@ body {
 #about_card h2 {
     font-size: 25px;
 }
-#view_post_page_card, #create_card, #edit_card, #about_card, #profile_page_card {
+#view_post_page_card, #create_card, #edit_card, #about_card, #profile_page_card, #delete_bar {
     padding: 20px 20px 20px 20px;
     align-content: center;
     width: 100%;

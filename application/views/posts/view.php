@@ -111,7 +111,7 @@
 					<div class="row">
 						    <div class="input-field col s12">
 						      <textarea type="text" class="materialize-textarea" id="comment_body" name="comment_body" required></textarea>
-						      <label for="comment_body">Body</label>
+						      <label for="comment_body">Enter comment</label>
 							</div>
 					</div>
 				</div>
@@ -147,7 +147,7 @@
 					<div class="row">
 						    <div class="input-field col s12">
 						      <textarea type="text" class="materialize-textarea" id="comment_body" name="comment_body" required></textarea>
-						      <label for="comment_body">Body</label>
+						      <label for="comment_body">Enter comment</label>
 							</div>
 					</div>
 				</div>

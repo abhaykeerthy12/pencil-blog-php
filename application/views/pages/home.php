@@ -72,7 +72,7 @@
 					</div>
 					<div class="col s12 m6">
 						<div class="card-panel hoverable">
-							<a href="<?php echo base_url(); ?>users/register"><i class="fab fa-telegram-plane fa-5x"></i></a>
+							<a href="<?php echo base_url(); ?>users/register"><i class="fas fa-user-friends fa-5x"></i></a>
 							<a href="<?php echo base_url(); ?>users/register"><h3>Join</h3></a>
 							<a href="<?php echo base_url(); ?>users/register"><p>Become a member and start writing!</p></a>
 						</div>

@@ -182,4 +182,45 @@ if ($this->session->flashdata('comment_created')) {
 		      </script>";
 }
 ?>
+<?php
+if ($this->session->flashdata('login_ban')) {
+    echo "
+		      <script>
+		         M.toast({html: 'Sorry, Your login is banned by the admin', classes: 'rounded'});
+		      </script>";
+}
+?>
+<?php
+if ($this->session->flashdata('user_blocked')) {
+    echo "
+		      <script>
+		         M.toast({html: 'User is blocked', classes: 'rounded'});
+		      </script>";
+}
+?>
+<?php
+if ($this->session->flashdata('user_unblocked')) {
+    echo "
+		      <script>
+		         M.toast({html: 'User is unblocked', classes: 'rounded'});
+		      </script>";
+}
+?>
+<?php
+if ($this->session->flashdata('account_deleted')) {
+    echo "
+		      <script>
+		         M.toast({html: 'Your pencil account is deleted!', classes: 'rounded'});
+		      </script>";
+}
+?>
+<?php
+if ($this->session->flashdata('pwd_error')) {
+    echo "
+		      <script>
+		         M.toast({html: 'The password is wrong!', classes: 'rounded'});
+		      </script>";
+}
+?>
+
 

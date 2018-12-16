@@ -150,6 +150,9 @@ class Users extends CI_Controller
 
                 // create a session with the datas acquired from database
                 if ($result != false) {
+
+                    if($result[0]->pencil_db_users_is_active == 'yes'){
+
                     $user_data = array(
                         'user_id' => $result[0]->pencil_db_users_id,
                         'user_image' => $result[0]->pencil_db_users_image,
@@ -159,6 +162,7 @@ class Users extends CI_Controller
                         'user_email' => $result[0]->pencil_db_users_email,
                         'user_password' => $result[0]->pencil_db_users_password,
                         'is_admin' => $result[0]->pencil_db_users_is_admin,
+                        'is_active' => $result[0]->pencil_db_users_is_active,
                         'logged_in' => true,
 
                     );
@@ -168,6 +172,11 @@ class Users extends CI_Controller
                     // set message
                     $this->session->set_flashdata('user_logged_in', 'You are now logged in');
                     redirect('posts');
+                 }else{
+                     // set message
+                    $this->session->set_flashdata('login_ban', 'Login is Bannned');
+                    redirect('users/login');
+                 }
 
                 }
             } else {
@@ -285,6 +294,7 @@ class Users extends CI_Controller
         $this->session->unset_userdata('user_username');
         $this->session->unset_userdata('user_bio');
         $this->session->unset_userdata('is_admin');
+        $this->session->unset_userdata('is_active');
         $this->session->unset_userdata('logged_in');
 
         // set message
@@ -300,6 +310,75 @@ class Users extends CI_Controller
         $this->db->where('pencil_db_posts_user_id', $u_id);
         $this->db->delete('pencil_db_posts');
         $this->session->set_flashdata('user_deleted', 'the user is deleted');
+        redirect('users/profile');
+    }
+
+    public function self_distruct()
+    {   
+        $data['title'] = "Confirm";
+
+        // form->> rules
+        $this->form_validation->set_rules('confirm_password', 'Password', 'required');
+
+        // if there is any typing mistakes by user, show him errors
+        if ($this->form_validation->run() === false) {
+            $this->load->view('templates/header');
+            $this->load->view('users/self_distruct', $data);
+            $this->load->view('templates/footer');
+
+        } else {
+
+           if(password_verify($this->input->post('confirm_password'), $this->session->userdata('user_password'))) {
+                
+                // delete the user with matching id
+                $this->db->where('pencil_db_users_id', $this->session->userdata('user_id'));
+                $this->db->delete('pencil_db_users');
+                $this->db->where('pencil_db_posts_user_id', $this->session->userdata('user_id'));
+                $this->db->delete('pencil_db_posts');
+                $this->session->set_flashdata('account_deleted', 'your pencil account is deleted');
+                redirect('users/logout');
+                         
+           }else{
+               // set message
+               $this->session->set_flashdata('pwd_error', 'Login is Invalid');
+               redirect('users/self_distruct');
+               return false;
+           }
+
+        }
+
+       
+    }
+
+    // block user
+    public function block($u_id){
+
+        // block the user with matching id
+
+        // data array
+        $data = array(
+            'pencil_db_users_is_active' => 'no',
+        );
+
+        $this->db->where('pencil_db_users_id', $u_id);
+        $this->db->update('pencil_db_users', $data);
+        $this->session->set_flashdata('user_blocked', 'the user is blocked');
+        redirect('users/profile');
+    }
+
+    // unblock user
+    public function unblock($u_id){
+
+        // unblock the user with matching id
+
+        // data array
+        $data = array(
+            'pencil_db_users_is_active' => 'yes',
+        );
+
+        $this->db->where('pencil_db_users_id', $u_id);
+        $this->db->update('pencil_db_users', $data);
+        $this->session->set_flashdata('user_unblocked', 'the user is unblocked');
         redirect('users/profile');
     }
 

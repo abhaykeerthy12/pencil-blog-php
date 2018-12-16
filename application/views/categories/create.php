@@ -17,9 +17,9 @@
 					  <label for="category_name">Category name</label>
 					</div>
 			</div>
-			<a href="<?php echo base_url(); ?>categories" class="black-text">
-				<p class="center-align">Before creating, Confirm whether your desired category exists or not!</p>
-			</a>
+			<div class="center"><a href="<?php echo base_url(); ?>categories" class="black-text">
+				<p class="chip">Before creating, Confirm whether your desired category exists or not!</p>
+			</a></div>
 			<button type="submit" name="create_post_btn" class="btn-floating btn-large halfway-fab waves-effect waves-light deep-purple z-depth-5"><i class="fas fa-plus"></i></button>
 		</div>
 	<?php echo form_close(); ?>
