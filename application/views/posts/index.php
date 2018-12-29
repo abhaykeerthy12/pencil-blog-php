@@ -1,20 +1,20 @@
 <!-- page starts -->
 <!-- looping through the posts array which contains post data from database -->
 
-<h4 class="center-align"><?=$title?></h4>
+<h4 class="center-align" id="index_card_title"><?=$title?></h4>
 
 <?php foreach ($posts as $post): ?>
 <br>
 
-<div class="row card z-depth-5 hoverable">
+<div class="row card z-depth-5 hoverable" id="index_page_img">
 	<div class="col s12 m6 l4">
 		<!-- post image -->
-		<img class="responsive-img card"
+		<img class="responsive-img" 
 		src="<?php echo site_url(); ?>assets/images/posts/<?php echo $post['pencil_db_posts_post_image']; ?>">
 	</div>
 
 	<!-- other contents -->
-	<div class="card-content">
+	<div class="card-content" id="index_page_card_content">
 		<div class="card-title">
 			<!-- title -->
 			<span><h4 style="font-weight: bold"><?php echo ucfirst($post['pencil_db_posts_title']); ?></h4></span>
@@ -30,7 +30,7 @@
 		</div>
 
 		<!-- post body (words are limited to 75, just for the asthetics) -->
-		<p class="flow-text"><?php echo word_limiter($post['pencil_db_posts_body'], 35); ?></p>
+		<p class="flow-text"><?php echo word_limiter($post['pencil_db_posts_body'], 25); ?></p>
 
 		<!-- read more button (its a floating button) -->
 		<a class="btn btn-floating btn-large halfway-fab waves-effect waves-light deep-purple z-depth-5"
