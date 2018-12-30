@@ -6,6 +6,14 @@ application/cache/*
 application/logs/*
 !application/logs/index.html
 
+# images
+assets/images/posts/*
+!assets/images/posts/no_image.jpg
+
+assets/images/profile/*
+!assets/images/profile/no_image.png
+
+
 !application/*/.htaccess
 
 composer.lock
