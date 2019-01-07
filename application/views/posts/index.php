@@ -21,10 +21,10 @@
 
         <div class="card-body">
            
-            <a href="" style="text-decoration: none;color: black"><span class="card-title h5" style="max-height: 3em;height: 3em;"><?php echo ucfirst($post['pencil_db_posts_title']); ?></span></a>
+            <a href="<?php echo site_url('/posts/' . $post['pencil_db_posts_slug']) ?>" style="text-decoration: none;color: black"><span class="card-title h5" style="max-height: 3em;height: 3em;"><?php echo ucfirst($post['pencil_db_posts_title']); ?></span></a>
             <br>
 
-            <a href="" style="text-decoration: none;color: black"><p class="card-text" style="margin-top: 1em;"><?php echo word_limiter($post['pencil_db_posts_body'], 20); ?></p></a>
+            <a href="<?php echo site_url('/posts/' . $post['pencil_db_posts_slug']) ?>" style="text-decoration: none;color: black"><p class="card-text" style="margin-top: 1em;"><?php echo word_limiter($post['pencil_db_posts_body'], 20); ?></p></a>
             <span class="text-muted" style="font-size: 12px;text-decoration: none;">
 					<img src="<?php echo base_url(); ?>/assets/images/images/laptop.svg" class="rounded-circle img-fluid" style="height: 50px;width: 50px;">
 					<span>&nbsp;&nbsp;</span>Abhay<span>&nbsp;&nbsp;</span>|

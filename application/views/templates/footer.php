@@ -38,5 +38,4 @@
                 // instance, using default configuration.
                 CKEDITOR.replace( 'ckeditor_textarea' );
     </script>
-	<script type="text/javascript" src="js/main.js"></script>
 </html>
