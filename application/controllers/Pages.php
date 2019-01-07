@@ -13,7 +13,10 @@ class Pages extends CI_Controller
 
         // if its just the home page, render that
         elseif ($page == 'home') {
+
+            $this->load->view('templates/header');
             $this->load->view('pages/' . $page);
+            $this->load->view('templates/footer');
         } else {
 
             $data['title'] = ucfirst($page);
