@@ -2,7 +2,7 @@
  $('#title_text').hide();
  $('#quote').hide();
  $('#author').hide();
-  $(document).ready(function(){
+  $(document).ready(function(e){
 
        // file upload style
        bsCustomFileInput.init();
@@ -55,4 +55,33 @@
           });
     
   });
+
+
+
+  // ajax functions
       
+  $(document).ready(function(e){
+
+      $("#category_filter input[type=checkbox]").click(function(e){
+
+                  var category_id = $(this).val();
+
+
+                  $.each($("input[name='category_name']:checked"), function(){
+               
+
+                     $.ajax({
+                          url:"http://localhost/pencil/posts/card",
+                          data: {},
+                          type:'POST',
+                          success:function(data){
+
+                              $('.blog-body').html(data);
+                          }
+                        });
+
+          });
+
+      });
+
+  });

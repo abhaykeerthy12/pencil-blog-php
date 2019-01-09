@@ -15,7 +15,6 @@ class User_model extends CI_Model
 
         // user data array
         $data = array(
-            'pencil_db_users_name' => $this->input->post('signup_name'),
             'pencil_db_users_username' => '@' . $this->input->post('signup_username'),
             'pencil_db_users_bio' => $this->input->post('signup_bio'),
             'pencil_db_users_email' => $this->input->post('signup_email'),
@@ -59,7 +58,6 @@ class User_model extends CI_Model
 
         // user data array
         $data = array(
-            'pencil_db_users_name' => $this->input->post('user_name'),
             'pencil_db_users_username' => '@' . $this->input->post('user_username'),
             'pencil_db_users_bio' => $this->input->post('user_bio'),
             'pencil_db_users_email' => $this->input->post('user_email'),

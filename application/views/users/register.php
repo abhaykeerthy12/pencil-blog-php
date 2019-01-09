@@ -1,98 +1,59 @@
-<br><br>
+<section class="signup_section"><br>
+	<div class="row container shadow-lg p-3 mb-5 bg-white rounded" id="signup_box">
 
-<!-- page starts -->
+		<div class="col-sm-12 col-md-12 col-lg-12 container text-center" id="signup_form">
+			<h1>Signup!</h1><br>
+			<div class="container" style="width: 80%;">
+				<?php echo form_open_multipart('users/register'); ?>
 
-<div id="create_card" class="card center container z-depth-5">
-	<!-- title -->
-	<h2 class="center-align"><?=$title?></h2>
-	<div class="row">
-	<?php echo form_open_multipart('users/register'); ?>
+					<div class="form-row">
+						<div class="form-group col-md-12 col-lg-6">
+							<input type="text" class="form-control" name="signup_username" id="signup_username" placeholder="Username" required autofocus>
+						</div>
 
-	<div class="col s12">
-		<div class="row">
-				<!-- name field -->
-			    <div class="input-field col s12">
-			      <input type="text" id="signup_name" name="signup_name" autofocus required>
-			      <label for="signup_name">Name</label>
-				</div>
+						<div class="form-group col-md-12 col-lg-6">
+							<input type="email" class="form-control" name="signup_email" id="signup_email" placeholder="email" required>
+						</div>
+
+					</div>
+
+					<div class="form-row">
+
+
+						<div class="form-group col-md-12 col-lg-6">
+							<input type="password" class="form-control" name="signup_password" id="signup_password" placeholder="Password" required>
+						</div>
+
+						<div class="form-group col-md-12 col-lg-6">
+							<input type="password" class="form-control" name="signup_confirm_password" id="signup_confirm_password" placeholder="Repeat Password" required>
+						</div>
+
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<textarea rows="2" class="form-control" name="signup_bio" id="signup_bio" placeholder="Bio" required></textarea>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="custom-file col-md-12">
+						  <input type="file" class="custom-file-input" id="customFile" name="userfile" size="20">
+						  <div class="container text-left">
+						  		<label class="custom-file-label" for="customFile" style="color: grey;">Profile Pic</label>
+						  </div>
+						</div>
+					</div>	
+							<br>
+						<button type="submit" class="btn btn-block btn-primary shadow">Signup</button>
+					</div>		
+				<?php echo form_close(); ?><br>
+				
+				<?php echo validation_errors('<p id="error_p" class="alert alert-danger">', '</p>'); ?>
+
+				<p><a href="<?php echo base_url(); ?>users/login" class="form-text badge badge-pill badge-light" style="color: #222; font-size: 15px;text-decoration: none;">Have an Account?</a></p>	
+			</div>	
 		</div>
-	</div>
 
-	<div class="col s12">
-		<div class="row">
-				<!-- emailfield -->
-			    <div class="input-field col s12">
-			      <input type="email" name="signup_email" id="signup_email" required>
-			      <label for="signup_email">Email</label>
-				</div>
-		</div>
-	</div>
-
-	<div class="col s12">
-		<div class="row">
-				<!-- username field -->
-			    <div class="input-field col s12">
-			      <input type="text" name="signup_username" id="signup_username" required>
-			      <label for="signup_username">Userame</label>
-				</div>
-		</div>
-	</div>
-
-	<!-- bio field -->
-	<div class="row">
-		    <div class="input-field col s12">
-		      <textarea id="signup_bio" class="materialize-textarea" name="signup_bio" required></textarea>
-					<label for="signup_bio">Bio</label>
-		    </div>
-		</div>
-
-
-	<div class="col s12">
-		<div class="row">
-				<!-- password field -->
-			    <div class="input-field col s12">
-				  <input type="password" name="signup_password" id="signup_password" required>
-			      <label for="signup_password">Password</label>
-				</div>
-		</div>
-	</div>
-
-	<div class="col s12">
-		<div class="row">
-				<!-- confirm password field -->
-			    <div class="input-field col s12">
-			      <input type="password" name="signup_confirm_password" id="signup_confirm_password" required>
-			      <label for="signup_confirm_password">Confirm password</label>
-				</div>
-		</div>
-	</div>
-
-	<div class="row">
-	<div class="col s12">
-			<!-- image upload field -->
-			<div class="file-field input-field">
-			<div class="btn deep-purple waves-effect waves-light">
-					<span>Profile Pic</span>
-					<input type="file" name="userfile" size="20">
-			</div>
-			<div class="file-path-wrapper">
-					<input class="file-path validate" type="text" placeholder="Upload a profile picture">
-			</div>
-			</div>
-		</div>
-	</div>        
-		        
-	<a class="center black-text chip" href="<?php echo base_url(); ?>users/login">Already a member?</a>
-
-	<!-- submit button (it is a floating button so it has more classes from materializecss)-->
-	<button type="submit" name="create_post_btn" class="btn-floating btn-large halfway-fab waves-effect waves-light deep-purple z-depth-5"><i class="fab fa-telegram-plane"></i></button>
-
-	<?php echo form_close(); ?>
-	</div>
-
-	<!-- show errors -->
-	<?php echo validation_errors('<p id="error_p" class="red lighten-3 center-align">', '</p>'); ?>
-	<br>
-
-</div>
-<br>
+	</div><br><br>
+</section>

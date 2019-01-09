@@ -71,7 +71,6 @@ class Users extends CI_Controller
         $data['title'] = "Sign up!";
 
         // some normal form validation rules
-        $this->form_validation->set_rules('signup_name', 'Name', 'required');
         $this->form_validation->set_rules('signup_username', 'Userame', 'required|callback_check_username_exists');
         $this->form_validation->set_rules('signup_email', 'Email', 'required|callback_check_email_exists');
         $this->form_validation->set_rules('signup_password', 'Password', 'required');
@@ -156,7 +155,6 @@ class Users extends CI_Controller
                     $user_data = array(
                         'user_id' => $result[0]->pencil_db_users_id,
                         'user_image' => $result[0]->pencil_db_users_image,
-                        'user_name' => $result[0]->pencil_db_users_name,
                         'user_username' => $result[0]->pencil_db_users_username,
                         'user_bio' => $result[0]->pencil_db_users_bio,
                         'user_email' => $result[0]->pencil_db_users_email,
@@ -290,7 +288,6 @@ class Users extends CI_Controller
         $this->session->unset_userdata('user_email');
         $this->session->unset_userdata('user_password');
         $this->session->unset_userdata('user_image');
-        $this->session->unset_userdata('user_name');
         $this->session->unset_userdata('user_username');
         $this->session->unset_userdata('user_bio');
         $this->session->unset_userdata('is_admin');

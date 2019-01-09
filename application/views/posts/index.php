@@ -1,56 +1,88 @@
+
+<!-- this is the page where all posts are listed, so its called "blog page" / "index page" -->
+
+<!-- the main section starts -->
 <section id="all_blog">
+
+<!-- this page has 2 columns(1 side bar for filters and other to list the posts) -->
+<!-- row starts -->
 <div class="row" style="margin: auto;">
-	<div class="container col-sm-12 col-md-12 col-lg-2" style="background-color: blue;"><br>
-		<div class="col-sm-12 col-md-12 col-lg-12">
+
+	<!-- the sidebar column  starts-->
+	<div class="container col-sm-12 col-md-12 col-lg-2"><br><br>
+		<p class="h4">Refine by</p><hr>
+
+		<!-- category filter section -->
+		<div class=" card col-sm-12 col-md-12 col-lg-12">
+
+			<!-- the category filter column -->
+			<p class="h5" style="border-bottom: 1px solid #eee;padding: 2px;padding-bottom: 5px">
+				Categories
+			</p>
 			
+			<!-- loop through categories in database and list its names -->
+			<ul class="list-unstyled container " id="category_filter">
+
+					<!-- fetch category names from database -->
+					<?php foreach ($categories as $category): ?>
+					<li class="list-item">
+						
+						<label class="custom-control custom-checkbox">
+						<input type="checkbox" name="category_name" class="custom-control-input" value="<?php echo $category['pencil_db_categories_id']; ?>">
+						<span class="custom-control-label" for="category_name">
+							<?php echo $category['pencil_db_categories_name']; ?>
+						</span>
+						</label>
+
+					</li>
+					<?php endforeach;?>
+
+			</ul>
+
+		</div><br>
+		
+
+		<!-- the date filter column -->
+		<div class="container card col-sm-12 col-md-12 col-lg-12">
+			<p class="h5" style="border-bottom: 1px solid #eee;padding: 2px;padding-bottom: 5px">
+				Date
+			</p><br>
+			<form action="" class="form-group">
+				<!-- from date -->
+				<input type="text" class="form-control"><br>
+				<!-- to date -->
+				<input type="text" class="form-control"><br>
+			</form>
 		</div>
 	</div>
+	<!-- the sidebar column ends -->
+
+
+	<!-- the main column starts (posts list column) -->
 	<div class="container col-sm-12 col-md-12 col-lg-10"><br>
+		
+		<!-- we are including the posts as cards from another page (to use ajax efficiently) -->
 		<div><h1><?=$title?></h1><hr></div>  
-			
-<div class="col-sm-12 col-md-12 col-lg-12">
 
-<?php foreach ($posts as $post): ?>
+		<div class="blog-body">
+		<?php include('blog-card.php'); ?>
+		</div><br>
 
-        <div class="card w-100 p-3 shadow" style="width: 18rem;">
-        <div class="row">
-        <div class="col-sm-12 col-md-4 col-lg-4 d-flex justify-content-center">
-        <img src="<?php echo site_url(); ?>assets/images/posts/<?php echo $post['pencil_db_posts_post_image']; ?>" class="card-img-top" style="height: 200px;width: 100%; align-self: center;">
-        </div>
-        <div class="col-sm-12 col-md-8 col-lg-8">
-
-        <div class="card-body">
-           
-            <a href="<?php echo site_url('/posts/' . $post['pencil_db_posts_slug']) ?>" style="text-decoration: none;color: black"><span class="card-title h5" style="max-height: 3em;height: 3em;"><?php echo ucfirst($post['pencil_db_posts_title']); ?></span></a>
-            <br>
-
-            <a href="<?php echo site_url('/posts/' . $post['pencil_db_posts_slug']) ?>" style="text-decoration: none;color: black"><p class="card-text" style="margin-top: 1em;"><?php echo word_limiter($post['pencil_db_posts_body'], 20); ?></p></a>
-            <span class="text-muted" style="font-size: 12px;text-decoration: none;">
-					<img src="<?php echo base_url(); ?>/assets/images/images/laptop.svg" class="rounded-circle img-fluid" style="height: 50px;width: 50px;">
-					<span>&nbsp;&nbsp;</span>Abhay<span>&nbsp;&nbsp;</span>|
-					<span>&nbsp;&nbsp;</span><i class="far fa-clock"></i><span>&nbsp;&nbsp;</span><?php echo date('M-Y', strtotime(str_replace('-','/', $post['pencil_db_posts_created_date']))); ?><span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-eye"></i><span>&nbsp;&nbsp;</span>500<span>&nbsp;&nbsp;</span>
-					|<span>&nbsp;&nbsp;</span><?php echo $post['pencil_db_categories_name']; ?><span>&nbsp;&nbsp;</span>
-				</span>
-        </div>
-        </div>
-        </div>
-        </div>
-		<?php endforeach;?>
-
-     </div>
-	 <br>
-		<!-- pagination -->
+	    
+		<!-- pagination (will be removed shortly-->
 		<nav aria-label="Page navigation">
 			<div class="d-flex justify-content-center">
 			<?php echo $this->pagination->create_links(); ?>
 			</div>
-		</nav>
-		<br>
+		</nav><br>
+		
 	</div>
+	<!-- the main column ends -->
 	
 </div>
+<!-- row ends -->
 </section>
-
+<!-- the main section ends -->
 
 
 

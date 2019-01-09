@@ -34,8 +34,9 @@
 	<script type="text/javascript" src="<?php echo base_url(); ?>/assets/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>/assets/js/main.js"></script>
 	<script>
-                // Replace the <textarea id="editor1"> with a CKEditor
+                // Replace the <textarea id="ckeditor_textarea"> with a CKEditor
                 // instance, using default configuration.
-                CKEDITOR.replace( 'ckeditor_textarea' );
+                // CKEDITOR.replace( 'ckeditor_textarea' );
+
     </script>
 </html>

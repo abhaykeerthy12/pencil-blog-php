@@ -37,99 +37,107 @@
 <section class="latest_posts container"><br>
 
 <div><h1>Latest Posts</h1><hr></div>  
-      
+
+<div class="container-fluid ">
   <div class="row">
-<div class="card-deck">
-    <div class="col-sm-12 col-md-12 col-lg-4">
+    <div class="card-deck">
 
-      <div class="card w-100 p-3 shadow" style="width: 18rem;">
-      <img src="<?php echo base_url(); ?>/assets/images/images/laptop.svg" class="card-img-top img-fluid" style="height: 200px;width: 100%; align-self: center;">
 
-      <div class="card-body">
+     <div class="card w-100 p-3 shadow" >
 
-          <!-- tags -->
-          <ul class="list-unstyled list-inline">
-            <li class="list-inline-item" >
-              <a class="badge badge-pill badge-light lead">#Bussiness</a>
-            </li>
-            <li class="list-inline-item" >
-              <a class="badge badge-pill badge-light lead">#Animals</a>
-            </li>
-            <li class="list-inline-item" >
-              <a class="badge badge-pill badge-light lead">#Life</a>
-            </li>
-          </ul>
+        <img src="<?php echo base_url(); ?>/assets/images/images/laptop.svg" class="card-img-top img-fluid" style="height: 200px;width: 100%; align-self: center;">
+        
+        <div class="card-body">
 
-          <a href="" style="font-size: 13px;text-decoration: none;color: black;"><span class="card-title h5">Card title</span>
+                <!-- tags -->
+                  <ul class="list-unstyled list-inline">
+                    <li class="list-inline-item" >
+                      <a class="badge badge-pill badge-light lead">#Bussiness</a>
+                    </li>
+                    <li class="list-inline-item" >
+                      <a class="badge badge-pill badge-light lead">#Animals</a>
+                    </li>
+                    <li class="list-inline-item" >
+                      <a class="badge badge-pill badge-light lead">#Life</a>
+                    </li>
+                  </ul>
+
+          <a href="" style="font-size: 13px;text-decoration: none;color: black;"><span class="card-title h5">Some quick example text to build .</span>
           <span class="text-muted">
           <span>&nbsp&nbsp</span><i class="far fa-clock"></i><span>&nbsp&nbsp</span>Jan 2019<span>&nbsp&nbsp</span>|<span>&nbsp&nbsp</span><i class="far fa-eye"></i><span>&nbsp&nbsp</span>500<span>&nbsp&nbsp</span></span></a><br>
 
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
-          <a href="post.php" class="btn btn-primary btn-block shadow">Read more</a>
-        </div>
-      </div>
-     </div>
-
-      <div class="col-sm-12 col-md-12 col-lg-4">
-      <div class="card w-100 p-3 shadow" style="width: 18rem;">
-      <img src="<?php echo base_url(); ?>/assets/images/images/bg3.jpg" class="card-img-top" style="height: 200px;width: 100%; align-self: center;">
-      <div class="card-body">
-
-        <!-- tags -->
-          <ul class="list-unstyled list-inline">
-            <li class="list-inline-item" >
-              <a class="badge badge-pill badge-light lead">#Bussiness</a>
-            </li>
-            <li class="list-inline-item" >
-              <a class="badge badge-pill badge-light lead">#Animals</a>
-            </li>
-            <li class="list-inline-item" >
-              <a class="badge badge-pill badge-light lead">#Life</a>
-            </li>
-          </ul>
-         
-         <a href="" style="font-size: 13px;text-decoration: none;color: black;"><span class="card-title h5">Card title</span>
-          <span class="text-muted">
-          <span>&nbsp&nbsp</span><i class="far fa-clock"></i><span>&nbsp&nbsp</span>Jan 2019<span>&nbsp&nbsp</span>|<span>&nbsp&nbsp</span><i class="far fa-eye"></i><span>&nbsp&nbsp</span>500<span>&nbsp&nbsp</span></span></a><br>
-
-
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="post.php" class="btn btn-primary btn-block shadow">Read more</a>
-        </div>
-      </div>
-     </div>
-
-     <div class="col-sm-12 col-md-12 col-lg-4">
-      <div class="card w-100 p-3 shadow" style="width: 18rem;">
-      <img src="<?php echo base_url(); ?>/assets/images/images/edit.svg" class="card-img-top" style="height: 200px;width: 100%; align-self: center;">
-      <div class="card-body">
-
-        <!-- tags -->
-          <ul class="list-unstyled list-inline">
-            <li class="list-inline-item" >
-              <a class="badge badge-pill badge-light lead">#Bussiness</a>
-            </li>
-            <li class="list-inline-item" >
-              <a class="badge badge-pill badge-light lead">#Animals</a>
-            </li>
-            <li class="list-inline-item" >
-              <a class="badge badge-pill badge-light lead">#Life</a>
-            </li>
-          </ul>
           
-          <a href="" style="font-size: 13px;text-decoration: none;color: black;"><span class="card-title h5">Card title</span>
+
+          <a href="post.php" class="btn btn-primary btn-block shadow">Read more</a>
+
+        </div>
+      </div>  
+
+      <div class="card align-self-stretch w-100 p-3 shadow" >
+
+        <img src="<?php echo base_url(); ?>/assets/images/images/laptop.svg" class="card-img-top img-fluid" style="height: 200px;width: 100%; align-self: center;">
+        
+        <div class="card-body">
+
+                <!-- tags -->
+                  <ul class="list-unstyled list-inline">
+                    <li class="list-inline-item" >
+                      <a class="badge badge-pill badge-light lead">#Bussiness</a>
+                    </li>
+                    <li class="list-inline-item" >
+                      <a class="badge badge-pill badge-light lead">#Animals</a>
+                    </li>
+                    <li class="list-inline-item" >
+                      <a class="badge badge-pill badge-light lead">#Life</a>
+                    </li>
+                  </ul>
+
+          <a href="" style="font-size: 13px;text-decoration: none;color: black;"><span class="card-title h5">Some quick example text to build on the card title content.Some quick example text to build on the card title content Some quick example text to build card title.</span>
           <span class="text-muted">
           <span>&nbsp&nbsp</span><i class="far fa-clock"></i><span>&nbsp&nbsp</span>Jan 2019<span>&nbsp&nbsp</span>|<span>&nbsp&nbsp</span><i class="far fa-eye"></i><span>&nbsp&nbsp</span>500<span>&nbsp&nbsp</span></span></a><br>
 
+         
 
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
           <a href="post.php" class="btn btn-primary btn-block shadow">Read more</a>
+
         </div>
       </div>
-     </div>
+
+      <div class="card align-self-stretch w-100 p-3 shadow" >
+
+        <img src="<?php echo base_url(); ?>/assets/images/images/laptop.svg" class="card-img-top img-fluid" style="height: 200px;width: 100%; align-self: center;">
+        
+        <div class="card-body">
+
+                <!-- tags -->
+                  <ul class="list-unstyled list-inline">
+                    <li class="list-inline-item" >
+                      <a class="badge badge-pill badge-light lead">#Bussiness</a>
+                    </li>
+                    <li class="list-inline-item" >
+                      <a class="badge badge-pill badge-light lead">#Animals</a>
+                    </li>
+                    <li class="list-inline-item" >
+                      <a class="badge badge-pill badge-light lead">#Life</a>
+                    </li>
+                  </ul>
+
+          <a href="" style="font-size: 13px;text-decoration: none;color: black;"><span class="card-title h5">Some quick example text to build on the card title and make up the bulk of the card's content.</span>
+          <span class="text-muted">
+          <span>&nbsp&nbsp</span><i class="far fa-clock"></i><span>&nbsp&nbsp</span>Jan 2019<span>&nbsp&nbsp</span>|<span>&nbsp&nbsp</span><i class="far fa-eye"></i><span>&nbsp&nbsp</span>500<span>&nbsp&nbsp</span></span></a><br>
+
+         
+
+          <a href="post.php" class="btn btn-primary btn-block shadow">Read more</a>
+
+        </div>
+      </div>
+
     </div>
   </div>
+</div>    
+ 
+
      
 </section><br><hr>
 <!-- latest post ends -->
@@ -284,6 +292,11 @@
   </div><br><br>
 
 </section>
+
+
+
+
+
 
 
 
