@@ -1,7 +1,5 @@
 
- $('#title_text').hide();
- $('#quote').hide();
- $('#author').hide();
+  // anim js functions for animations
   $(document).ready(function(e){
 
        // file upload style
@@ -62,26 +60,43 @@
       
   $(document).ready(function(e){
 
-      $("#category_filter input[type=checkbox]").click(function(e){
+      getPostsByCategory();
 
-                  var category_id = $(this).val();
+      // category filetering using checkbox function
+
+      function getPostsByCategory(){
 
 
-                  $.each($("input[name='category_name']:checked"), function(){
-               
 
-                     $.ajax({
-                          url:"http://localhost/pencil/posts/card",
-                          data: {},
-                          type:'POST',
-                          success:function(data){
+              $('#category_filter_submit').click(function(){
 
-                              $('.blog-body').html(data);
-                          }
-                        });
+                  // prevent default behaviour of submit button
+                  event.preventDefault();
 
-          });
 
-      });
+                  var category_id = [];
 
+                  $("input[name='category_name']:checked").each(function(i){
+                      category_id[i] = $(this).val();
+                  });
+
+                  var JSON_cat = JSON.stringify(category_id);
+
+                  // ajax to get posts based on selected categories
+                  $.ajax({
+                              url:"http://localhost/pencil/posts/card",
+                              data: {category: JSON_cat},
+                              type:'POST',
+                              success:function(data){
+
+                                  $('.blog-body').html(data);
+                              }
+                            });
+
+                });
+
+            }
+
+
+      
   });

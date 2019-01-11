@@ -13,7 +13,7 @@
 		<p class="h4">Refine by</p><hr>
 
 		<!-- category filter section -->
-		<div class=" card col-sm-12 col-md-12 col-lg-12">
+		<div class=" card shadow col-sm-12 col-md-12 col-lg-12">
 
 			<!-- the category filter column -->
 			<p class="h5" style="border-bottom: 1px solid #eee;padding: 2px;padding-bottom: 5px">
@@ -39,6 +39,11 @@
 
 			</ul>
 
+			
+				<div class="card-footer d-flex justify-content-center" style="background-color: #fff;border: none;">
+					<button type="submit" class="btn btn-primary btn-block shadow-lg" id="category_filter_submit">Apply</button>
+				</div>
+
 		</div><br>
 		
 
@@ -52,6 +57,10 @@
 				<input type="text" class="form-control"><br>
 				<!-- to date -->
 				<input type="text" class="form-control"><br>
+				<!-- submit btn -->
+				<div class="card-footer d-flex justify-content-center" style="background-color: #fff;border: none;">
+					<button type="submit" class="btn btn-primary btn-block shadow-lg">Apply</button>
+				</div>
 			</form>
 		</div>
 	</div>
@@ -68,13 +77,9 @@
 		<?php include('blog-card.php'); ?>
 		</div><br>
 
-	    
-		<!-- pagination (will be removed shortly-->
-		<nav aria-label="Page navigation">
-			<div class="d-flex justify-content-center">
-			<?php echo $this->pagination->create_links(); ?>
-			</div>
-		</nav><br>
+		<div class="container">
+				<button class="btn btn-primary btn-block" id="load_more" value="">Load more..</button><br>
+		</div>
 		
 	</div>
 	<!-- the main column ends -->
@@ -83,6 +88,13 @@
 <!-- row ends -->
 </section>
 <!-- the main section ends -->
+
+
+
+
+
+
+
 
 
 

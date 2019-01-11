@@ -37,7 +37,7 @@
 				</li>
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="search" placeholder="Type Keyword" aria-label="Search">
+				<input class="form-control mr-sm-2" type="search" id="nav_search_box" placeholder="Type Keyword" aria-label="Search">
 				<button class="btn btn-dark my-2 my-sm-0" type="submit" id="nav-search">Search</button>
 			</form>
 		</div>

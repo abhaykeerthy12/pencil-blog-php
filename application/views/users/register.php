@@ -1,9 +1,10 @@
 <section class="signup_section"><br>
-	<div class="row container shadow-lg p-3 mb-5 bg-white rounded" id="signup_box">
+	<div class="card row shadow-lg p-6 mb-5 bg-white rounded" id="signup_box">
 
 		<div class="col-sm-12 col-md-12 col-lg-12 container text-center" id="signup_form">
-			<h1>Signup!</h1><br>
+			<h1 class="card-header" style="border: none;background-color: white">Signup!</h1>
 			<div class="container" style="width: 80%;">
+			<div class="card-body">
 				<?php echo form_open_multipart('users/register'); ?>
 
 					<div class="form-row">
@@ -43,17 +44,23 @@
 						  		<label class="custom-file-label" for="customFile" style="color: grey;">Profile Pic</label>
 						  </div>
 						</div>
-					</div>	
-							<br>
-						<button type="submit" class="btn btn-block btn-primary shadow">Signup</button>
+					</div>
+
+
 					</div>		
+					<div class="card-footer" style="border: none;background-color: white">
+						<button type="submit" class="btn btn-block btn-primary shadow">Signup</button>
+						
+					
 				<?php echo form_close(); ?><br>
 				
 				<?php echo validation_errors('<p id="error_p" class="alert alert-danger">', '</p>'); ?>
 
 				<p><a href="<?php echo base_url(); ?>users/login" class="form-text badge badge-pill badge-light" style="color: #222; font-size: 15px;text-decoration: none;">Have an Account?</a></p>	
+				</div>
 			</div>	
+			</div>
 		</div>
 
-	</div><br><br>
+	</div><br>
 </section>

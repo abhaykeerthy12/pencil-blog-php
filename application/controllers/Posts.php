@@ -6,34 +6,11 @@ class Posts extends CI_Controller
     // list all posts
     public function index($offset = 0)
     {
-        // pagination config
-        $config['base_url'] = base_url() . 'posts/index/';
-        $config['total_rows'] = $this->db->count_all('pencil_db_posts');
-        $config['per_page'] = 6;
-        $config['uri_segment'] = 3;
-        $config['full_tag_open'] 	= '<div class="pagging text-center"><nav><ul class="pagination">';
-        $config['full_tag_close'] 	= '</ul></nav></div>';
-        $config['num_tag_open'] 	= '<li class="page-item"><span class="page-link">';
-        $config['num_tag_close'] 	= '</span></li>';
-        $config['cur_tag_open'] 	= '<li class="page-item active"><span class="page-link">';
-        $config['cur_tag_close'] 	= '<span class="sr-only">(current)</span></span></li>';
-        $config['next_tag_open'] 	= '<li class="page-item"><span class="page-link">';
-        $config['next_tagl_close'] 	= '<span aria-hidden="true">&raquo;</span></span></li>';
-        $config['prev_tag_open'] 	= '<li class="page-item"><span class="page-link">';
-        $config['prev_tagl_close'] 	= '</span></li>';
-        $config['first_tag_open'] 	= '<li class="page-item"><span class="page-link">';
-        $config['first_tagl_close'] = '</span></li>';
-        $config['last_tag_open'] 	= '<li class="page-item"><span class="page-link">';
-        $config['last_tagl_close'] 	= '</span></li>';
-
-
-        // initialize pagination
-        $this->pagination->initialize($config);
 
         $data['title'] = 'Latest Posts';
 
         // get posts with limits rules and limits passed (paginate)
-        $data['posts'] = $this->Post_model->get_posts(false, $config['per_page'], $offset);
+        $data['posts'] = $this->Post_model->get_posts(false);
 
         $data['categories'] = $this->Post_model->get_categories();
 
@@ -45,36 +22,31 @@ class Posts extends CI_Controller
 
     public function card(){
 
-         // pagination config
-         $config['base_url'] = base_url() . 'posts/index/';
-         $config['total_rows'] = $this->db->count_all('pencil_db_posts');
-         $config['per_page'] = 2;
-         $config['uri_segment'] = 3;
-         $config['full_tag_open'] 	= '<div class="pagging text-center"><nav><ul class="pagination">';
-         $config['full_tag_close'] 	= '</ul></nav></div>';
-         $config['num_tag_open'] 	= '<li class="page-item"><span class="page-link">';
-         $config['num_tag_close'] 	= '</span></li>';
-         $config['cur_tag_open'] 	= '<li class="page-item active"><span class="page-link">';
-         $config['cur_tag_close'] 	= '<span class="sr-only">(current)</span></span></li>';
-         $config['next_tag_open'] 	= '<li class="page-item"><span class="page-link">';
-         $config['next_tagl_close'] 	= '<span aria-hidden="true">&raquo;</span></span></li>';
-         $config['prev_tag_open'] 	= '<li class="page-item"><span class="page-link">';
-         $config['prev_tagl_close'] 	= '</span></li>';
-         $config['first_tag_open'] 	= '<li class="page-item"><span class="page-link">';
-         $config['first_tagl_close'] = '</span></li>';
-         $config['last_tag_open'] 	= '<li class="page-item"><span class="page-link">';
-         $config['last_tagl_close'] 	= '</span></li>';
+
+        $cate = json_decode(stripcslashes($_POST['category']));
+
+
+        $condition = [];
+
+        if($cate){
+
+             $condition['category'] = $cate;
+
+             // get posts with limits rules and limits passed (paginate)
+             $data['posts'] = $this->Post_model->get_posts_by_category($condition);
+     
+             $data['categories'] = $this->Post_model->get_categories();
+
+        }else{
+
+             // get posts with limits rules and limits passed (paginate)
+             $data['posts'] = $this->Post_model->get_posts(false);
+     
+             $data['categories'] = $this->Post_model->get_categories();
+
+        }
  
- 
-         // initialize pagination
-         $this->pagination->initialize($config);
- 
-         // initialize pagination
- 
-         // get posts with limits rules and limits passed (paginate)
-         $data['posts'] = $this->Post_model->get_posts(false, $config['per_page']);
- 
-         $data['categories'] = $this->Post_model->get_categories();
+        
  
          $this->load->view('posts/blog-card', $data);
     }
