@@ -23,6 +23,15 @@
 				<li class="nav-item">
 				<a class="nav-link" href="<?php echo base_url(); ?>posts">Blog</a>
 				</li>
+				<!-- if user is logged in -->
+				<?php if($this->session->userdata('logged_in')): ?>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo base_url(); ?>users/logout">Logout</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo base_url(); ?>users/profile">Profile</a>
+				</li>
+				<?php else : ?>
 				<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Join
@@ -31,6 +40,7 @@
 					<a class="dropdown-item" href="<?php echo base_url(); ?>users/login">Login</a>
 					<a class="dropdown-item" href="<?php echo base_url(); ?>users/register">Signup</a>
 				</div>
+				<?php endif; ?>
 				</li>
 				<li class="nav-item">
 				<a class="nav-link" href="<?php echo base_url(); ?>about">About</a>
