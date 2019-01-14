@@ -1,7 +1,7 @@
 <section class="signup_section"><br>
 	<div class="card row shadow-lg p-6 mb-5 bg-white rounded" id="signup_box">
 
-		<div class="col-sm-12 col-md-12 col-lg-12 container text-center" id="signup_form">
+		<div class="container text-center" id="signup_form">
 			<h1 class="card-header" style="border: none;background-color: white">Signup!</h1>
 			<div class="container" style="width: 80%;">
 			<div class="card-body">

@@ -11,9 +11,10 @@ class Users extends CI_Controller
         }
 
         // if the user is admin, show him/her all users to manage them
-        if ($this->session->userdata('is_admin') == 'yes') {
-            $data['users'] = $this->User_model->get_all_users();
-        }
+        // if ($this->session->userdata('is_admin') == 'yes') {
+        //     $userdataajax = $this->User_model->get_all_users();
+        //     json_encode($userdataajax);
+        // }
 
         $data['title'] = "Profile";
 
@@ -26,6 +27,15 @@ class Users extends CI_Controller
         $this->load->view('users/profile', $data);
         $this->load->view('templates/footer');
     }
+
+    // get all users controller
+    public function profile_user_list(){
+        if ($this->session->userdata('is_admin') == 'yes') {
+        $userdataajax = $this->User_model->get_all_users();
+        echo json_encode($userdataajax);
+        }
+    }
+
 
     // show posts by the user who is logged in
     public function posts()
@@ -299,8 +309,9 @@ class Users extends CI_Controller
         redirect('users/login');
     }
 
-    public function delete($u_id)
+    public function delete()
     {
+        $u_id = $this->input->post('id');
         // delete the user with matching id
         $this->db->where('pencil_db_users_id', $u_id);
         $this->db->delete('pencil_db_users');
@@ -348,9 +359,11 @@ class Users extends CI_Controller
     }
 
     // block user
-    public function block($u_id){
+    public function block(){
 
         // block the user with matching id
+        $u_id = $this->input->post('id');
+
 
         // data array
         $data = array(
@@ -364,9 +377,11 @@ class Users extends CI_Controller
     }
 
     // unblock user
-    public function unblock($u_id){
+    public function unblock(){
 
         // unblock the user with matching id
+        $u_id = $this->input->post('id');
+
 
         // data array
         $data = array(

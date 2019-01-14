@@ -60,11 +60,15 @@
       
   $(document).ready(function(e){
 
-      getPostsByCategory();
+      show_all_users();
+      get_posts_by_category();
+      delete_user();
+      block_and_unblock_user();
+      
 
       // category filetering using checkbox function
 
-      function getPostsByCategory(){
+      function get_posts_by_category(){
 
 
 
@@ -97,6 +101,149 @@
 
             }
 
+      
+
+
+      //function show all product
+        function show_all_users(){
+            $.ajax({
+                type  : 'ajax',
+                url   : 'http://localhost/pencil/users/profile_user_list',
+                async : true,
+                dataType : 'json',
+                success : function(data){
+
+                  if(data.length > 1){
+                    var html = '';
+                    var i;
+                    for(i=0; i<data.length; i++){
+
+                      // only show non admins
+                      if(data[i].pencil_db_users_is_admin == "no"){
+
+                        // if the user is active show block button
+                        if(data[i].pencil_db_users_is_active == "yes"){
+                            html += '<tr>'+
+                                    '<td>'+data[i].pencil_db_users_username+'</td>'+
+                                    '<td class="col"><button type="submit" data='+data[i].pencil_db_users_id+' class="btn btn-danger block_btn"><i class="fas fa-user-minus"></i></button></td>'+
+                                    ' <form action="">'+
+                                    ' <td class="col"><button type="submit" data='+data[i].pencil_db_users_id+' class="btn btn-danger user_delete"><i class="fas fa-trash-alt"></i></button></td>'+
+                                    '</form>'+
+                                    '</tr>';
+                        }else{
+                            // if the user is not active show unblock button
+                            html += '<tr>'+
+                                    '<td>'+data[i].pencil_db_users_username+'</td>'+
+                                    '<td class="col"><button type="submit" data='+data[i].pencil_db_users_id+' class="btn btn-success unblock_btn"><i class="fas fa-user-minus"></i></button></td>'+
+                                    ' <form action="">'+
+                                    ' <td class="col"><button type="submit" data='+data[i].pencil_db_users_id+' class="btn btn-danger user_delete"><i class="fas fa-trash-alt"></i></button></td>'+
+                                    '</form>'+
+                                    '</tr>';
+                        }
+                      }
+                    }
+                    $('#show_user_data').html(html);
+                }
+              }
+ 
+            });
+        }
+
+
+        // delete user by ajax
+      function delete_user(){
+
+        $('#show_user_data').on('click', '.user_delete', function(e){
+          event.preventDefault();
+              var id = $(this).attr('data');
+              $.ajax({
+                type: 'ajax',
+                method: 'POST',
+                async: false,
+                url: 'http://localhost/pencil/users/delete',
+                data:{id:id},
+                dataType: 'text',
+                success: function (response) {
+                  
+                  
+                  console.log("okkkk");
+                  
+                  
+                  },
+                  error: function () {
+                    alert("ajax error");
+                  }
+                  
+                });
+                show_all_users();
+          });
+
+      }
+      
+
+        // block/ unblock user by ajax
+        function block_and_unblock_user(){
+
+          // block user ajax
+          $('#show_user_data').on('click', '.block_btn', function(e){
+            event.preventDefault();
+                var id = $(this).attr('data');
+                $.ajax({
+                  type: 'ajax',
+                  method: 'POST',
+                  async: false,
+                  url: 'http://localhost/pencil/users/block',
+                  data:{id:id},
+                  dataType: 'text',
+                  success: function (response) {
+                    
+                    
+                    console.log("okkkk");
+                    
+                    
+                    },
+                    error: function () {
+                      alert("ajax error");
+                    }
+                    
+                  });
+                  show_all_users();
+            });
+
+            // unblock user ajax
+            $('#show_user_data').on('click', '.unblock_btn', function(e){
+              event.preventDefault();
+                  var id = $(this).attr('data');
+                  $.ajax({
+                    type: 'ajax',
+                    method: 'POST',
+                    async: false,
+                    url: 'http://localhost/pencil/users/unblock',
+                    data:{id:id},
+                    dataType: 'text',
+                    success: function (response) {
+                      
+                      
+                      console.log("okkkk");
+                      
+                      
+                      },
+                      error: function () {
+                        alert("ajax error");
+                      }
+                      
+                    });
+                    show_all_users();
+              });
+  
+        }
+        
 
       
   });
+
+
+
+
+
+        

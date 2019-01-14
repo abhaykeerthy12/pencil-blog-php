@@ -210,6 +210,7 @@ nav input[type=search]:active, input[type=search]:focus, .btn:focus,.btn:active 
 
 #signup_form{
   padding: 10px;
+  display: inline-block;
 }
 
 #post_single_img{
