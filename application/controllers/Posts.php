@@ -128,15 +128,17 @@ class Posts extends CI_Controller
     }
 
     // delete a post
-    public function delete($id)
+    public function delete()
     {
-
+        echo "hai";
         // check if logged in
         if (!$this->session->userdata('logged_in')) {
             redirect('users/login');
         }
+        $p_id = $this->input->post('id');
+
         // delete the posts with matching id
-        $this->Post_model->delete_post($id);
+        $this->Post_model->delete_post($p_id);
         $this->session->set_flashdata('post_deleted', 'Your post has been deleted');
         redirect('posts');
     }

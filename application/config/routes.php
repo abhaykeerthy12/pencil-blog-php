@@ -5,6 +5,7 @@ $route['posts/index'] = 'posts/index';
 $route['posts/card'] = 'posts/card';
 
 $route['posts/create'] = 'posts/create';
+$route['posts/delete'] = 'posts/delete';
 $route['posts/update'] = 'posts/update';
 $route['posts/(:any)'] = 'posts/view/$1';
 $route['posts'] = 'posts/index';
@@ -13,6 +14,7 @@ $route['default_controller'] = 'pages/view';
 
 
 $route['categories/create'] = 'categories/create';
+$route['categories/delete'] = 'categories/delete';
 $route['categories'] = 'categories/index';
 $route['categories/posts/(:any)'] = 'categories/posts/$1';
 

@@ -1,35 +1,121 @@
+
 <section id="profile_section" style="overflow: hidden">
 <br>
-<div class="row container" style="margin: auto">
+<!-- main row -->
+<div class="row" style="margin: auto">
+<!-- sidebar -->
+<div class="col-md-12 col-lg-3">
+<div class="row">
+<div class="col-md-12 col-lg-12">
 
-    <!-- profile card -->
-    <div class="card shadow container col-md-12 col-lg-12"><br>
-          
-         <!-- profile pic -->
-         <div class="d-flex justify-content-center">
-                <img style="width: 350px;height: 350px; margin: 1em" class="img-fluid rounded-circle d-flex justify-content-center shadow-lg" src="<?php echo site_url(); ?>assets/images/profile/<?php echo $this->session->userdata('user_image');?>">
-         </div>
-         
-         <!-- profile details -->
-         <div class="card-body text-center">
-                <p><b><?php echo $this->session->userdata('user_username'); ?></b></p>
-                <p><?php echo $this->session->userdata('user_email'); ?></p>
-                <p><?php echo $this->session->userdata('user_bio');?></p>
-         </div>
-         <div class="card-footer d-flex justify-content-center" style="border: none;background-color: #fff;margin-bottom: 1em">
-            <a href="" class="btn btn-primary shadow">Change anything?</a>
-         </div>
-    </div>
+
+<!-- profile card -->
+<div class="container col-md-12 col-lg-12"><br>
+
+        <div class="card shadow">
+            <div class="container text-center"><br>
+
+            <img src="<?php echo site_url(); ?>assets/images/profile/<?php echo $this->session->userdata('user_image');?>" id="post_single_img" class="img-fluid rounded-circle d-flex justify-content-center shadow"
+            style="height: 100px;width: 100px;"><br>
+
+            <ul class="list-unstyled">
+                <li class="h6"><?php echo $this->session->userdata('user_username'); ?></li>
+                <li><p class="text-wrap" style="font-size: 16px;margin-top: 1em"><?php echo $this->session->userdata('user_bio');?></p></li>
+            </ul>
+
+            </div>
+            <div class="card-footer d-flex justify-content-center" style="border: none;background-color: #fff;margin-bottom: 1em">
+                <button id="edit_card_toggle_btn" class="btn shadow btn-block btn-primary">Change Anything?</button>
+            </div>
+        </div>
+
 </div><br>
+<!-- profile card ends -->
+
+<!-- users categories card -->
+<div id="show_user_category">
+
+
+</div>
+<!-- users categories card ends -->
+
+<!-- advanced -->
+<div  id="user_profile_advanced" class="container col-md-12 col-lg-12"  style="display: none;">
+<div class="card shadow d-flex justify-content-center p-3">          
+        <p class="h5 text-center p-1">Advanced</p><hr>
+        <button class="btn btn-block btn-info shadow">Deactivate Account</button><br>
+        <button class="btn btn-block btn-danger shadow">Delete Account</button><br>
+</div>
+</div>
+
+<div class="container col-md-12 col-lg-12"><br>
+    <button id="user_profile_advanced_btn" class="btn btn-block btn-secondary shadow">Advanced</button>
+</div><br>
+<!-- advanced ends -->
+
+</div>
+</div>
+</div>
+<!-- sidebar -->
+
+<!-- mainbar -->
+<div class="col-md-12 col-lg-9">
+
+<!-- row starts -->
+<div class="row" id="edit_profile_form" style="margin: auto;display: none;">
+
+<!-- edit card -->
+<div class="col-md-12 col-lg-12" style="margin-top: 1em">
+    <!-- form -->
+    <div class="card shadow text-center container col-md-12 col-lg-12"><br>
+
+    <h1>Edit</h1><br>
+        <div class="container" style="width: 80%;">
+
+            <?php echo form_open_multipart('users/update'); ?>	
+
+                <input type="hidden" name="user_id" value="<?php echo $this->session->userdata('user_id'); ?>">			
+                <div class="form-group">
+                    <input type="email" class="form-control" name="user_email"  placeholder="email" required><br>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile" name="userfile" size="20">
+                        <div class="container text-left">
+                            <label class="custom-file-label" for="customFile" style="color: grey;">Profile Pic</label>
+                        </div>
+                    </div><br><br>
+                    <textarea rows="2" class="form-control" name="user_bio" id="signup_bio" placeholder="Bio" required></textarea><br>
+                    <button type="submit" name="edit_post_btn" class="btn btn-block btn-primary shadow">Update</button>
+                </div>			
+            <?php echo form_close(); ?><br>
+                
+            <?php echo validation_errors('<p id="error_p" class="alert alert-danger">', '</p>'); ?>
+
+			<p><a href="<?php echo base_url(); ?>users/login" class="form-text badge badge-pill badge-light" style="color: #222; font-size: 15px;text-decoration: none;">Change Password?</a></p><br>
+
+        </div>
+
+    </div><br>
+    <!-- form ends -->
+</div><br>
+<!-- edit card ends -->
+</div>
+<!-- row ends-->
+
+
+
+<!-- row starts -->
+<div class="row" style="margin: auto;">
 
 <!-- progress card -->
-<div class="row container" style="margin: auto;">
+<div class="col-md-12 col-lg-12" style="margin-top: 1em">
+    <!-- counters -->
     <div class="card shadow text-center container col-md-12 col-lg-12"><br>
         <p class="h1">Overview</p><br>
+        <!-- counters row -->
         <div class="row">
-
-            <!-- post counter -->
-            <div class="card container text-center col-md-12 col-lg-4" style="margin: auto;border: none;border-right: 1px solid #ddd">
+        
+        <!-- post counter -->
+        <div class="card container text-center col-md-12 col-lg-4" style="margin: auto;border: none;border-right: 1px solid #ddd">
                 <div class="card-title">                
                     <i class="fas fa-pencil-alt fa-2x" style="color: #1976d2"></i>
                 </div>
@@ -37,14 +123,14 @@
                     <span class="post_counter h5" style="font-size: 5em">0</span><br>
                     <p class="h6 text-muted">POSTS</p>
                     <script>
-                         var a = <?php echo $posts; ?>;
-                         $(".post_counter").animateNumber({number: a});
+                        var a = '<?php echo $posts; ?>';
+                        $(".post_counter").animateNumber({number: a});
                     </script>
                 </div>
-            </div>
+        </div>
 
-            <!-- comment counter -->
-            <div class="card container text-center col-md-12 col-lg-4" style="margin: auto;border: none;border-right: 1px solid #ddd">
+        <!-- comment counter -->
+        <div class="card container text-center col-md-12 col-lg-4" style="margin: auto;border: none;border-right: 1px solid #ddd">
                 <div class="card-title">
                     <i class="far fa-comments fa-2x" style="color: #f4511e"></i>
                 </div>
@@ -52,76 +138,60 @@
                     <span class="comment_counter h5" style="font-size: 5em">0</span><br>
                     <p class="h6 text-muted">COMMENTS</p>
                     <script>
-                         var a = <?php echo $posts; ?>;
-                         $(".comment_counter").animateNumber({number: a});
+                        var a = '<?php echo $posts; ?>';
+                        $(".comment_counter").animateNumber({number: a});
                     </script>
                 </div>
-            </div>
-
-            <!-- view counter -->
-            <div class="card container text-center col-md-12 col-lg-4" style="margin: auto;border: none;">
-                <div class="card-title">
-                     <i class="far fa-eye fa-2x" style="color: #009688"></i>
-                </div>
-                <div class="card-body">
-                    <span class="view_counter h5" style="font-size: 5em">0</span><br>
-                    <p class="h6 text-muted">VIEWS</p>
-                    <script>
-                         var a = <?php echo $posts; ?>;
-                         $(".view_counter").animateNumber({number: a});
-                    </script>
-                </div>
-            </div>
-           
         </div>
 
-        <div class="card-footer d-flex justify-content-center" style="border: none;background-color: #fff;margin-bottom: 1em">
-                <a href="" class="btn shadow btn-primary">View Your Creations</a>
-        </div><br>
+        <!-- view counter -->
+        <div class="card container text-center col-md-12 col-lg-4" style="margin: auto;border: none;">
+            <div class="card-title">
+                    <i class="far fa-eye fa-2x" style="color: #009688"></i>
+            </div>
+            <div class="card-body">
+                <span class="view_counter h5" style="font-size: 5em">0</span><br>
+                <p class="h6 text-muted">VIEWS</p>
+                <script>
+                        var a = '<?php echo $posts; ?>';
+                        $(".view_counter").animateNumber({number: a});
+                </script>
+            </div>
+        </div>
 
-    </div>
+        </div><br>
+        <!-- counter row ends -->
+    </div><br>
+    <!-- counter card ends -->
 </div><br>
 <!-- progress card ends -->
+</div>
+<!-- row ends-->
+
+<!-- user posts card -->
+<div  id="show_user_posts"class="row container" style="margin: auto;">
+
+</div><br>
+<!-- user posts card ends -->
+
+
 
 <!-- admin powers :-P -->
 <?php if($this->session->userdata('is_admin') == 'yes') : ?>
 
 
 <!-- user tabel row starts-->
-<div class="row container" style="margin: auto;">
-<!-- card starts -->
-<div class="card shadow col-md-12 col-lg-12">
+<div id="show_user_data" class="row container" style="margin: auto;">
 
-    <br>
-    <p class="h1 text-center">Manage Users</p><br>
-    <!-- table starts -->
-    <div class="card container">
-    <table class="table">
-    
-        <!-- headings -->
-        <thead>
-        <tr>
-            <th class="col" style="border: none;">Users</th>
-            <th class="col text-center" style="border: none;">Block</th>
-            <th class="col text-center" style="border: none;">Delete</th>
-        </tr>
-        </thead>
-
-    <!-- content/users table body starts-->
-    <tbody id="show_user_data">
-        
-    </tbody>
-    <!-- table body ends -->
-    </table>
-    </div>
-    <!-- table ends -->
-
-<br>  
-</div>
-<!-- card ends -->
-</div>
+</div><br>
 <!-- user tabel row starts-->
 
 <?php endif;?>
 
-</section><br>
+
+</div>
+<!-- mainbar ends -->
+</div>
+<!-- main row ends -->
+</section>
+

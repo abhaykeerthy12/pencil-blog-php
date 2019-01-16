@@ -91,6 +91,10 @@ nav input[type=search]:active, input[type=search]:focus, .btn:focus,.btn:active 
   margin: 33% 0;
 }
 
+.card-footer{
+  background-color: #fff;
+  border: none;
+}
 
 #all_blog .card{
   padding: 20px;
@@ -176,17 +180,25 @@ nav input[type=search]:active, input[type=search]:focus, .btn:focus,.btn:active 
   height: 50px;
 }
 
-.signup_section{
+.signup_section, #create_post_section{
   background-color: #eee;
   padding: auto;
   overflow: hidden;
 }
 
-#signup_box{
+#signup_box, #create_post_box{
   margin: auto;
   width: 80%;
   background-color: #fff;
   align-content: center;
+}
+
+#create_post_box input, #create_post_box .input-group{
+  margin-bottom: 1em;
+}
+
+#create_post_box #create_post_btn{
+  height: 50px;
 }
 
 
@@ -233,7 +245,7 @@ nav input[type=search]:active, input[type=search]:focus, .btn:focus,.btn:active 
       table-layout: fixed;
   }
   .latest_posts .card-deck .card, .popular_posts .card-deck .card {
-      display: block;
+      /* display: block; */
       vertical-align: top;
   }
   

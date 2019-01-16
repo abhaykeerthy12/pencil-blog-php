@@ -36,7 +36,7 @@
 	<script>
                 // Replace the <textarea id="ckeditor_textarea"> with a CKEditor
                 // instance, using default configuration.
-                // CKEDITOR.replace( 'ckeditor_textarea' );
+                CKEDITOR.replace( 'ckeditor_textarea' );
 
     </script>
 </html>

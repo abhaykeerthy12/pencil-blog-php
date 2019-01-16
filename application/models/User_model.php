@@ -58,7 +58,7 @@ class User_model extends CI_Model
 
         // user data array
         $data = array(
-            'pencil_db_users_username' => '@' . $this->input->post('user_username'),
+            
             'pencil_db_users_bio' => $this->input->post('user_bio'),
             'pencil_db_users_email' => $this->input->post('user_email'),
             'pencil_db_users_image' => $user_image,
@@ -109,7 +109,8 @@ class User_model extends CI_Model
     // check whether the username is already taken
     public function check_username_exists($username)
     {
-        $query = $this->db->get_where('pencil_db_users', array('pencil_db_users_username' => $username));
+        $uname = '@'.$username;
+        $query = $this->db->get_where('pencil_db_users', array('pencil_db_users_username' => $uname));
         if (empty($query->row_array())) {
             return true;
         } else {

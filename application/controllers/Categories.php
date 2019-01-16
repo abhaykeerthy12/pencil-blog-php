@@ -41,7 +41,7 @@ class Categories extends CI_Controller
             // render the index page if everything is ok, also show a created message
             $this->Category_model->create_category();
             $this->session->set_flashdata('category_created', 'Your category has been created');
-            redirect('categories');
+            redirect('posts/create');
         }
 
     }
@@ -62,13 +62,15 @@ class Categories extends CI_Controller
 
     }
 
-    public function delete($id)
+    public function delete()
     {
 
         // check if logged in
         if (!$this->session->userdata('logged_in')) {
             redirect('users/login');
         }
+        $id = $this->input->post('id');
+
 
         // delete the category with the passed id
         $this->Category_model->delete_category($id);

@@ -104,12 +104,22 @@ class Post_model extends CI_Model
         return $this->db->update('pencil_db_posts', $data);
     }
 
-    public function get_categories()
+    public function get_categories($id = false)
     {
+        if($id){
+            
+            // get the whole categories
+            $this->db->order_by('pencil_db_categories_name');
+            $this->db->where('pencil_db_categories_user_id', $id);
+            $query = $this->db->get('pencil_db_categories');
 
-        // get the whole categories
-        $this->db->order_by('pencil_db_categories_name');
-        $query = $this->db->get('pencil_db_categories');
+        }else{
+
+            // get the whole categories
+            $this->db->order_by('pencil_db_categories_name');
+            $query = $this->db->get('pencil_db_categories');
+        }
+        
         return $query->result_array();
 
     }

@@ -10,15 +10,12 @@ class Users extends CI_Controller
             redirect('users/login');
         }
 
-        // if the user is admin, show him/her all users to manage them
-        // if ($this->session->userdata('is_admin') == 'yes') {
-        //     $userdataajax = $this->User_model->get_all_users();
-        //     json_encode($userdataajax);
-        // }
-
         $data['title'] = "Profile";
 
         $id = $this->session->userdata('user_id');
+
+        // get the list of categories
+        $data['categories'] = $this->Post_model->get_categories();
 
         // get number of posts by the user
         $data['posts'] = $this->Post_model->get_posts_by_user($id, false);
@@ -31,9 +28,33 @@ class Users extends CI_Controller
     // get all users controller
     public function profile_user_list(){
         if ($this->session->userdata('is_admin') == 'yes') {
-        $userdataajax = $this->User_model->get_all_users();
-        echo json_encode($userdataajax);
+        $all_user_data = $this->User_model->get_all_users();
+        echo json_encode($all_user_data);
         }
+    }
+
+    // get all users controller
+    public function profile_category_list(){
+
+        // check if logged in
+        if (!$this->session->userdata('logged_in')) {
+            redirect('users/login');
+        }
+
+        $id = $this->session->userdata('user_id');
+
+        if ($this->session->userdata('is_admin') == 'yes') {
+
+            // get all posts
+            $user_cat = $this->Post_model->get_categories();
+
+        }else{
+
+            // get all posts created by this user
+            $user_cat = $this->Post_model->get_categories($id);
+            
+        }               
+        echo json_encode($user_cat);
     }
 
 
@@ -46,17 +67,21 @@ class Users extends CI_Controller
             redirect('users/login');
         }
 
-        $data['title'] = 'Latest Posts By ' . ucfirst($this->session->userdata('user_name'));
-
         $id = $this->session->userdata('user_id');
 
-        // get all posts created by this user
-        $data['posts'] = $this->Post_model->get_posts_by_user($id, true);
+        if ($this->session->userdata('is_admin') == 'yes') {
 
-        // render the posts index page to display the result
-        $this->load->view('templates/header');
-        $this->load->view('posts/index', $data);
-        $this->load->view('templates/footer');
+            // get all posts
+            $user_posts = $this->Post_model->get_posts(false);
+
+        }elseif($this->session->userdata('is_admin') == 'no'){
+
+            // get all posts created by this user
+            $user_posts = $this->Post_model->get_posts_by_user($id, true);
+            
+        }               
+        echo json_encode($user_posts);
+
     }
 
     // show other posts by an author
@@ -196,21 +221,6 @@ class Users extends CI_Controller
         }
     }
 
-    // render the edit profile page
-    public function edit()
-    {
-
-        // check if logged in
-        if (!$this->session->userdata('logged_in')) {
-            redirect('users/login');
-        }
-
-        $data['title'] = "Edit";
-
-        $this->load->view('templates/header');
-        $this->load->view('users/edit', $data);
-        $this->load->view('templates/footer');
-    }
 
     public function update()
     {
