@@ -13,13 +13,13 @@ class Post_model extends CI_Model
     {
 
        
-
+        $post_number = $this->input->post('nextpostnumber');
         // if the slug is false i.e, if not requesting any special post, just get all to display in index page
         if ($slug === false) {
 
             $this->db->order_by('pencil_db_posts.pencil_db_posts_id', 'DESC');
             $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
-            // $this->db->limit(1);
+            $this->db->limit($post_number);
             $query = $this->db->get('pencil_db_posts');
             return $query->result_array();
 
@@ -139,6 +139,7 @@ class Post_model extends CI_Model
     public function get_posts_by_category($condition)
     {
 
+        $post_number = $this->input->post('nextpostnumber');
 
     
              // get posts by category with the matching category id
@@ -152,6 +153,7 @@ class Post_model extends CI_Model
             $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
 
         
+            $this->db->limit($post_number);
 
             // get the data
             $query = $this->db->get_where('pencil_db_posts');

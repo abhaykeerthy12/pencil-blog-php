@@ -23,6 +23,8 @@ class Posts extends CI_Controller
     public function card(){
 
 
+        if(isset($_POST['category'])){
+
         $cate = json_decode(stripcslashes($_POST['category']));
 
 
@@ -32,20 +34,24 @@ class Posts extends CI_Controller
 
              $condition['category'] = $cate;
 
-             // get posts with limits rules and limits passed (paginate)
              $data['posts'] = $this->Post_model->get_posts_by_category($condition);
      
              $data['categories'] = $this->Post_model->get_categories();
 
         }else{
 
-             // get posts with limits rules and limits passed (paginate)
              $data['posts'] = $this->Post_model->get_posts(false);
      
              $data['categories'] = $this->Post_model->get_categories();
 
         }
- 
+        }else{
+
+            $data['posts'] = $this->Post_model->get_posts(false);
+        
+            $data['categories'] = $this->Post_model->get_categories();
+
+        }
         
  
          $this->load->view('posts/blog-card', $data);

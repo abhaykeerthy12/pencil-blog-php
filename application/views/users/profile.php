@@ -73,17 +73,17 @@
         <div class="container" style="width: 80%;">
 
             <?php echo form_open_multipart('users/update'); ?>	
-
+                <input type="hidden" name="userfile1" size="20" value="<?php echo $this->session->userdata('user_image'); ?>">
                 <input type="hidden" name="user_id" value="<?php echo $this->session->userdata('user_id'); ?>">			
                 <div class="form-group">
-                    <input type="email" class="form-control" name="user_email"  placeholder="email" required><br>
+                    <input type="email" class="form-control" name="user_email" value="<?php echo $this->session->userdata('user_email'); ?>" placeholder="email" ><br>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="customFile" name="userfile" size="20">
                         <div class="container text-left">
                             <label class="custom-file-label" for="customFile" style="color: grey;">Profile Pic</label>
                         </div>
                     </div><br><br>
-                    <textarea rows="2" class="form-control" name="user_bio" id="signup_bio" placeholder="Bio" required></textarea><br>
+                    <textarea rows="2" class="form-control" name="user_bio" id="signup_bio" placeholder="Bio" ><?php echo $this->session->userdata('user_bio'); ?></textarea><br>
                     <button type="submit" name="edit_post_btn" class="btn btn-block btn-primary shadow">Update</button>
                 </div>			
             <?php echo form_close(); ?><br>

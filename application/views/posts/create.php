@@ -8,7 +8,7 @@
 		<p class="h5">Create Category!</p><br>
 		<?php echo form_open_multipart('categories/create'); ?>
 			<input type="text" name="category_name" placeholder="Enter a category name" class="form-control" required><br>
-			<span><button type="submit" name="create_post_btn" class="btn btn-success shadow">Create</button>
+			<span><button type="submit" id="create_post_btn" name="create_post_btn" class="btn btn-success shadow">Create</button>
 			<button class="btn btn-secondary category_form_close_btn shadow">Close</button></span><br>
 		<?php echo form_close(); ?>
 		<?php echo validation_errors('<p id="error_p" class="alert alert-danger">', '</p>'); ?>

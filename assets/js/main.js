@@ -118,18 +118,22 @@
 
     if (window.location.pathname == "/pencil/posts") {
       get_posts_by_category();
+      load_more_posts();
+      show_posts();
     }
 
       // category filetering using checkbox function
 
       function get_posts_by_category(){
-
+        var postcounter = 1;
+        
 
 
               $('#category_filter_submit').click(function(){
 
                   // prevent default behaviour of submit button
                   event.preventDefault();
+          postcounter = postcounter + 1;
 
 
                   var category_id = [];
@@ -138,12 +142,16 @@
                       category_id[i] = $(this).val();
                   });
 
+                  if(category_id.length === 0){
+                    postcounter = 2;
+                  }
+
                   var JSON_cat = JSON.stringify(category_id);
 
                   // ajax to get posts based on selected categories
                   $.ajax({
                               url:"http://localhost/pencil/posts/card",
-                              data: {category: JSON_cat},
+                              data: {category: JSON_cat, nextpostnumber: postcounter},
                               type:'POST',
                               success:function(data){
 
@@ -154,6 +162,29 @@
                 });
 
             }
+
+
+      // load more button
+      function load_more_posts(){
+        var postcounter = 1;
+        $("#load_more").click(function(){
+          postcounter = postcounter + 1;
+        
+          $(".blog-body").load("http://localhost/pencil/posts/card", {
+            nextpostnumber: postcounter
+          });
+        });
+      }
+
+      // show posts
+      function show_posts(){
+        var postcounter = 1;
+       
+          $(".blog-body").load("http://localhost/pencil/posts/card", {
+            nextpostnumber: postcounter
+         
+        });
+      }
 
 
       //function show all product
@@ -176,7 +207,7 @@
 
                         html += '<tr>'+
                                 '<td>'+data[i].pencil_db_posts_title+'</td>'+
-                                '<td class="col"><a style="color: white" href="http://localhost/posts/edit/'+data[i].pencil_db_posts_id+'" data='+data[i].pencil_db_posts_id+' class="btn btn-success shadow block_btn"><i class="fas fa-pencil-alt"></i></button></td>'+
+                                '<td class="col"><a style="color: white" href="http://localhost/pencil/posts/edit/'+data[i].pencil_db_posts_slug+'" data='+data[i].pencil_db_posts_id+' class="btn btn-success shadow block_btn"><i class="fas fa-pencil-alt"></i></button></td>'+
                                 ' <form action="">'+
                                 ' <td class="col"><button type="submit" data='+data[i].pencil_db_posts_id+' class="btn btn-danger shadow post_delete"><i class="fas fa-trash-alt"></i></button></td>'+
                                 '</form>'+'</tr>';
@@ -237,7 +268,7 @@
 
       }
 
-    
+
 
 
       //function show all users

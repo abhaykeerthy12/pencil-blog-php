@@ -1,83 +1,70 @@
-<br><br>
+<section id="edit_post_section"><br>
 
-<!-- the edit page starts -->
+<div class="card container text-center row shadow-lg p-6 mb-5 bg-white rounded" id="create_post_box">
+<h1 class="card-header" style="border: none;background-color: white;margin: 5px">Edit!</h1>
+	<div class="container" style="width: 90%;">
+		<div class="card-body">
+		<?php echo form_open_multipart('posts/update'); ?>
+		
 
-<!-- page title -->
-<div id="edit_card" class="card container z-depth-5">
-	<h4><?=$title;?></h4><br>
-<div class="row">
+		<!-- this hidden field is to get posts id for updating -->
+		<input type="hidden" name="post_id" value="<?php echo $post['pencil_db_posts_id']; ?>">
 
-<!-- form starts -->
-<?php echo form_open_multipart('posts/update'); ?>
+				<div class="form-row">
 
-	<!-- this hidden field is to get posts id for updating -->
-	<input type="hidden" name="post_id" value="<?php echo $post['pencil_db_posts_id']; ?>">
+						<div class="form-group col-md-12 col-lg-6">
+							<input type="text" class="form-control" name="post_title" value="<?php echo $post['pencil_db_posts_title']; ?>" placeholder="Title" required autofocus>
+						</div>
+						
+						<input type="hidden" name="userfile1" size="20" value="<?php echo $post['pencil_db_posts_post_image']; ?>">
+						<div class="custom-file col-md-12 col-lg-6" style="margin-bottom: 10px">
 
-	<!-- title field -->
-	<div class="col s12">
-		<div class="row">
-			<p>&nbsp&nbsp&nbspTitle</p>
-		    <div class="input-field col s12">
-		      <!-- show previous title from database to filed -->
-		      <input type="text" name="post_title" value="<?php echo $post['pencil_db_posts_title']; ?>" required autofocus>
+								<input type="file" class="custom-file-input" id="customFile" name="userfile" size="20">
+							
+								<div class="container text-left">
+											<label class="custom-file-label" for="customFile" style="color: grey;">Upload Image</label>
+								</div>
+
+						</div><br><br><br>
+
+						
+
+				</div>
+
+				<div class="form-row">
+
+				<div class="input-group col-md-12 col-lg-12">
+							<!-- category field -->
+							<select name="post_category" class="custom-select" id="inputGroupSelect02">
+
+							<!-- set to previous category if no change -->
+							<option value="<?php echo $post['pencil_db_posts_category_id']; ?>" selected>Choose a Category</option>
+
+							<!-- fetch category names from database -->
+							<?php foreach ($categories as $category): ?>
+								<option value="<?php echo $category['pencil_db_categories_id']; ?>"><?php echo $category['pencil_db_categories_name']; ?></option>
+							<?php endforeach;?>
+								
+							</select>			
+				</div>
+
+				</div>
+
+				<!-- body field -->
+				<div class="row">
+						<div class="col-md-12 col-lg-12">
+							<textarea id="ckeditor_textarea" class="materialize-textarea" name="post_body" required><?php echo $post['pencil_db_posts_body']; ?></textarea>
+						</div>
+				</div>			
+						
 		</div>
+			<!-- submit button (it is a floating button so it has more classes from materializecss)-->
+			<div class="card-footer">
+						<button type="submit" id="create_post_btn" name="edit_post_btn" class="btn btn-primary btn-block shadow">Create</button>
+			</div><br>
+
+		<?php echo form_close(); ?>	
 	</div>
-	<!-- category field -->
-	<div class="row">
-	<p>&nbsp&nbsp&nbspCategory</p>
-	<div class="input-field col s12">
-
-	<select name="post_category">
-		<!-- set to previous category if no change -->
-		<option value="<?php echo $post['pencil_db_posts_category_id']; ?>" selected>Choose a Category</option>
-
-		<!-- fetch categories from database -->
-	  	<?php foreach ($categories as $category): ?>
-	  	<option
-	  	value="<?php echo $category['pencil_db_categories_id']; ?>"><?php echo $category['pencil_db_categories_name']; ?></option>
-	    <?php endforeach;?>
-
-	</select>
-	<div class="center"><a href="<?php echo base_url(); ?>categories/create" class="blact-text"><p style="font-size: 12px;" class="chip">Didn't found desired category?</p></a></div>
-			
-
-	</div>
-	</div>
-
-	<input type="hidden" name="userfile1" size="20" value="<?php echo $post['pencil_db_posts_post_image']; ?>">
-
-	<!-- image upload field -->
-	<div class="file-field input-field">
-		      <div class="btn deep-purple waves-effect waves-light">
-		        <span>Image</span>
-		        <input type="file" name="userfile" size="20">
-		      </div>
-			  <div class="file-path-wrapper">
-			    <input class="file-path validate" type="text" placeholder="Tap to select an Image">
-			  </div>
-   		 </div>
-
-	<!-- body field -->
-	<div class="row">
-		<p>&nbsp&nbsp&nbspBody</p>
-	    <div class="input-field col s12">
-
-		 <!-- show previous body from database to filed -->
-	     <textarea id="ckeditor_textarea" class="materialize-textarea" name="post_body" required><?php echo $post['pencil_db_posts_body']; ?></textarea>
-
-	    </div>
-	</div>
-
-	<!-- the submit button (it is a floating button so it has more classes from materializecss) -->
-	<button type="submit" name="edit_post_btn" class="btn-floating btn-large halfway-fab waves-effect waves-light deep-purple z-depth-5"><i class="fas fa-plus"></i></button>
-	</div>
-
-</form>
-<!-- form ends -->
 </div>
-	<!-- show errors -->
-	<?php echo validation_errors('<p id="error_p" class="red lighten-3 center-align">', '</p>'); ?>
-	<br>
-</div>
-<!-- page ends -->
-<br>
+</section>
+

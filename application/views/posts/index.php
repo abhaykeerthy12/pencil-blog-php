@@ -74,7 +74,7 @@
 		<div><h1><?=$title?></h1><hr></div>  
 
 		<div class="blog-body">
-		<?php include('blog-card.php'); ?>
+		
 		</div><br>
 
 		<div class="container">
@@ -88,14 +88,6 @@
 <!-- row ends -->
 </section>
 <!-- the main section ends -->
-
-
-
-
-
-
-
-
 
 
 
