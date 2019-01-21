@@ -51,12 +51,39 @@
 		<div class="container card col-sm-12 col-md-12 col-lg-12">
 			<p class="h5" style="border-bottom: 1px solid #eee;padding: 2px;padding-bottom: 5px">
 				Date
-			</p><br>
-			<form action="" class="form-group">
+			</p>
+			<form>
+
 				<!-- from date -->
-				<input type="text" class="form-control"><br>
-				<!-- to date -->
-				<input type="text" class="form-control"><br>
+				<div class="datetimepicker4" class="form-group d-flex justify-content-center">
+					
+					<p class="mt-3 mb-3">From :
+					
+					<button class="add-on btn btn-info shadow float-right"><i class="fas fa-calendar-alt"></i></button>
+
+					</p>
+
+					<input data-format="yyyy-MM-dd" class="form-control" type="text" required>
+
+		
+				</div>
+
+
+				<!-- To date -->
+				<div class="datetimepicker4" class="form-group d-flex justify-content-center">
+					
+					<p class="mt-3 mb-3">To :
+					
+					<button class="add-on btn btn-info shadow float-right"><i class="fas fa-calendar-alt"></i></button>
+
+					</p>
+
+					<input data-format="yyyy-MM-dd" class="form-control" type="text" required>
+
+		
+				</div>
+
+
 				<!-- submit btn -->
 				<div class="card-footer d-flex justify-content-center" style="background-color: #fff;border: none;">
 					<button type="submit" class="btn btn-primary btn-block shadow-lg">Apply</button>
@@ -91,6 +118,6 @@
 
 
 
-
+  
 
 

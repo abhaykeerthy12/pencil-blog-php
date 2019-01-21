@@ -19,18 +19,19 @@
 </div>
 
 <div class="card container text-center row shadow-lg p-6 mb-5 bg-white rounded" id="create_post_box">
-<h1 class="card-header" style="border: none;background-color: white;margin: 5px">Create!</h1>
+<h3 class="card-header mt-2 mb-2">Create!</h3>
 	<div class="container" style="width: 90%;">
 		<div class="card-body">
 		<?php echo form_open_multipart('posts/create'); ?>
 
-				<div class="form-row">
+				<div class="row">
 
-						<div class="form-group col-md-12 col-lg-6">
+						<div class="form-group col-lg-6">
 							<input type="text" class="form-control" name="post_title" id="signup_username" placeholder="Title" required autofocus>
 						</div>
 
-						<div class="custom-file col-md-12 col-lg-6" style="margin-bottom: 10px">
+						<div class="form-group col-lg-6">
+						<div class="custom-file" style="margin-bottom: 10px">
 
 								<input type="file" class="custom-file-input" id="customFile" name="userfile" size="20">
 							
@@ -38,13 +39,12 @@
 											<label class="custom-file-label" for="customFile" style="color: grey;">Upload Image</label>
 								</div>
 
-						</div><br><br><br>
-
-						
+						</div>
+						</div>						
 
 				</div>
 
-				<div class="form-row">
+				<div class="row mb-2">
 
 				<div class="input-group col-md-6 col-lg-9">
 							<!-- category field -->
@@ -73,9 +73,9 @@
 						
 		</div>
 			<!-- submit button (it is a floating button so it has more classes from materializecss)-->
-			<div class="card-footer">
+			<div class="card-footer mb-3">
 						<button type="submit" id="create_post_btn" name="create_post_btn" class="btn btn-primary btn-block shadow">Create</button>
-			</div><br>
+			</div>
 
 		<?php echo form_close(); ?>	
 	</div>

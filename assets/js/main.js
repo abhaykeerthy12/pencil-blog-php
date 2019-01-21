@@ -2,6 +2,13 @@
   // anim js functions for animations
   $(document).ready(function(e){
     
+        // date picker
+
+        $(function() {
+          $('.datetimepicker4').datetimepicker({
+            pickTime: false
+          });
+        });
 
        // file upload style
        bsCustomFileInput.init();
@@ -189,6 +196,7 @@
 
       //function show all product
       function show_user_posts(){
+
         $.ajax({
             type  : 'ajax',
             url   : 'http://localhost/pencil/users/posts',
@@ -196,10 +204,11 @@
             dataType : 'json',
             success : function(data){
               
+              var html = "";
               if(data.length > 0){
                 
-                var html = '<div class="card shadow col-md-12 col-lg-12"><br><p class="h1 text-center">Posts</p><br>'+
-                           '<div class="card container"><table class="table"><thead><tr><th class="col" style="border: none;">Posts</th>'+
+                html = '<div class="card shadow col-md-12 col-lg-12"><p class="h5 mt-2 card-header text-center">Posts</p>'+
+                           '<div class="card-body"><div class="card container"><table class="table"><thead><tr><th class="col" style="border: none;">Posts</th>'+
                            '<th class="col text-center" style="border: none;">Edit</th><th class="col text-center" style="border: none;">Delete</th>'+
                            '</tr></thead><tbody>';
                 var i;
@@ -213,9 +222,12 @@
                                 '</form>'+'</tr>';
                     
             }
-            html +='</tbody></table></div><br></div>';
-            $('#show_user_posts').html(html);   
-          }      
+            html +='</tbody></table></div></div></div>';
+          }    
+          
+          console.log('html value',html);
+          $('#show_user_posts').html(html);   
+
 
         }});
     }
@@ -223,16 +235,17 @@
     // delete post ajax
     function delete_post(){
       $('#show_user_posts').on('click', '.post_delete', function(e){
+
         event.preventDefault();
             var id = $(this).attr('data');
             $.ajax({
-              type: 'ajax',
-              method: 'POST',
+              type: 'POST',
               async: false,
               url: 'http://localhost/pencil/posts/delete',
               data:{id:id},
               dataType: 'text',
               success: function (response) {
+                console.log('delete statement')
                   show_user_posts();
                 },
                 error: function () {
@@ -250,8 +263,7 @@
         event.preventDefault();
             var id = $(this).attr('data');
             $.ajax({
-              type: 'ajax',
-              method: 'POST',
+              type: 'POST',
               async: false,
               url: 'http://localhost/pencil/categories/delete',
               data:{id:id},
@@ -279,9 +291,10 @@
                 async : true,
                 dataType : 'json',
                 success : function(data){
+                    var html = "";
                   if(data.length > 1){
-                    var html = '<div class="card shadow col-md-12 col-lg-12"><br><p class="h1 text-center">Manage Users</p><br>'+
-                                '<div class="card container"><table class="table"><thead><tr><th class="col" style="border: none;">Users</th>'+
+                    html = '<div class="card shadow col-md-12 col-lg-12"><p class="h5 mt-2 card-header text-center">Manage Users</p>'+
+                                '<div class="card-body"><div class="card container"><table class="table"><thead><tr><th class="col" style="border: none;">Users</th>'+
                                 '<th class="col text-center" style="border: none;">Block</th><th class="col text-center" style="border: none;">Delete</th>'+
                                 '</tr></thead><tbody>';
                     var i;
@@ -311,9 +324,10 @@
                         }
                       }
                     }
-                    html +='</tbody></table></div><br></div>';
-                    $('#show_user_data').html(html);
+                    html +='</tbody></table></div></div></div>';
                 }
+                $('#show_user_data').html(html);
+
               }
  
             });
@@ -329,10 +343,11 @@
               dataType : 'json',
               success : function(data){
 
+                var html = "";
                 if(data.length > 0){
 
-                var html = '<div class="container col-md-12 col-lg-12"><br><div class="card shadow"><p class="h5" style="border-bottom: 1px solid #eee;padding: 15px;">Categories</p>'+
-                             '<ul class="list-unstyled container ">';
+                html = '<div class="container col-md-12 col-lg-12"><div class="card shadow"><p class="h5 mt-2 text-center card-header">Categories</p>'+
+                             '<ul class="list-unstyled container "><hr>';
                 var i;
                 for(i=0; i<data.length; i++){
                       
@@ -340,10 +355,11 @@
                                             
                     }
 
-                    html +='</li></ul></div></div><br>';
-                   $('#show_user_category').html(html);
+                    html +='</li></ul></div></div>';
 
                   }
+                  $('#show_user_category').html(html);
+
                 } 
               
             });
@@ -356,8 +372,7 @@
         $('#show_user_data').on('click', '.user_delete', function(e){
               var id = $(this).attr('data');
               $.ajax({
-                type: 'ajax',
-                method: 'POST',
+                type: 'POST',
                 async: false,
                 url: 'http://localhost/pencil/users/delete',
                 data:{id:id},

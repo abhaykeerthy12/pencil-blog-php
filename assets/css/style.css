@@ -91,7 +91,7 @@ nav input[type=search]:active, input[type=search]:focus, .btn:focus,.btn:active 
   margin: 33% 0;
 }
 
-.card-footer{
+.card-footer,.card-header{
   background-color: #fff;
   border: none;
 }
