@@ -2,6 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['posts/index'] = 'posts/index';
+$route['posts/search'] = 'posts/search';
+$route['posts/cardbydate'] = 'posts/cardbydate';
 $route['posts/card'] = 'posts/card';
 
 $route['posts/create'] = 'posts/create';

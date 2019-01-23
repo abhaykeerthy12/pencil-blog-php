@@ -9,11 +9,21 @@ class Post_model extends CI_Model
         $this->load->database();
     }
 
+    public function num_posts(){
+
+        $total_posts= $this->db->get('pencil_db_posts');
+
+        return $total_posts->num_rows();
+
+    }
+
     public function get_posts($slug = false)
     {
 
+
        
         $post_number = $this->input->post('nextpostnumber');
+    
         // if the slug is false i.e, if not requesting any special post, just get all to display in index page
         if ($slug === false) {
 
@@ -29,6 +39,18 @@ class Post_model extends CI_Model
         $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
         $query = $this->db->get_where('pencil_db_posts', array('pencil_db_posts_slug' => $slug));
         return $query->row_array();
+
+    }
+
+    // seacrh box
+    public function get_posts_by_search($search_term){
+
+        $this->db->order_by('pencil_db_posts.pencil_db_posts_id', 'DESC');
+        $this->db->like('pencil_db_posts_title', $search_term);
+        $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
+        $query = $this->db->get('pencil_db_posts');
+        return $query->result_array();
+
 
     }
 
@@ -140,6 +162,7 @@ class Post_model extends CI_Model
     {
 
         $post_number = $this->input->post('nextpostnumber');
+        $post_number = 20;
 
     
              // get posts by category with the matching category id
@@ -157,6 +180,29 @@ class Post_model extends CI_Model
 
             // get the data
             $query = $this->db->get_where('pencil_db_posts');
+            return $query->result_array();
+    }
+
+    // get posts by date
+    public function get_posts_by_date($condition)
+    {
+
+        $from_date = $condition['dates'][0];
+        $to_date = $condition['dates'][1];
+
+        $post_number = $this->input->post('nextpostnumber');
+        $post_number = 20;
+
+    
+             // get posts by category with the matching category id
+            $this->db->order_by('pencil_db_posts.pencil_db_posts_id', 'DESC');
+
+            $this->db->where('pencil_db_posts_created_date >=', $from_date);
+            $this->db->where('pencil_db_posts_created_date <=', $to_date);
+            $this->db->limit($post_number);
+
+            // get the data
+            $query = $this->db->get('pencil_db_posts');
             return $query->result_array();
     }
 }

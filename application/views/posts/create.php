@@ -1,25 +1,27 @@
 <section id="create_post_section"><br>
 <!-- category create div -->
 
-<div id="create_category_form" class="container" style="width: 50%;display: none">
+<div id="create_category_form" class="container mb-3" style="width: 60%;display: none;">
 <div  class="card shadow text-center container col-md-12 col-lg-12" style="margin: auto"><br>
-<div class="container" style="width: 80%;">
+<div class="container" style="width: 90%;">
 
-		<p class="h5">Create Category!</p><br>
-		<?php echo form_open_multipart('categories/create'); ?>
-			<input type="text" name="category_name" placeholder="Enter a category name" class="form-control" required><br>
-			<span><button type="submit" id="create_post_btn" name="create_post_btn" class="btn btn-success shadow">Create</button>
-			<button class="btn btn-secondary category_form_close_btn shadow">Close</button></span><br>
-		<?php echo form_close(); ?>
+		<p class="h5 card-header mt-2">Create Category!</p>
+		<form id="category_create_form">
+			<div class="card-body">
+			<input type="hidden" name="page_url" value="<?php echo current_url() ?>">
+			<input type="text" id="create_category_name" name="category_name" placeholder="category name" class="form-control" required>
+			</div>
+			<div class="card-footer"><button type="submit" id="create_category_btn" name="create_category_btn" class="btn btn-success shadow m-3">Create</button>
+			<button class="btn btn-secondary category_form_close_btn shadow">Close</button></div>
+		</form>
 		<?php echo validation_errors('<p id="error_p" class="alert alert-danger">', '</p>'); ?>
 		<br>
 
 </div>
-</div><br>
 </div>
-
+</div>
 <div class="card container text-center row shadow-lg p-6 mb-5 bg-white rounded" id="create_post_box">
-<h3 class="card-header mt-2 mb-2">Create!</h3>
+<h3 class="card-header mt-2 ">Create!</h3>
 	<div class="container" style="width: 90%;">
 		<div class="card-body">
 		<?php echo form_open_multipart('posts/create'); ?>
@@ -48,14 +50,7 @@
 
 				<div class="input-group col-md-6 col-lg-9">
 							<!-- category field -->
-							<select name="post_category" class="custom-select" id="inputGroupSelect02">
-
-							<!-- fetch category names from database -->
-							<?php foreach ($categories as $category): ?>
-								<option value="<?php echo $category['pencil_db_categories_id']; ?>"><?php echo $category['pencil_db_categories_name']; ?></option>
-							<?php endforeach;?>
-								
-							</select>			
+							<select name="post_category" class="custom-select" id="list_categories" required></select>			
 				</div>
 
 				<div class="col-md-6 col-lg-3" style="color: white; margin-bottom: 10px;">

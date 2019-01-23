@@ -20,15 +20,18 @@ class Posts extends CI_Controller
 
     }
 
+    // get posts by category
     public function card(){
 
-
+        
         if(isset($_POST['category'])){
 
         $cate = json_decode(stripcslashes($_POST['category']));
 
 
         $condition = [];
+
+        $data = [];
 
         if($cate){
 
@@ -38,18 +41,84 @@ class Posts extends CI_Controller
      
              $data['categories'] = $this->Post_model->get_categories();
 
+             $data['num_posts'] = $this->Post_model->num_posts();
+
+
+        }else{
+
+             $data['posts'] = $this->Post_model->get_posts(false);
+             $data['num_posts'] = $this->Post_model->num_posts();
+     
+
+        }
+        }else{
+
+            $data['posts'] = $this->Post_model->get_posts(false);
+            $data['num_posts'] = $this->Post_model->num_posts();
+
+        
+
+        }
+        
+ 
+        //  $this->load->view('posts/blog-card', $data);
+         echo json_encode($data);
+    }
+
+    // search box
+    public function search(){
+
+        if($this->input->post("search_term")){
+
+         $search_term = stripcslashes($this->input->post("search_term"));
+
+         if($search_term){
+
+            $data['posts'] = $this->Post_model->get_posts_by_search($search_term);
+
+         }
+        //  echo $search_term;
+
+
+        }
+
+        echo json_encode($data);
+     
+
+
+
+
+    }
+
+    // get posts by dates
+    public function cardbydate(){
+
+
+        if(isset($_POST['dates'])){
+
+        $dates = json_decode(stripcslashes($_POST['dates']));
+
+
+        $condition = [];
+
+        if($dates){
+
+             $condition['dates'] = $dates;
+
+             $data['posts'] = $this->Post_model->get_posts_by_date($condition);
+     
+             $data['categories'] = $this->Post_model->get_categories();
+
         }else{
 
              $data['posts'] = $this->Post_model->get_posts(false);
      
-             $data['categories'] = $this->Post_model->get_categories();
 
         }
         }else{
 
             $data['posts'] = $this->Post_model->get_posts(false);
         
-            $data['categories'] = $this->Post_model->get_categories();
 
         }
         

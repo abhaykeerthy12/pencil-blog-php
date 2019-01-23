@@ -5,44 +5,26 @@ class Categories extends CI_Controller
     // the main page where all categories are listed
     public function index()
     {
-        $data['title'] = 'Categories';
+       
 
         // fetch category names and other data from database
-        $data['categories'] = $this->Post_model->get_categories();
+        $cate_names = $this->Post_model->get_categories(false);
+        echo json_encode($cate_names);
 
-        // render the page and also pass the fetched data
-        $this->load->view('templates/header');
-        $this->load->view('categories/index', $data);
-        $this->load->view('templates/footer');
 
     }
 
     // the category creation page
     public function create()
     {
-
         // check if logged in
         if (!$this->session->userdata('logged_in')) {
             redirect('users/login');
-        }
+        }       
 
-        $data['title'] = 'Create Category';
-
-        // set form validation rules
-        $this->form_validation->set_rules('category_name', 'Name', 'required');
-
-        // render the create page again if any error occured
-        if ($this->form_validation->run() === false) {
-            $this->load->view('templates/header');
-            $this->load->view('categories/create', $data);
-            $this->load->view('templates/footer');
-        } else {
-
-            // render the index page if everything is ok, also show a created message
-            $this->Category_model->create_category();
-            $this->session->set_flashdata('category_created', 'Your category has been created');
-            redirect('posts/create');
-        }
+        // render the index page if everything is ok, also show a created message
+        $this->Category_model->create_category();
+        $this->session->set_flashdata('category_created', 'Your category has been created');
 
     }
 

@@ -48,7 +48,7 @@
 		
 
 		<!-- the date filter column -->
-		<div class="container card col-sm-12 col-md-12 col-lg-12">
+		<div class="container shadow card col-sm-12 col-md-12 col-lg-12" id="date_filter_box">
 			<p class="h5" style="border-bottom: 1px solid #eee;padding: 2px;padding-bottom: 5px">
 				Date
 			</p>
@@ -63,7 +63,7 @@
 
 					</p>
 
-					<input data-format="yyyy-MM-dd" class="form-control" type="text" required>
+					<input data-format="yyyy-MM-dd" id="from_date" placeholder="yyyy-mm-dd" class="form-control" type="text" required>
 
 		
 				</div>
@@ -78,7 +78,7 @@
 
 					</p>
 
-					<input data-format="yyyy-MM-dd" class="form-control" type="text" required>
+					<input data-format="yyyy-MM-dd" id="to_date" placeholder="yyyy-mm-dd" class="form-control" type="text" required>
 
 		
 				</div>
@@ -86,7 +86,7 @@
 
 				<!-- submit btn -->
 				<div class="card-footer d-flex justify-content-center" style="background-color: #fff;border: none;">
-					<button type="submit" class="btn btn-primary btn-block shadow-lg">Apply</button>
+					<button type="submit" id="date_filter" class="btn btn-primary btn-block shadow-lg">Apply</button>
 				</div>
 			</form>
 		</div>
