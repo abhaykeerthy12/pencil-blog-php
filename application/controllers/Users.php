@@ -15,10 +15,17 @@ class Users extends CI_Controller
         $id = $this->session->userdata('user_id');
 
         // get the list of categories
-        $data['categories'] = $this->Post_model->get_categories();
+        $data['categories'] = $this->Category_model->get_categories();
 
         // get number of posts by the user
         $data['posts'] = $this->Post_model->get_posts_by_user($id, false);
+
+        // get count of views for posts
+        $data['views'] = $this->User_model->get_views($id)->result();
+        // $data = array(
+        //     'sum_simpan' => $this->User_model->get_views($id)->result()
+        // ); 
+
 
         $this->load->view('templates/header');
         $this->load->view('users/profile', $data);
@@ -46,12 +53,12 @@ class Users extends CI_Controller
         if ($this->session->userdata('is_admin') == 'yes') {
 
             // get all posts
-            $user_cat = $this->Post_model->get_categories();
+            $user_cat = $this->Category_model->get_categories();
 
         }else{
 
             // get all posts created by this user
-            $user_cat = $this->Post_model->get_categories($id);
+            $user_cat = $this->Category_model->get_categories($id);
             
         }               
         echo json_encode($user_cat);

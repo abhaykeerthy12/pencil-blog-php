@@ -5,6 +5,7 @@ $route['posts/index'] = 'posts/index';
 $route['posts/search'] = 'posts/search';
 $route['posts/cardbydate'] = 'posts/cardbydate';
 $route['posts/card'] = 'posts/card';
+$route['posts/hit_counter'] = 'posts/hit_counter';
 
 $route['posts/create'] = 'posts/create';
 $route['posts/delete'] = 'posts/delete';

@@ -1,108 +1,89 @@
 
-  // anim js functions for animations
   $(document).ready(function(e){
+
+    // file upload style
+    bsCustomFileInput.init();
+
+    // date picker
+    $(function() {
+      $('.datetimepicker4').datetimepicker({
+        pickTime: false
+      });
+    });
+
+    // function for toggling card in animation
+    function toggler_cards(btn, card, msg){
+        $(btn).click(function(){           
+          if ($(this).text() == msg) 
+            $(this).text("Close"); 
+            else 
+            $(this).text(msg); 
+          $(card).slideToggle();});
+    }
+
+    toggler_cards('#edit_card_toggle_btn', '#edit_profile_form', "Change Anything?"); 
+    toggler_cards('#user_profile_advanced_btn', '#user_profile_advanced', 'Advanced');
+    toggler_cards('.category_create_btn', '#create_category_form', 'Add Category');
     
-        // date picker
+    // change text on two buttons in create category
+    $(".category_form_close_btn").click(function(event){
+      event.preventDefault();
 
-        $(function() {
-          $('.datetimepicker4').datetimepicker({
-            pickTime: false
-          });
-        });
+      if ($(".category_create_btn").text() == "Add Category") { 
+      $(".category_create_btn").text("Close"); 
+      } else { 
+      $(".category_create_btn").text("Add Category"); 
+    }; 
 
-       // file upload style
-       bsCustomFileInput.init();
+    $('#create_category_form').slideUp();
+    });
 
-       $('#edit_card_toggle_btn').click(function(){
-        
-        if ($(this).text() == "Change Anything?") { 
-          $(this).text("Close"); 
-         } else { 
-          $(this).text("Change Anything?"); 
-        }; 
+  //  animation functions using anime js
+  // add a delay to the animation
+  $(this).delay(50).queue(function() {
 
-          $('#edit_profile_form').slideToggle();
-       });
-      
-       $("#user_profile_advanced_btn").click(function(){
+      // show the index page texts with animations
+      $('#title_text').show();
+      $('#quote').show();
+      $('#author').show();
 
-        if ($(this).text() == "Advanced") { 
-          $(this).text("Close"); 
-         } else { 
-          $(this).text("Advanced"); 
-        }; 
+    // Wrap every letter in a span
+    $('.ml6 .letters').each(function(){
+      $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
+    });
 
-         $('#user_profile_advanced').slideToggle();
-       });
+    // animation of title logo
+    anime.timeline()
+      .add({
+        targets: '.ml6 .letter',
+        translateY: ["1.1em", 0],
+        translateZ: 0,
+        duration: 300,
+        delay: function(el, i) {
+          return 40 * i;
+        }
+    });
 
-       $(".category_create_btn").click(function(){
+    // Wrap every letter in a span
+    $('.ml3').each(function(){
+      $(this).html($(this).text().replace(/([^\x00-\x80]|.|\w)/g, "<span class='letter2'>$&</span>"));
+    });
 
-        if ($(this).text() == "Add Category") { 
-          $(this).text("Close"); 
-         } else { 
-          $(this).text("Add Category"); 
-        }; 
+    // animation of title tagline and quote
+    anime.timeline()
+      .add({
+        targets: '.ml3 .letter2',
+        opacity: [0,1],
+        easing: "easeInOutQuad",
+        duration: 70,
+        delay: function(el, i) {
+          return 50 * (i+1)
+        }
+      });
 
-         $('#create_category_form').slideToggle();
-       });
-
-       $(".category_form_close_btn").click(function(event){
-         event.preventDefault();
-
-         if ($(".category_create_btn").text() == "Add Category") { 
-          $(".category_create_btn").text("Close"); 
-         } else { 
-          $(".category_create_btn").text("Add Category"); 
-        }; 
-
-        $('#create_category_form').slideUp();
-       });
-       // add a delay to the animation
-       $(this).delay(50).queue(function() {
-
-           // show the index page texts with animations
-           $('#title_text').show();
-           $('#quote').show();
-           $('#author').show();
-             
-
-             // Wrap every letter in a span
-            $('.ml6 .letters').each(function(){
-              $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
-            });
-
-            // animation of title logo
-            anime.timeline()
-              .add({
-                targets: '.ml6 .letter',
-                translateY: ["1.1em", 0],
-                translateZ: 0,
-                duration: 300,
-                delay: function(el, i) {
-                  return 40 * i;
-                }
-              });
-
-            // Wrap every letter in a span
-            $('.ml3').each(function(){
-              $(this).html($(this).text().replace(/([^\x00-\x80]|.|\w)/g, "<span class='letter2'>$&</span>"));
-            });
-
-            // animation of title tagline and quote
-            anime.timeline()
-              .add({
-                targets: '.ml3 .letter2',
-                opacity: [0,1],
-                easing: "easeInOutQuad",
-                duration: 70,
-                delay: function(el, i) {
-                  return 50 * (i+1)
-                }
-              });
-
-                // end delay
-                $(this).dequeue();
-          });
+        // end delay
+        $(this).dequeue();
+    });
     
   });
 
@@ -111,80 +92,61 @@
   // ajax functions
       
   $(window).on('load', function(){
+  
+    // call ajax functions
+    create_category();list_category();hit_counter();search_box();   
+
+    // call functions only on profile page
+    if (window.location.pathname == "/pencil/users/profile") 
+      show_user_posts();show_all_users();show_all_categories();delete_user();delete_post();delete_category();block_and_unblock_user();   
+    
+    // call functions only on main page
+    if (window.location.pathname == "/pencil/posts") 
+      show_posts();get_posts_by_category();load_more_posts();get_posts_by_date();
+    
 
     
-      create_category();
-      list_category();    
-      hit_counter();     
-      search_box();      
-    
 
-    if (window.location.pathname == "/pencil/users/profile") {
-      show_user_posts();
-      show_all_users();    
-      show_all_categories();
-      delete_user();
-      delete_post();
-      delete_category();
-      block_and_unblock_user();
+  // category filetering using checkbox function
+  function get_posts_by_category(){
+    var postcounter = 4;
+    var category_id = [];
+
+    $('#category_filter_submit').click(function(){
+
+      // prevent default behaviour of submit button
+      event.preventDefault();
+      postcounter = postcounter + 4;
+
+      $("input[name='category_name']:checked").each(function(i){
+              category_id[i] = $(this).val();
+      });
+
+      if(category_id.length == 0){
+        show_posts();
+      }
       
-    }
-
-    if (window.location.pathname == "/pencil/posts") {
-      show_posts();     
-      get_posts_by_category();
-      load_more_posts();
-      get_posts_by_date();
-    }
-
-    
-
-      // category filetering using checkbox function
-
-      function get_posts_by_category(){
-        var postcounter = 1;
-        
 
 
-              $('#category_filter_submit').click(function(){
 
-                  // prevent default behaviour of submit button
-                  event.preventDefault();
-                  postcounter = postcounter + 1;
+      var JSON_cat = JSON.stringify(category_id);
 
-
-                  var category_id = [];
-
-                  $("input[name='category_name']:checked").each(function(i){
-                      category_id[i] = $(this).val();
-                  });
-
-                  if(category_id.length === 0){
-                    postcounter = 2;
-                  }
-
-                  var JSON_cat = JSON.stringify(category_id);
-
-                  // ajax to get posts based on selected categories
-                  $.ajax({
-                              url:"http://localhost/pencil/posts/card",
-                              data: {category: JSON_cat, nextpostnumber: postcounter},
-                              type:'POST',
-                              success:function(data){
-
-                                  $('.blog-body').html(data);
-                              }
-                            });
-
-                });
-
-            }
+      // ajax to get posts based on selected categories
+      $.ajax({
+                  url:"http://localhost/pencil/categories/posts",
+                  data: {category: JSON_cat, nextpostnumber: postcounter},
+                  type:'POST',
+                  dataType: 'json',
+          success: function (data) {blog_card(data);category_id.length = 0;},error: function () {console.log("my bad");}});
+                  
+        });
+  }
 
 
 
         // filter by date
         function get_posts_by_date(){
-          var postcounter = 1;
+          var postcounter = 4;
           
   
   
@@ -192,7 +154,7 @@
   
                     // prevent default behaviour of submit button
                     event.preventDefault();
-                    postcounter = postcounter + 1;
+                    postcounter = postcounter + 4;
   
   
                     var dates = [];
@@ -208,94 +170,29 @@
                                 url:"http://localhost/pencil/posts/cardbydate",
                                 data: {dates: JSON_date, nextpostnumber: postcounter},
                                 type:'POST',
-                                success:function(data){
-  
-                                    $('.blog-body').html(data);
-                                }
-                              });
-  
-                  });
+                                dataType: 'json',
+                                success: function (data) {blog_card(data);},error: function () {console.log("my bad");}});
+                          });
   
               }
 
-
-      // load more button
-      // function load_more_posts(){
-      //   var postcounter = 1;
-      //   $("#load_more").click(function(){
-      //     postcounter = postcounter + 1;
-        
-      //     $(".blog-body").load("http://localhost/pencil/posts/card", {
-      //       nextpostnumber: postcounter
-      //     });
-      //   });
-      // }
-
-      // show posts
-      function load_more_posts(){
-
-        var postcounter = 4;
-
-        $("#load_more").click(function(){
-
-          postcounter = postcounter + 4;
-        
-
-          $.ajax({
-
-            type: 'post',
-            url: "http://localhost/pencil/posts/card",
-            dataType: 'json',
-            data: {nextpostnumber: postcounter},
-            success: function (data) {
-              // var data = $.parseJSON(response);
-              var html = "";
-              if(data['posts'].length > 0){
-
-                html = "<div class='row'>";
-                for(i=0; i<data['posts'].length; i++){
-                  html += '<div class="card-deck col-lg-6"><div class="card w-100 shadow m-2" ><img src="http://localhost/pencil/assets/images/posts/'+data['posts'][i].pencil_db_posts_post_image+'" class="card-img-top img-fluid" style="height: 250px;width: 100%; align-self: center;">'+
-                          '<div class="card-body"><span class="text-muted" style="font-size: 12px;text-decoration: none;">'+
-                          '<span>&nbsp;&nbsp;</span>Abhay<span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-clock"></i><span>&nbsp;&nbsp;</span>Jan 2019<span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-eye"></i><span>&nbsp;&nbsp;</span>500<span>&nbsp;&nbsp;</span>'+
-                          '|<span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_categories_name+'<span>&nbsp;&nbsp;</span></span><br><br>'+
-                          '<p class="card-title h5">'+data['posts'][i].pencil_db_posts_title+'</p></div>'+
-                          '<div class="card-footer"><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" class="btn btn-primary btn-block shadow" id="the_read_more_btn">Read More</a></div>'+
-                          '</div></div>';
-                }
-                html += "</div>"
-              }
-              $(".blog-body").html(html);
- 
-              if(postcounter >= data['num_posts']){
-                $("#load_more").hide();
-              }
-
-            },error: function () {
-              console.log("my bad");
-            }
-
-          });
-      });
-
-    }
-
-
-      // show posts
-      // function show_posts(){
-      //   var postcounter = 1;
-       
-      //     $(".blog-body").load("http://localhost/pencil/posts/card", {
-      //       nextpostnumber: postcounter
-         
-      //   });
-      // }
-
+      
+    
 
       // hit counter
       function hit_counter(){
         $(".blog-body").on("click", "#the_read_more_btn", function (event) {
-
-          console.log("counted");
+        
+          var post_id = $(this).attr('data');
+          post_id = Number(post_id);
+          $.ajax({
+            url: "http://localhost/pencil/posts/hit_counter",
+            type: 'post',
+            dataType: 'text',
+            data: {post_id: post_id},
+            success: function (response) {
+            }
+          });
           
         });
       }
@@ -304,39 +201,56 @@
 
       // show posts
       function show_posts(){
-
         var postcounter = 4;
-
         $.ajax({
+          type: 'post',
+          url: "http://localhost/pencil/posts/card",
+          dataType: 'json',
+          data: {nextpostnumber: postcounter},
+          success: function (data) {blog_card(data);},error: function () {console.log("my bad");}});
+      }
 
+      // show posts
+      function load_more_posts(){       
+        var postcounter = 4;
+        $("#load_more").click(function(){
+        postcounter = postcounter + 4;
+        $.ajax({
           type: 'post',
           url: "http://localhost/pencil/posts/card",
           dataType: 'json',
           data: {nextpostnumber: postcounter},
           success: function (data) {
-            // var data = $.parseJSON(response);
-            var html = "";
-            if(data['posts'].length > 0){
-
-              html = "<div class='row'>";
-              for(i=0; i<data['posts'].length; i++){
-                html += '<div class="card-deck col-lg-6"><div class="card w-100 shadow m-2" ><img src="http://localhost/pencil/assets/images/posts/'+data['posts'][i].pencil_db_posts_post_image+'" class="card-img-top img-fluid" style="height: 250px;width: 100%; align-self: center;">'+
-                        '<div class="card-body"><span class="text-muted" style="font-size: 12px;text-decoration: none;">'+
-                        '<span>&nbsp;&nbsp;</span>Abhay<span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-clock"></i><span>&nbsp;&nbsp;</span>Jan 2019<span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-eye"></i><span>&nbsp;&nbsp;</span>500<span>&nbsp;&nbsp;</span>'+
-                        '|<span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_categories_name+'<span>&nbsp;&nbsp;</span></span><br><br>'+
-                        '<p class="card-title h5">'+data['posts'][i].pencil_db_posts_title+'</p></div>'+
-                        '<div class="card-footer"><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" class="btn btn-primary btn-block shadow" id="the_read_more_btn">Read More</a></div>'+
-                        '</div></div>';
-              }
-              html += "</div>"
+            blog_card(data);
+            if(postcounter >= data['num_posts']){
+              $("#load_more").hide();
             }
-            $(".blog-body").html(html);
-          },error: function () {
-            console.log("my bad");
-          }
+          },error: function () {console.log("my bad");}});
+      });}
 
-        });
 
+      function blog_card(data){        
+        var html = "NO POSTS";
+        if(data['posts'].length > 0){        
+        html = "<div class='row'>";
+        for(i=0; i<data['posts'].length; i++){
+        html += '<div class="card-deck col-lg-6"><div class="card w-100 shadow m-2" >'+
+                '<img src="http://localhost/pencil/assets/images/posts/'+data['posts'][i].pencil_db_posts_post_image+'"'+
+                ' class="card-img-top img-fluid" style="height: 250px;width: 100%; align-self: center;">'+
+                '<div class="card-body"><span class="text-muted" style="font-size: 12px;text-decoration: none;">';
+        // show user details of the post author 
+        for(j=0; j<data['users'].length; j++){
+            if(data['posts'][i].pencil_db_posts_user_id == data['users'][j].pencil_db_users_id){
+              html +='<img src="http://localhost/pencil/assets/images/profile/'+data['users'][j].pencil_db_users_image+'" class="rounded-circle img-fluid mr-2" style="height: 30px;width: 30px;">'+ data['users'][j].pencil_db_users_username;
+        }}
+        html +='<span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-clock"></i><span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_posts_created_date+'<span>&nbsp;&nbsp;</span>'+
+               '|<span>&nbsp;&nbsp;</span><i class="far fa-eye"></i><span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_posts_views+'<span>&nbsp;&nbsp;</span>'+
+                '|<span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_categories_name+'<span>&nbsp;&nbsp;</span></span><br><br>'+
+                '<p class="card-title h5">'+data['posts'][i].pencil_db_posts_title+'</p></div>'+
+                '<div class="card-footer"><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
+                'class="btn btn-primary btn-block shadow" id="the_read_more_btn">Read More</a></div>'+
+                '</div></div>';
+        }html += "</div>";}$(".blog-body").html(html);
       }
 
       // list categories

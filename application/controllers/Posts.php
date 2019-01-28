@@ -4,15 +4,13 @@ class Posts extends CI_Controller
 {
 
     // list all posts
-    public function index($offset = 0)
+    public function index()
     {
-
         $data['title'] = 'Latest Posts';
 
         // get posts with limits rules and limits passed (paginate)
         $data['posts'] = $this->Post_model->get_posts(false);
-
-        $data['categories'] = $this->Post_model->get_categories();
+        $data['categories'] = $this->Category_model->get_categories();
 
         $this->load->view('templates/header');
         $this->load->view('posts/index', $data);
@@ -24,42 +22,15 @@ class Posts extends CI_Controller
     public function card(){
 
         
-        if(isset($_POST['category'])){
-
-        $cate = json_decode(stripcslashes($_POST['category']));
-
-
-        $condition = [];
-
-        $data = [];
-
-        if($cate){
-
-             $condition['category'] = $cate;
-
-             $data['posts'] = $this->Post_model->get_posts_by_category($condition);
-     
-             $data['categories'] = $this->Post_model->get_categories();
-
-             $data['num_posts'] = $this->Post_model->num_posts();
-
-
-        }else{
-
-             $data['posts'] = $this->Post_model->get_posts(false);
-             $data['num_posts'] = $this->Post_model->num_posts();
-     
-
-        }
-        }else{
+      
+        
 
             $data['posts'] = $this->Post_model->get_posts(false);
             $data['num_posts'] = $this->Post_model->num_posts();
+            $data['users'] = $this->User_model->get_all_users();
 
         
 
-        }
-        
  
         //  $this->load->view('posts/blog-card', $data);
          echo json_encode($data);
@@ -74,6 +45,7 @@ class Posts extends CI_Controller
 
          if($search_term){
 
+            $data['users'] = $this->User_model->get_all_users();
             $data['posts'] = $this->Post_model->get_posts_by_search($search_term);
 
          }
@@ -107,23 +79,29 @@ class Posts extends CI_Controller
 
              $data['posts'] = $this->Post_model->get_posts_by_date($condition);
      
-             $data['categories'] = $this->Post_model->get_categories();
+             $data['categories'] = $this->Category_model->get_categories();
+            $data['users'] = $this->User_model->get_all_users();
+
 
         }else{
 
              $data['posts'] = $this->Post_model->get_posts(false);
+            $data['users'] = $this->User_model->get_all_users();
+
      
 
         }
         }else{
 
             $data['posts'] = $this->Post_model->get_posts(false);
+            $data['users'] = $this->User_model->get_all_users();
+
         
 
         }
         
  
-         $this->load->view('posts/blog-card', $data);
+        echo json_encode($data);
     }
 
     // view a single post
@@ -165,7 +143,7 @@ class Posts extends CI_Controller
         $data['title'] = 'Create Post';
 
         // get the category list from the category table
-        $data['categories'] = $this->Post_model->get_categories();
+        $data['categories'] = $this->Category_model->get_categories();
 
         $this->form_validation->set_rules('post_title', 'Title', 'required');
         $this->form_validation->set_rules('post_body', 'Body', 'required');
@@ -239,7 +217,7 @@ class Posts extends CI_Controller
         }
 
         // get the list of categories
-        $data['categories'] = $this->Post_model->get_categories();
+        $data['categories'] = $this->Category_model->get_categories();
 
         // if the post doesn't exists, show 404 error
         if (empty($data['post'])) {
@@ -282,6 +260,43 @@ class Posts extends CI_Controller
         $this->Post_model->update_post($post_image);
         $this->session->set_flashdata('post_updated', 'Your post has been updated');
         redirect('posts');
+    }
+
+    // count views for posts / hit website counter
+    public function hit_counter(){
+
+        $visiter_ip_address = $this->get_client_ip();
+
+        $post_id = $this->input->post('post_id');
+
+        $result = $this->Post_model->visit_counter($visiter_ip_address, $post_id);
+
+        if($result){
+            return "changed something :-P";
+        }else{
+            return "he is refreshing";
+        }
+        
+    }
+
+    // Function to get the client IP address
+    public function get_client_ip() {
+        $ipaddress = '';
+        if (getenv('HTTP_CLIENT_IP'))
+            $ipaddress = getenv('HTTP_CLIENT_IP');
+        else if(getenv('HTTP_X_FORWARDED_FOR'))
+            $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+        else if(getenv('HTTP_X_FORWARDED'))
+            $ipaddress = getenv('HTTP_X_FORWARDED');
+        else if(getenv('HTTP_FORWARDED_FOR'))
+            $ipaddress = getenv('HTTP_FORWARDED_FOR');
+        else if(getenv('HTTP_FORWARDED'))
+        $ipaddress = getenv('HTTP_FORWARDED');
+        else if(getenv('REMOTE_ADDR'))
+            $ipaddress = getenv('REMOTE_ADDR');
+        else
+            $ipaddress = 'UNKNOWN';
+        return $ipaddress;
     }
 
 }

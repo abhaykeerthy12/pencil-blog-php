@@ -126,25 +126,7 @@ class Post_model extends CI_Model
         return $this->db->update('pencil_db_posts', $data);
     }
 
-    public function get_categories($id = false)
-    {
-        if($id){
-            
-            // get the whole categories
-            $this->db->order_by('pencil_db_categories_name');
-            $this->db->where('pencil_db_categories_user_id', $id);
-            $query = $this->db->get('pencil_db_categories');
-
-        }else{
-
-            // get the whole categories
-            $this->db->order_by('pencil_db_categories_name');
-            $query = $this->db->get('pencil_db_categories');
-        }
-        
-        return $query->result_array();
-
-    }
+    
 
     // get the data of the post author by using his id
     public function get_author($u_id)
@@ -158,30 +140,7 @@ class Post_model extends CI_Model
         }
     }
 
-    public function get_posts_by_category($condition)
-    {
-
-        $post_number = $this->input->post('nextpostnumber');
-        $post_number = 20;
-
-    
-             // get posts by category with the matching category id
-            $this->db->order_by('pencil_db_posts.pencil_db_posts_id', 'DESC');
-
-            // get posts by category
-            $this->db->where_in('pencil_db_categories.pencil_db_categories_id', $condition['category']);
-
-            // join both tables to show datas
-            // i.e, join the post with the category id in posts table and refer that to the category id in category table
-            $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
-
-        
-            $this->db->limit($post_number);
-
-            // get the data
-            $query = $this->db->get_where('pencil_db_posts');
-            return $query->result_array();
-    }
+   
 
     // get posts by date
     public function get_posts_by_date($condition)
@@ -204,5 +163,96 @@ class Post_model extends CI_Model
             // get the data
             $query = $this->db->get('pencil_db_posts');
             return $query->result_array();
+    }
+
+    // add ip of new visiter and also increment the counter
+    public function visit_counter($ipaddress, $post_id){
+
+        $format = "h:i A";
+        date_default_timezone_set('Asia/Kolkata');
+
+        $this->db->select('*');
+        $this->db->from('pencil_db_visiters');
+        $this->db->where('pencil_db_visiters_ip_address', $ipaddress);
+        $query = $this->db->get();
+
+        // if the ip exists in db just increase the views in post and update the last time also check time
+        if ($query->num_rows() == 1) {
+
+            $row = $query->row_array();
+            
+            // get last time from db
+            $last_time_db = $row['pencil_db_visiters_last_time'];
+            $last_time = date($format, strtotime($last_time_db));
+            
+            // get current time
+            $current_time = date($format);
+            // get current time - 5 mins
+            $current_time_minus_five_min = date($format, strtotime("-5 minute"));
+            
+        if($row['pencil_db_visiters_last_post'] == $post_id){
+
+                // check if last time is between the time limit
+                if(!($last_time > $current_time_minus_five_min && $last_time < $current_time)){
+
+                    // the visiter visited this post after 5 mins of last visit
+                    // update last time
+                    $data = array(
+                        'pencil_db_visiters_last_time' => date("Y-m-d h:i:s"),
+                        'pencil_db_visiters_last_post' => $post_id
+                    );
+
+                    $this->db->where('pencil_db_visiters_ip_address', $ipaddress);
+                    $this->db->update('pencil_db_visiters', $data);
+
+                    // increase the view of post in posts table
+                    $this->db->where('pencil_db_posts_id', $post_id);
+                    $this->db->set('pencil_db_posts_views', 'pencil_db_posts_views+1', FALSE);
+                    return $this->db->update('pencil_db_posts');
+
+                }
+
+        }else{
+
+                 // update last time
+                 $data = array(
+                    'pencil_db_visiters_last_time' => date("Y-m-d h:i:s"),
+                    'pencil_db_visiters_last_post' => $post_id
+                );
+
+                $this->db->where('pencil_db_visiters_ip_address', $ipaddress);
+                $this->db->update('pencil_db_visiters', $data);
+
+                // increase the view of post in posts table
+                $this->db->where('pencil_db_posts_id', $post_id);
+                $this->db->set('pencil_db_posts_views', 'pencil_db_posts_views+1', FALSE);
+                return $this->db->update('pencil_db_posts');
+                
+
+            }
+
+            
+            
+        } else {
+
+            // if not, add the ip to db and increase the view of post and add last time
+
+            // add new ip and last time to visiters table
+            $data = array(
+                'pencil_db_visiters_ip_address' => $ipaddress,
+                'pencil_db_visiters_last_time' => date("Y-m-d h:i:s"),
+                'pencil_db_visiters_last_post' => $post_id
+            );
+            
+            $this->db->insert('pencil_db_visiters', $data);
+
+            // increase the view of post in posts table
+            $this->db->where('pencil_db_posts_id', $post_id);
+            $this->db->set('pencil_db_posts_views', 'pencil_db_posts_views+1', FALSE);
+            return $this->db->update('pencil_db_posts');
+
+            
+        }
+
     }
 }

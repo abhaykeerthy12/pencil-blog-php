@@ -141,10 +141,11 @@
                     <span class="comment_counter h5" style="font-size: 2em">0</span><br>
                     <span class="font-weight-bold text-muted">COMMENTS</span>
                     <script>
-                        var a = '<?php echo $posts; ?>';
+                        var a = '';
                         $(".comment_counter").animateNumber({number: a});
                     </script>
                 </div>
+                
         </div>
 
         <!-- view counter -->
@@ -153,10 +154,12 @@
             <div class="card-body">
                 <span class="view_counter h5" style="font-size: 2em">0</span><br>
                 <span class="font-weight-bold text-muted">VIEWS</span>
+                <?php foreach ($views as $num): ?>
                 <script>
-                        var a = '<?php echo $posts; ?>';
+                        var a = '<?php echo $num->pencil_db_posts_views; ?>';
                         $(".view_counter").animateNumber({number: a});
                 </script>
+			    <?php endforeach;?>
             </div>
         </div>
 

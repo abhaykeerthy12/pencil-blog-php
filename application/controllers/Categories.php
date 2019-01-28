@@ -4,14 +4,10 @@ class Categories extends CI_Controller
 
     // the main page where all categories are listed
     public function index()
-    {
-       
-
+    {     
         // fetch category names and other data from database
-        $cate_names = $this->Post_model->get_categories(false);
+        $cate_names = $this->Category_model->get_categories(false);
         echo json_encode($cate_names);
-
-
     }
 
     // the category creation page
@@ -21,26 +17,35 @@ class Categories extends CI_Controller
         if (!$this->session->userdata('logged_in')) {
             redirect('users/login');
         }       
-
         // render the index page if everything is ok, also show a created message
         $this->Category_model->create_category();
         $this->session->set_flashdata('category_created', 'Your category has been created');
-
     }
 
     // get posts based on selected category
-    public function posts($id)
+    public function posts()
     {
-        // get category name from the category table using the passed category id
-        $data['title'] = $this->Category_model->get_category($id)->pencil_db_categories_name;
+              
+        if(isset($_POST['category'])){
+                  
+            $cate = json_decode(stripcslashes($_POST['category']));
+            $condition = [];
 
-        // call get posts by category function to get data by passing category id
-        $data['posts'] = $this->Post_model->get_posts_by_category($id);
+            if($cate){
+                 $condition['category'] = $cate;
+                 $data['posts'] = $this->Category_model->get_posts_by_category($condition);
+                 $data['categories'] = $this->Category_model->get_categories();
+                 $data['num_posts'] = $this->Post_model->num_posts();
+            $data['users'] = $this->User_model->get_all_users();
 
-        // render the posts index page to display the result
-        $this->load->view('templates/header');
-        $this->load->view('posts/index', $data);
-        $this->load->view('templates/footer');
+            }else{
+                 $data['posts'] = $this->Post_model->get_posts(false);
+                 $data['num_posts'] = $this->Post_model->num_posts();
+            $data['users'] = $this->User_model->get_all_users();
+
+            }
+        }
+        echo json_encode($data);
 
     }
 

@@ -18,7 +18,7 @@
 		<div class="row">
           <div class="col-md-12" id="end_note">
             	<br>
-				<p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> | The Pencil Team</p>
+				<p>Copyright &copy;<?php echo date('Y')?>| The Pencil Team</p>
       	  </div>
        	</div>
 
