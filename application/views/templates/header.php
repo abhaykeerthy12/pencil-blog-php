@@ -4,9 +4,12 @@
 
    	<script src="<?php echo base_url(); ?>/assets/js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>/assets/js/nba.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>/assets/js/toastr.min.js"></script>
+
 
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/fonts/font_awesome/css/all.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/toastr.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/date-picker.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/style.css">
 
@@ -59,6 +62,54 @@
 		</div>		
 	</nav>
 	
+
+<?php
+
+function toastphp($msg, $color){
+
+	echo '<script>
+			toastr.options = {
+			"closeButton": true,
+			"debug": false,
+			"newestOnTop": true,
+			"progressBar": true,
+			"positionClass": "toast-top-center",
+			"preventDuplicates": true,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		}
+		 </script>';
+	
+	echo '<script>toastr.'.$color.'("'.$msg.'");</script>';
+
+}
+if ($this->session->flashdata('user_logged_in')) 
+	toastphp('Logged In', 'success');
+if ($this->session->flashdata('login_ban')) 
+	toastphp('Your account is deactivated, Contact admin!', 'error');
+if ($this->session->flashdata('login_failed')) 	
+	toastphp('Login Invalid!', 'error');
+if ($this->session->flashdata('user_logged_out')) 
+	toastphp('Logged Out!','info');
+if ($this->session->flashdata('post_created')) 
+	toastphp('Post Created!','success');
+if ($this->session->flashdata('user_registered')) 
+	toastphp('You are now a member, Login!','success');
+if ($this->session->flashdata('post_updated')) 
+	toastphp('Post Updated!','success');
+if ($this->session->flashdata('comment_deleted')) 
+	toastphp('Comment Deleted!','error');
+if ($this->session->flashdata('comment_created')) 
+	toastphp('Comment Created!','info');
+
+?> 
 	
 
 <main>

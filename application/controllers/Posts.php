@@ -267,7 +267,7 @@ class Posts extends CI_Controller
 
         $visiter_ip_address = $this->get_client_ip();
 
-        $post_id = $this->input->post('post_id');
+        $post_id = intval($this->input->post('post_id'));
 
         $result = $this->Post_model->visit_counter($visiter_ip_address, $post_id);
 

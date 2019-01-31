@@ -11,6 +11,25 @@
       });
     });
 
+    // toastr
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": true,
+      "progressBar": true,
+      "positionClass": "toast-top-center",
+      "preventDuplicates": true,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+
     // function for toggling card in animation
     function toggler_cards(btn, card, msg){
         $(btn).click(function(){           
@@ -98,7 +117,7 @@
 
     // call functions only on profile page
     if (window.location.pathname == "/pencil/users/profile") 
-      show_user_posts();show_all_users();show_all_categories();delete_user();delete_post();delete_category();block_and_unblock_user();   
+      show_user_posts();show_all_users();show_all_categories();delete_user();delete_post();delete_category();block_user();unblock_user();   
     
     // call functions only on main page
     if (window.location.pathname == "/pencil/posts") 
@@ -224,6 +243,7 @@
             blog_card(data);
             if(postcounter >= data['num_posts']){
               $("#load_more").hide();
+              toastr.info("NO more Posts!");
             }
           },error: function () {console.log("my bad");}});
       });}
@@ -328,6 +348,7 @@
               success: function (response) {
                 console.log('delete statement')
                   show_user_posts();
+                  toastr.error("Post Deleted!");
                 },
                 error: function () {
                   alert("ajax error");
@@ -351,6 +372,7 @@
               dataType: 'text',
               success: function (response) {
                   show_all_categories();
+                  toastr.error("Category Deleted!");
                 },
                 error: function () {
                   alert("ajax error");
@@ -388,7 +410,7 @@
                         if(data[i].pencil_db_users_is_active == "yes"){
                             html += '<tr>'+
                                     '<td>'+data[i].pencil_db_users_username+'</td>'+
-                                    '<td class="col"><button type="submit" data='+data[i].pencil_db_users_id+' class="btn btn-danger shadow block_btn"><i class="fas fa-user-minus"></i></button></td>'+
+                                    '<td class="col"><button type="submit" data='+data[i].pencil_db_users_id+' id="block_btn" class="btn btn-danger shadow "><i class="fas fa-user-minus"></i></button></td>'+
                                     ' <form action="">'+
                                     ' <td class="col"><button type="submit" data='+data[i].pencil_db_users_id+' class="btn btn-danger shadow user_delete"><i class="fas fa-trash-alt"></i></button></td>'+
                                     '</form>'+
@@ -397,7 +419,7 @@
                             // if the user is not active show unblock button
                             html += '<tr>'+
                                     '<td>'+data[i].pencil_db_users_username+'</td>'+
-                                    '<td class="col"><button type="submit" data='+data[i].pencil_db_users_id+' class="btn btn-success shadow unblock_btn"><i class="fas fa-user-minus"></i></button></td>'+
+                                    '<td class="col"><button type="submit" data='+data[i].pencil_db_users_id+' id="unblock_btn" class="btn btn-success shadow "><i class="fas fa-user-plus"></i></button></td>'+
                                     ' <form action="">'+
                                     ' <td class="col"><button type="submit" data='+data[i].pencil_db_users_id+' class="btn btn-danger shadow user_delete"><i class="fas fa-trash-alt"></i></button></td>'+
                                     '</form>'+
@@ -434,6 +456,7 @@
                           list_category();
                           $("#create_category_name").val("");
                           $('.category_create_btn').click();
+                          toastr.success("Category Created!");
                         }
                     });
             }else{
@@ -490,6 +513,8 @@
                 success: function (response) {
                   
                     show_all_users();
+                    toastr.error("User Deleted!");
+
                  
                   },
                   error: function () {
@@ -503,66 +528,64 @@
           
 
         }
-      
 
-        // block/ unblock user by ajax
-        function block_and_unblock_user(){
-
-          // block user ajax
-          $('#show_user_data').on('click', '.block_btn', function(event){
-            event.preventDefault();
-                var id = $(this).attr('data');
-                $.ajax({
-                  type: 'ajax',
-                  method: 'POST',
-                  async: true,
-                  url: 'http://localhost/pencil/users/block',
-                  data:{id:id},
-                  dataType: 'text',
-                  success: function (response) {
-                    
-                    
-                    console.log("okkkk");
-                    
-                    
-                    },
-                    error: function () {
-                      alert("ajax error");
-                    }
-                    
-                  });
-                  show_all_users();
-            });
-
-            // unblock user ajax
-            $('#show_user_data').on('click', '.unblock_btn', function(event){
+        function block_user(){
+        $('#show_user_data').on('click', '#block_btn', function(event){
               event.preventDefault();
-                  var id = $(this).attr('data');
-                  $.ajax({
-                    type: 'ajax',
-                    method: 'POST',
-                    async: true,
-                    url: 'http://localhost/pencil/users/unblock',
-                    data:{id:id},
-                    dataType: 'text',
-                    success: function (response) {
-                      
-                      
-                      console.log("okkkk");
-                      
-                      
-                      },
-                      error: function () {
-                        alert("ajax error");
-                      }
-                      
-                    });
+              var id = $(this).attr('data');
+              $.ajax({
+                type: 'POST',
+                url: 'http://localhost/pencil/users/block',
+                data:{id:id},
+                dataType: 'text',
+                success: function (response) {
+                  
                     show_all_users();
-              });
-  
+                    toastr.warning("User Blocked!");
+                   
+
+                 
+                  },
+                  error: function () {
+                    alert("ajax error");
+                  }
+                  
+                });
+               
+
+          });
+          
+
         }
 
+        function unblock_user(){
+        $('#show_user_data').on('click', '#unblock_btn', function(event){
+              event.preventDefault();
+              var id = $(this).attr('data');
+              $.ajax({
+                type: 'POST',
+                url: 'http://localhost/pencil/users/unblock',
+                data:{id:id},
+                dataType: 'text',
+                success: function (response) {
+                  
+                    show_all_users();
+                    toastr.success("User Unblocked!");
+                   
 
+                 
+                  },
+                  error: function () {
+                    alert("ajax error");
+                  }
+                  
+                });
+               
+
+          });
+          
+
+        }
 
 
         // search box

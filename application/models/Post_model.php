@@ -42,6 +42,31 @@ class Post_model extends CI_Model
 
     }
 
+    public function home_posts($l_posts, $p_posts){
+
+            if($l_posts){
+
+                    $this->db->order_by('pencil_db_posts.pencil_db_posts_id', 'DESC');
+                    $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
+                    $this->db->limit(3);
+                    $query = $this->db->get('pencil_db_posts');
+                    return $query->result_array();
+
+
+            }
+
+            if($p_posts){
+
+                    $this->db->order_by('pencil_db_posts.pencil_db_posts_views', 'DESC');
+                    $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
+                    $this->db->limit(3);
+                    $query = $this->db->get('pencil_db_posts');
+                    return $query->result_array();
+
+
+            }
+    }
+
     // seacrh box
     public function get_posts_by_search($search_term){
 
@@ -180,6 +205,8 @@ class Post_model extends CI_Model
         if ($query->num_rows() == 1) {
 
             $row = $query->row_array();
+
+            $last_post_from_db  = intval($row['pencil_db_visiters_last_post']);
             
             // get last time from db
             $last_time_db = $row['pencil_db_visiters_last_time'];
@@ -190,10 +217,10 @@ class Post_model extends CI_Model
             // get current time - 5 mins
             $current_time_minus_five_min = date($format, strtotime("-5 minute"));
             
-        if($row['pencil_db_visiters_last_post'] == $post_id){
+        if($last_post_from_db == $post_id){
 
                 // check if last time is between the time limit
-                if(!($last_time > $current_time_minus_five_min && $last_time < $current_time)){
+                if($last_time > $current_time_minus_five_min && $last_time < $current_time){
 
                     // the visiter visited this post after 5 mins of last visit
                     // update last time

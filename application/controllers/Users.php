@@ -390,7 +390,7 @@ class Users extends CI_Controller
         $this->db->where('pencil_db_users_id', $u_id);
         $this->db->update('pencil_db_users', $data);
         $this->session->set_flashdata('user_blocked', 'the user is blocked');
-        redirect('users/profile');
+        return true;
     }
 
     // unblock user
@@ -408,7 +408,8 @@ class Users extends CI_Controller
         $this->db->where('pencil_db_users_id', $u_id);
         $this->db->update('pencil_db_users', $data);
         $this->session->set_flashdata('user_unblocked', 'the user is unblocked');
-        redirect('users/profile');
+        return true;
+    
     }
 
     // check if username already exists

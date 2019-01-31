@@ -14,8 +14,13 @@ class Pages extends CI_Controller
         // if its just the home page, render that
         elseif ($page == 'home') {
 
+            $data['l_posts'] = $this->Post_model->home_posts(true, false);
+            $data['p_posts'] = $this->Post_model->home_posts(true, false);
+            $data['users'] = $this->User_model->get_all_users();
+            
+
             $this->load->view('templates/header');
-            $this->load->view('pages/' . $page);
+            $this->load->view('pages/' . $page, $data);
             $this->load->view('templates/footer');
         } else {
 
