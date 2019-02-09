@@ -42,26 +42,36 @@
   <?php foreach ($l_posts as $post): ?>
 
     <!-- card starts -->
-    <div class="card w-100 shadow" >
-      <a href="<?php echo base_url(); ?>" style="text-decoration: none;color: black;">
+    <div class="card w-100 p-0 shadow-lg blog-body" >
+      <a class="the_read_more_btn" data="<?php echo $post['pencil_db_posts_id']; ?>" href="<?php echo site_url('/posts/' . $post['pencil_db_posts_slug']) ?>" style="text-decoration: none;color: black;">
     
         <!-- card image -->
         <img src="<?php echo site_url(); ?>assets/images/posts/<?php echo $post['pencil_db_posts_post_image'];?>" class="card-img-top img-fluid" style="height: 200px;width: 100%; align-self: center;">
                 
         <!-- card body -->
         <div class="card-body">
-        
+
+        <?php foreach ($users as $user): ?>
+
+        <?php if($post['pencil_db_posts_user_id'] == $user['pencil_db_users_id']) : ?>
         <!-- category time and hits -->
         <span class="text-muted" style="font-size: 12px;text-decoration: none;">
-         <span>&nbsp;&nbsp;</span>Abhay<span>&nbsp;&nbsp;</span>|
-          <span>&nbsp;&nbsp;</span><i class="far fa-clock"></i><span>&nbsp;&nbsp;</span>Jan 2019<span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-eye"></i><span>&nbsp;&nbsp;</span>500<span>&nbsp;&nbsp;</span>
-          |<span>&nbsp;&nbsp;</span><?php echo $post['pencil_db_categories_name'];?><span>&nbsp;&nbsp;</span>
+          <img src="<?php echo site_url(); ?>assets/images/posts/<?php echo $user['pencil_db_users_image'];?>" class="rounded-circle img-fluid mr-1" style="height: 30px;width: 30px;">
+
+          <span class="mr-1"><?php echo $user['pencil_db_users_username'] ?></span>|
+
+          <i class="far fa-clock"></i><span class="ml-1 mr-1"><?php echo $post['pencil_db_posts_created_date'];?></span>|
+
+          <span class="mr-1 ml-1"><i class="far fa-eye"></i></span><span class="mr-1"><?php echo $post['pencil_db_posts_views'];?></span>
+
+          |<span class="ml-1"><?php echo $post['pencil_db_categories_name'];?></span>
         </span><br><br>
         
         <!-- card title -->
         <span class="card-title h5"><?php echo $post['pencil_db_posts_title'];?></span>
         
-        
+        <?php endif; ?>
+        <?php endforeach; ?>
 
         </div>
         <!-- card body ends -->
@@ -98,104 +108,47 @@
 
 <div class="card-deck">
 
+
+  <?php foreach ($p_posts as $post): ?>
+
     <!-- card starts -->
-    <div class="card w-100 shadow" >
+    <div class="card w-100 p-0 shadow-lg blog-body" >
+      <a class="the_read_more_btn" data="<?php echo $post['pencil_db_posts_id']; ?>" href="<?php echo site_url('/posts/' . $post['pencil_db_posts_slug']) ?>" style="text-decoration: none;color: black;">
     
         <!-- card image -->
-        <img src="https://via.placeholder.com/150" class="card-img-top img-fluid" style="height: 200px;width: 100%; align-self: center;">
+        <img src="<?php echo site_url(); ?>assets/images/posts/<?php echo $post['pencil_db_posts_post_image'];?>" class="card-img-top img-fluid" style="height: 200px;width: 100%; align-self: center;">
                 
         <!-- card body -->
         <div class="card-body">
-        
+
+        <?php foreach ($users as $user): ?>
+
+        <?php if($post['pencil_db_posts_user_id'] == $user['pencil_db_users_id']) : ?>
         <!-- category time and hits -->
         <span class="text-muted" style="font-size: 12px;text-decoration: none;">
-         <span>&nbsp;&nbsp;</span>Abhay<span>&nbsp;&nbsp;</span>|
-          <span>&nbsp;&nbsp;</span><i class="far fa-clock"></i><span>&nbsp;&nbsp;</span>Jan 2019<span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-eye"></i><span>&nbsp;&nbsp;</span>500<span>&nbsp;&nbsp;</span>
-          |<span>&nbsp;&nbsp;</span>Animals<span>&nbsp;&nbsp;</span>
+          <img src="<?php echo site_url(); ?>assets/images/posts/<?php echo $user['pencil_db_users_image'];?>" class="rounded-circle img-fluid mr-1" style="height: 30px;width: 30px;">
+
+          <span class="mr-1"><?php echo $user['pencil_db_users_username'] ?></span>|
+
+          <i class="far fa-clock"></i><span class="ml-1 mr-1"><?php echo $post['pencil_db_posts_created_date'];?></span>|
+
+          <span class="mr-1 ml-1"><i class="far fa-eye"></i></span><span class="mr-1"><?php echo $post['pencil_db_posts_views'];?></span>
+
+          |<span class="ml-1"><?php echo $post['pencil_db_categories_name'];?></span>
         </span><br><br>
         
         <!-- card title -->
-        <a href="" style="text-decoration: none;color: black;"><span class="card-title h5">Some quick example text to build</span></a>
+        <span class="card-title h5"><?php echo $post['pencil_db_posts_title'];?></span>
         
-        
+        <?php endif; ?>
+        <?php endforeach; ?>
 
         </div>
         <!-- card body ends -->
-        
-        <!-- card footer -->
-        <div class="card-footer" style="border: none;background-color: white">
-          <a href="post.php" class="btn btn-primary btn-block shadow">Read more</a>
-        </div>
-        <!-- card footer ends -->
 
-    </div><br>
+    </a></div><br>
     <!-- card ends -->
-
-    <!-- card starts -->
-    <div class="card w-100 shadow" >
-    
-        <!-- card image -->
-        <img src="https://via.placeholder.com/150" class="card-img-top img-fluid" style="height: 200px;width: 100%; align-self: center;">
-                
-        <!-- card body -->
-        <div class="card-body">
-        
-        <!-- category time and hits -->
-        <span class="text-muted" style="font-size: 12px;text-decoration: none;">
-         <span>&nbsp;&nbsp;</span>Abhay<span>&nbsp;&nbsp;</span>|
-          <span>&nbsp;&nbsp;</span><i class="far fa-clock"></i><span>&nbsp;&nbsp;</span>Jan 2019<span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-eye"></i><span>&nbsp;&nbsp;</span>500<span>&nbsp;&nbsp;</span>
-          |<span>&nbsp;&nbsp;</span>Animals<span>&nbsp;&nbsp;</span>
-        </span><br><br>
-        
-        <!-- card title -->
-        <a href="" style="text-decoration: none;color: black;"><span class="card-title h5">Some quick example text to build</span></a>
-        
-        
-
-        </div>
-        <!-- card body ends -->
-        
-        <!-- card footer -->
-        <div class="card-footer" style="border: none;background-color: white">
-          <a href="post.php" class="btn btn-primary btn-block shadow">Read more</a>
-        </div>
-        <!-- card footer ends -->
-
-    </div><br>
-    <!-- card ends -->
-
-    <!-- card starts -->
-    <div class="card w-100 shadow" >
-    
-        <!-- card image -->
-        <img src="https://via.placeholder.com/150" class="card-img-top img-fluid" style="height: 200px;width: 100%; align-self: center;">
-                
-        <!-- card body -->
-        <div class="card-body">
-        
-        <!-- category time and hits -->
-        <span class="text-muted" style="font-size: 12px;text-decoration: none;">
-         <span>&nbsp;&nbsp;</span>Abhay<span>&nbsp;&nbsp;</span>|
-          <span>&nbsp;&nbsp;</span><i class="far fa-clock"></i><span>&nbsp;&nbsp;</span>Jan 2019<span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-eye"></i><span>&nbsp;&nbsp;</span>500<span>&nbsp;&nbsp;</span>
-          |<span>&nbsp;&nbsp;</span>Animals<span>&nbsp;&nbsp;</span>
-        </span><br><br>
-        
-        <!-- card title -->
-        <a href="" style="text-decoration: none;color: black;"><span class="card-title h5">Some quick example text to build Some quick example text to build Some quick example text to buildSome quick example text</span></a>
-        
-        
-
-        </div>
-        <!-- card body ends -->
-        
-        <!-- card footer -->
-        <div class="card-footer" style="border: none;background-color: white">
-          <a href="post.php" class="btn btn-primary btn-block shadow">Read more</a>
-        </div>
-        <!-- card footer ends -->
-
-    </div><br>
-    <!-- card ends -->
+  <?php endforeach; ?>
 
 
 
