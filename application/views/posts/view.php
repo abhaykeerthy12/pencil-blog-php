@@ -55,13 +55,13 @@
 
 			  						<input type="hidden" id="user_logged_in" value="<?php echo $this->session->userdata('logged_in'); ?>">
 
-									<textarea rows="2" class="form-control" id="comment_body" name="comment_body" placeholder="Comment" required></textarea><br>	
+									<textarea rows="2" class="form-control" id="comment_body" name="comment_body" placeholder="Comment" required></textarea><b500r>	
 
 									<!-- passing slug hidden for further processing -->
 									<input type="hidden" id="comment_post_slug" name="comment_post_slug" value="<?php echo $post['pencil_db_posts_slug']; ?>">
 
 									<div class="text-center">
-											<button class="comment_submit btn btn-primary shadow">Comment</button>
+											<button class="comment_submit mt-4 btn btn-primary shadow">Comment</button>
 									</div>
 								</div>
 										  
@@ -87,7 +87,7 @@
 									<input type="hidden" id="comment_post_slug" name="comment_post_slug" value="<?php echo $post['pencil_db_posts_slug']; ?>">
 
 									<div class="text-center">
-											<button class="comment_submit btn btn-primary shadow">Comment</button>
+											<button class="comment_submit btn mt-4 btn-primary shadow">Comment</button>
 									</div>
 								</div>
 										  

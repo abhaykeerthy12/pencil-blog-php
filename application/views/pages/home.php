@@ -56,7 +56,7 @@
         <?php if($post['pencil_db_posts_user_id'] == $user['pencil_db_users_id']) : ?>
         <!-- category time and hits -->
         <span class="text-muted" style="font-size: 12px;text-decoration: none;">
-          <img src="<?php echo site_url(); ?>assets/images/posts/<?php echo $user['pencil_db_users_image'];?>" class="rounded-circle img-fluid mr-1" style="height: 30px;width: 30px;">
+          <img src="<?php echo site_url(); ?>assets/images/profile/<?php echo $user['pencil_db_users_image'];?>" class="rounded-circle img-fluid mr-1" style="height: 30px;width: 30px;">
 
           <span class="mr-1"><?php echo $user['pencil_db_users_username'] ?></span>|
 
@@ -80,8 +80,14 @@
     <!-- card ends -->
   <?php endforeach; ?>
 
-</div>  
-</section><br><hr><br>
+  
+
+</div> <br>
+
+<div class="container d-flex justify-content-center mb-3" style="border-top: 1px solid #eee">
+  <a class="btn btn-primary shadow-lg mt-3 btn-lg" href="<?php echo base_url(); ?>posts"><i class="shadow-lg fas fa-2x m-1  fa-angle-double-right"></i></a>
+</div>
+</section><hr>
 <!-- latest posts ends -->
 
 
@@ -126,7 +132,7 @@
         <?php if($post['pencil_db_posts_user_id'] == $user['pencil_db_users_id']) : ?>
         <!-- category time and hits -->
         <span class="text-muted" style="font-size: 12px;text-decoration: none;">
-          <img src="<?php echo site_url(); ?>assets/images/posts/<?php echo $user['pencil_db_users_image'];?>" class="rounded-circle img-fluid mr-1" style="height: 30px;width: 30px;">
+          <img src="<?php echo site_url(); ?>assets/images/profile/<?php echo $user['pencil_db_users_image'];?>" class="rounded-circle img-fluid mr-1" style="height: 30px;width: 30px;">
 
           <span class="mr-1"><?php echo $user['pencil_db_users_username'] ?></span>|
 

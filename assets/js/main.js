@@ -11,6 +11,12 @@
       });
     });
 
+    // searchbox close
+    $("#search_result_box_container").on('click', '#search_box_close', function(e){
+      $("#search_result_box").slideUp();
+      $("#nav_search_box").val('');
+    });
+
     // toastr
     toastr.options = {
       "closeButton": true,
@@ -149,7 +155,10 @@
 
         if(data['comments'].length > 0){        
         html = "<div>";
-        html +='<h2>'+data["comments"].length+' Comments</h2><br>';
+        if(data['comments'].length == 1)
+          html +='<h2>'+data["comments"].length+' Comment</h2><br>';
+        else
+          html +='<h2>'+data["comments"].length+' Comments</h2><br>';
 
           for(i=0; i<data['comments'].length; i++){
 
@@ -736,16 +745,23 @@
 
         // search box
         function search_box(){
+
+          var html ="";
           $(".nav_search_btn").on('click', function (event) {
 
-            event.preventDefault();
+            
+            $("#search_result_box").slideDown();
 
             
 
             var search_term = $("#nav_search_box").val().trim();
 
+            if(search_term == ""){
+              html = "<p class='lead text-center m-5'>Field Is Empty, Type Some Keywords!</p>";
+              $("#search_result_box").html(html);
 
-            
+            }else{
+ 
             $.ajax({
 
               type: 'post',
@@ -754,38 +770,41 @@
               data: {search_term: search_term},
               success: function (data) {
 
-                // if(data){
-              
-                //   location.href="http://localhost/pencil/posts";
-    
-                // }
-
-                // var data = $.parseJSON(response);
-                var html = "<p>NO POSTS FOUND</p>";
+               
+                html = "<p class='lead text-center m-5'>No Posts Found, Search With Another Keyword!</p>";
                 if(data['posts'].length > 0){
 
-
-                  html = "<div class='row'>";
+                  html ="<h3 class='m-3'>Search Results</h3><hr>";
+                  html += "<div class='row w-100' style='margin: auto'>";
                   for(i=0; i<data['posts'].length; i++){
-                    html += '<div class="card-deck col-lg-6"><div class="card w-100 shadow m-2" ><img src="http://localhost/pencil/assets/images/posts/'+data['posts'][i].pencil_db_posts_post_image+'" class="card-img-top img-fluid" style="height: 250px;width: 100%; align-self: center;">'+
-                            '<div class="card-body"><span class="text-muted" style="font-size: 12px;text-decoration: none;">'+
-                            '<span>&nbsp;&nbsp;</span>Abhay<span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-clock"></i><span>&nbsp;&nbsp;</span>Jan 2019<span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-eye"></i><span>&nbsp;&nbsp;</span>500<span>&nbsp;&nbsp;</span>'+
-                            '|<span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_categories_name+'<span>&nbsp;&nbsp;</span></span><br><br>'+
-                            '<p class="card-title h5">'+data['posts'][i].pencil_db_posts_title+'</p></div>'+
-                            '<div class="card-footer"><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" class="btn btn-primary btn-block shadow" id="the_read_more_btn">Read More</a></div>'+
-                            '</div></div>';
+
+                   html += "<div class='card-deck d-flex col-lg-6 justify-content-center'>"+
+                            "<div class='card shadow-lg m-3 w-100' style='overflow: hidden'><a href='http://localhost/pencil/posts/"+data['posts'][i].pencil_db_posts_slug+"' data='"+data['posts'][i].pencil_db_posts_id+"' class='the_read_more_btn' style='color: #000'><div class='row'>"+
+                            "<div class='col-lg-6'><img class='card-img' src='http://localhost/pencil/assets/images/posts/"+data['posts'][i].pencil_db_posts_post_image+"'></div>"+
+                            "<div class='col-lg-6 w-100 card' style='border: none;'><div class='card-title h-3 p-4'>"+data['posts'][i].pencil_db_posts_title+"</div>";
+
+                   for(j=0; j<data['users'].length; j++){
+                      if(data['posts'][i].pencil_db_posts_user_id == data['users'][j].pencil_db_users_id){
+                        html +=  "<div class='card-footer' style='border-top: 1px solid #eee'><p><span class='badge badge-light mr-1'>"+data['users'][j].pencil_db_users_username+"</span><span class='badge badge-light'>"+data['posts'][i].pencil_db_categories_name+"</span></p></div></div>"+
+                                "</div></a></div></div>";
+                      }
+                    }
+                        
                   }
                   html += "</div>";
                   
-                }                
+                }  
+                html += "<hr><div class='d-flex justify-content-center'><button id='search_box_close' class='btn shadow-lg btn-danger btn-lg'><i class='fas shadow-lg fa-times fa-2x'></i></button></div><br>";
 
-                $(".blog-body").html(html);
+                $("#search_result_box").html(html);
+                search_term = "";
                 console.log("working!!!!");
               },error: function () {
                 console.log("my bad from search box");
               }
 
             });
+          }
             
           });
         }
