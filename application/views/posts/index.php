@@ -104,13 +104,16 @@
 		
 		</div><br>
 
-		<div class="container">
-				<button class="btn btn-primary btn-block" id="load_more" value="">Load more..</button><br>
-		</div>
+		
 		
 	</div>
 	<!-- the main column ends -->
 	
+</div>
+<div id="load_more_container">
+<div class="container d-flex justify-content-center mb-3" id="load_more" style="border-top: 1px solid #eee">
+	<button class="btn btn-primary shadow-lg mt-3 btn-lg" value=""><i class="shadow-lg fas fa-2x m-1 fa-angle-double-down"></i></button><br>
+</div>
 </div>
 <!-- row ends -->
 </section>

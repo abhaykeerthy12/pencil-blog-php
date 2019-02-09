@@ -141,7 +141,7 @@
            var user_id_db = data['user'][0]['pencil_db_users_id'];
         }
 
-        console.log(user_is_admin);
+    
 
         // if no, display "no comments" message            
         var html = "<blockquote><hr> <p class='lead' >No comments for this post</p></blockquote><hr>";
@@ -378,7 +378,7 @@
       // show posts
       function load_more_posts(){       
         var postcounter = 4;
-        $("#load_more").click(function(){
+        $("#load_more").on('click', '.btn', function(){
         postcounter = postcounter + 4;
         $.ajax({
           type: 'post',
@@ -388,7 +388,7 @@
           success: function (data) {
             blog_card(data);
             if(postcounter >= data['num_posts']){
-              $("#load_more").hide();
+              $("#load_more_container").hide();
               toastr.info("NO more Posts!");
             }
           },error: function () {console.log("my bad");}});
@@ -400,7 +400,7 @@
         if(data['posts'].length > 0){        
         html = "<div class='row'>";
         for(i=0; i<data['posts'].length; i++){
-        html += '<div class="card-deck col-lg-6"><div class="card w-100 shadow m-2" ><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
+        html += '<div class="card-deck col-lg-6"><div class="card p-0 shadow m-3" ><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
                 ' class="the_read_more_btn" style="color: #000">'+
                 '<img src="http://localhost/pencil/assets/images/posts/'+data['posts'][i].pencil_db_posts_post_image+'"'+
                 ' class="card-img-top img-fluid" style="height: 250px;width: 100%; align-self: center;">'+
