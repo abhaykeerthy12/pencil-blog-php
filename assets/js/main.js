@@ -113,7 +113,7 @@
   $(window).on('load', function(){
   
     // call ajax functions
-    create_category();list_category();hit_counter();search_box();   
+    create_category();list_category();hit_counter();search_box();create_comment();delete_comment();show_comments();   
 
     // call functions only on profile page
     if (window.location.pathname == "/pencil/users/profile") 
@@ -122,10 +122,156 @@
     // call functions only on main page
     if (window.location.pathname == "/pencil/posts") 
       show_posts();get_posts_by_category();load_more_posts();get_posts_by_date();
-    
+
+
+  function show_comments(){
+
+    post_id = $("#comment_post_id").attr("value");
+    post_user_id = $("#comment_post_user_id").attr("value");
+
+    $.ajax({
+      url: "http://localhost/pencil/comments/view",
+      type: "POST",
+      dataType: "JSON",
+      data: {post_id: post_id},
+      success: function(data){
+
+        if(data['user'].length > 0){ 
+           var user_is_admin = data['user'][0]['pencil_db_users_is_admin'];
+           var user_id_db = data['user'][0]['pencil_db_users_id'];
+        }
+
+        console.log(user_is_admin);
+
+        // if no, display "no comments" message            
+        var html = "<blockquote><hr> <p class='lead' >No comments for this post</p></blockquote><hr>";
+
+
+        if(data['comments'].length > 0){        
+        html = "<div>";
+        html +='<h2>'+data["comments"].length+' Comments</h2><br>';
+
+          for(i=0; i<data['comments'].length; i++){
+
+            html += '<ul class="list-unstyled"><li><div class="card container"><div class="clearfix"><br>'+
+                    '<img src="../assets/images/icons/placeholder-male.png" class="rounded-circle img-fluid" style="height: 50px;width: 50px;"><span>&nbsp;&nbsp;</span>'+
+                    '<span class="h4">'+data['comments'][i].pencil_db_comments_name+'</span><span>&nbsp;&nbsp;</span><span class="text-muted">'+data['comments'][i].pencil_db_comments_created_date+'</span>';
+
+             if(data['user'].length > 0){ 
+                if(user_id_db == post_user_id || user_is_admin == "yes"){
+                  html += '<button class="comment_delete_btn btn btn-danger float-right shadow" data="'+data['comments'][i].pencil_db_comments_id+'" style="border-radius: 50px;margin-right: 1em"><i class="fas fa-trash"></i></button>';
+                }
+             }
+
+
+            html += '<br></div><br><div class="container"><p class="text-wrap container" style="padding-left: 3em">'+data['comments'][i].pencil_db_comments_body+'</p></div><br></div><br></li></ul>'
+
+
+          }
+
+        }
+
+        html +=  "</div>";
+        $("#list_comment_box").html(html);
+
+
+      },
+      error: function(){
+        console.log('ajax error from show comments');
+      }
+    });
+  }
+
 
     
+  function create_comment(){
+    $('.comment_submit').on('click', function(event){
+      event.preventDefault();
 
+      var user_logged_in = $('#user_logged_in').attr('value');
+      var comment_post_id = $('#comment_post_id').attr('value');
+      var comment_post_slug = $('#comment_post_slug').attr('value');
+      var comment_body = $('#comment_body').val();
+
+      if(user_logged_in){
+
+          var comment_name = $('#comment_name').attr('value');
+          var comment_email = $('#comment_email').attr('value');
+
+      }else{
+
+          var comment_name = $('#comment_name').val();
+          var comment_email = $('#comment_email').val();
+
+      }
+
+      if((comment_body != "" && comment_email != "") && (comment_name != "")) {
+        
+        $.ajax({
+          url: "http://localhost/pencil/comments/create",
+          dataType: 'JSON',
+          type: 'POST',
+          data: {
+            comment_post_id: comment_post_id,
+            comment_post_slug: comment_post_slug,
+            comment_name: comment_name,
+            comment_email: comment_email,
+            comment_body: comment_body
+          },
+          success: function(response){ 
+
+            if(response){
+              
+              show_comments();
+              toastr.info("Comment Created!");
+              $('#comment_body').val('');
+
+              if(!user_logged_in){
+              $('#comment_name').val('');
+              $('#comment_email').val('');
+             }
+
+            }
+            
+           },
+          error: function(e){console.log("ajax error from create comment");}
+        });
+
+      }else{
+        toastr.warning("Fields are empty!");
+      }
+
+    
+    });
+  }
+
+  function delete_comment(){
+
+    $('#list_comment_box').on('click', '.comment_delete_btn', function(event){
+
+      event.preventDefault();
+
+      var comment_id = $(this).attr("data");
+      $.ajax({
+        url: "http://localhost/pencil/comments/delete",
+        type: "POST",
+        dataType: "JSON",
+        data: {comment_id: comment_id},
+        success: function(response){
+          if(response){
+            show_comments();
+            toastr.error("Comment Deleted!");
+          }
+        },
+        error: function(){
+          console.log("ajax error from delete comment");
+        }
+      });
+
+        
+    });
+
+  }
   // category filetering using checkbox function
   function get_posts_by_category(){
     var postcounter = 4;
@@ -200,7 +346,7 @@
 
       // hit counter
       function hit_counter(){
-        $(".blog-body").on("click", "#the_read_more_btn", function (event) {
+        $(".blog-body").on("click", ".the_read_more_btn", function (event) {
         
           var post_id = $(this).attr('data');
           post_id = Number(post_id);
@@ -254,7 +400,8 @@
         if(data['posts'].length > 0){        
         html = "<div class='row'>";
         for(i=0; i<data['posts'].length; i++){
-        html += '<div class="card-deck col-lg-6"><div class="card w-100 shadow m-2" >'+
+        html += '<div class="card-deck col-lg-6"><div class="card w-100 shadow m-2" ><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
+                ' class="the_read_more_btn" style="color: #000">'+
                 '<img src="http://localhost/pencil/assets/images/posts/'+data['posts'][i].pencil_db_posts_post_image+'"'+
                 ' class="card-img-top img-fluid" style="height: 250px;width: 100%; align-self: center;">'+
                 '<div class="card-body"><span class="text-muted" style="font-size: 12px;text-decoration: none;">';
@@ -267,8 +414,7 @@
                '|<span>&nbsp;&nbsp;</span><i class="far fa-eye"></i><span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_posts_views+'<span>&nbsp;&nbsp;</span>'+
                 '|<span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_categories_name+'<span>&nbsp;&nbsp;</span></span><br><br>'+
                 '<p class="card-title h5">'+data['posts'][i].pencil_db_posts_title+'</p></div>'+
-                '<div class="card-footer"><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
-                'class="btn btn-primary btn-block shadow" id="the_read_more_btn">Read More</a></div>'+
+                '</a>'+
                 '</div></div>';
         }html += "</div>";}$(".blog-body").html(html);
       }

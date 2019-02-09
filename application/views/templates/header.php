@@ -106,8 +106,6 @@ if ($this->session->flashdata('post_updated'))
 	toastphp('Post Updated!','success');
 if ($this->session->flashdata('comment_deleted')) 
 	toastphp('Comment Deleted!','error');
-if ($this->session->flashdata('comment_created')) 
-	toastphp('Comment Created!','info');
 
 ?> 
 	

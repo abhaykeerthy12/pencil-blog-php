@@ -28,46 +28,8 @@
 					
 
 				<!-- list comments -->
-				<div>
-					<!-- check if any comments are present -->
-					<?php if ($comments): ?>
-					<h2>6 Comments</h2><br>
-					<ul class="list-unstyled">
-						<!-- is yes, then loop through them and display them -->
-						<?php foreach ($comments as $comment): ?>
-						<li>
-							<div class="card container">	
-								<div class="clearfix"><br>
-								  <img src="../assets/images/icons/placeholder-male.png" class="rounded-circle img-fluid" style="height: 50px;width: 50px;">
-								  <span>&nbsp;&nbsp;</span>
-								  <span class="h4"><?php echo ucfirst($comment['pencil_db_comments_name']); ?></span>
-								  <span>&nbsp;&nbsp;</span>
-								  <span class="text-muted">Jan 2019</span>
-								 
-								  <?php if($this->session->userdata('user_id') == $post['pencil_db_posts_user_id'] || $this->session->userdata('is_admin') == 'yes') : ?>
-											
-											<form action="<?php echo base_url(); ?>comments/delete/<?php echo $comment['pencil_db_comments_id'] ?>" method="POST">
-												<!-- passing slug hidden for further processing -->
-												<input type="hidden" name="comment_post_slug" value="<?php echo $post['pencil_db_posts_slug']; ?>">
-									  			<button type="submit" class="btn btn-danger float-right shadow" style="border-radius: 50px;margin-right: 1em"><i class="fas fa-trash"></i></button>
-										    </form>
-
-								  <?php endif; ?>
-
-								<br></div><br>
-								<div class="container">
-									<p class="text-wrap container" style="padding-left: 3em"><?php echo $comment['pencil_db_comments_body']; ?></p>
-								</div>
-							<br></div><br>
-						</li>
-						<?php endforeach;?>
-					</ul>
-					<?php else: ?>
-						<!-- if no, display "no comments" message -->
-						<blockquote><hr>
-							<p class="lead" >No comments for this post</p>
-						</blockquote><hr>
-					<?php endif;?>
+				<div id="list_comment_box">
+				
 				</div><br>
 				
 
@@ -77,51 +39,60 @@
 					<div class="card shadow container" style="padding: 2em">
 
 						<h2>Leave a comment</h2><br>
-						<!-- show any errors while filling form -->
-						<?php echo validation_errors(); ?>
+						
 						<!-- form starts -->
 							<?php if($post['pencil_db_posts_user_id'] == $this->session->userdata('user_id') || $this->session->userdata('logged_in')): ?>
 
-								<?php echo form_open('comments/create/' . $post['pencil_db_posts_id']); ?>
+								
 							
 								<div class="form-group">
+
+									<input type="hidden" id="comment_post_id" value="<?php echo $post['pencil_db_posts_id']; ?>">
+									<input type="hidden" id="comment_post_user_id" value="<?php echo $post['pencil_db_posts_user_id']; ?>">
+
 									<input type="hidden" id="comment_name" name="comment_name" value="<?php echo $this->session->userdata('user_username') ?>">
 			  						<input type="hidden" id="comment_email" name="comment_email" value="<?php echo $this->session->userdata('user_email') ?>">
 
-									<textarea rows="2" class="form-control" name="comment_body" placeholder="Comment" required></textarea><br>	
+			  						<input type="hidden" id="user_logged_in" value="<?php echo $this->session->userdata('logged_in'); ?>">
+
+									<textarea rows="2" class="form-control" id="comment_body" name="comment_body" placeholder="Comment" required></textarea><br>	
 
 									<!-- passing slug hidden for further processing -->
-									<input type="hidden" name="comment_post_slug" value="<?php echo $post['pencil_db_posts_slug']; ?>">
+									<input type="hidden" id="comment_post_slug" name="comment_post_slug" value="<?php echo $post['pencil_db_posts_slug']; ?>">
 
 									<div class="text-center">
-											<button type="submit" class="btn btn-primary shadow">Comment</button>
+											<button class="comment_submit btn btn-primary shadow">Comment</button>
 									</div>
 								</div>
 										  
-								<?php echo form_close(); ?>
+								
 								<!-- form over -->
 
 							<?php else: ?>
 
-								<?php echo form_open('comments/create/' . $post['pencil_db_posts_id']); ?>
 							
 								<div class="form-group">
+
+									<input type="hidden" id="comment_post_id" value="<?php echo $post['pencil_db_posts_id']; ?>">
+
+									<input type="hidden" id="user_logged_in" value="<?php echo $this->session->userdata('logged_in'); ?>">
+
 									<input type="text" id="comment_name" class="form-control" placeholder="Name" name="comment_name"><br>
 			  						<input type="email" class="form-control" placeholder="Email" id="comment_email" name="comment_email"><br>
 
 
-									<textarea rows="2" class="form-control" name="comment_body" placeholder="Comment" required></textarea><br>	
+									<textarea rows="2" class="form-control" id="comment_body" name="comment_body" placeholder="Comment" required></textarea><br>	
 
 									<!-- passing slug hidden for further processing -->
-									<input type="hidden" name="comment_post_slug" value="<?php echo $post['pencil_db_posts_slug']; ?>">
+									<input type="hidden" id="comment_post_slug" name="comment_post_slug" value="<?php echo $post['pencil_db_posts_slug']; ?>">
 
 									<div class="text-center">
-											<button type="submit" class="btn btn-primary shadow">Comment</button>
+											<button class="comment_submit btn btn-primary shadow">Comment</button>
 									</div>
 								</div>
 										  
-								<?php echo form_close(); ?>
 								<!-- form over -->
+
 						<?php endif; ?>
 		
 					</div>	

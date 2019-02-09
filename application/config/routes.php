@@ -21,6 +21,9 @@ $route['categories/delete'] = 'categories/delete';
 $route['categories'] = 'categories/index';
 $route['categories/posts/(:any)'] = 'categories/posts/$1';
 
+$route['comments/create'] = 'comments/create';
+
+
 $route['(:any)'] = 'pages/view/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

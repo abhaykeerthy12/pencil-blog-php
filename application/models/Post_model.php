@@ -220,7 +220,7 @@ class Post_model extends CI_Model
         if($last_post_from_db == $post_id){
 
                 // check if last time is between the time limit
-                if($last_time > $current_time_minus_five_min && $last_time < $current_time){
+                if($last_time < $current_time_minus_five_min && $last_time < $current_time){
 
                     // the visiter visited this post after 5 mins of last visit
                     // update last time

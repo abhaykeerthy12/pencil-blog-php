@@ -32,7 +32,6 @@ class Posts extends CI_Controller
         
 
  
-        //  $this->load->view('posts/blog-card', $data);
          echo json_encode($data);
     }
 

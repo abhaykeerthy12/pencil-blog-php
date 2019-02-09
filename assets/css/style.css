@@ -251,4 +251,6 @@ nav input[type=search]:active, input[type=search]:focus, .btn:focus,.btn:active 
   
 }
 
-
+a, a:hover{
+  text-decoration: none;
+}

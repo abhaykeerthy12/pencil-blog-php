@@ -3,47 +3,42 @@ class Comments extends CI_Controller
 {
 
     // create comment function
-    public function create($post_id)
+    public function create()
     {
-
+        $post_id = $this->input->post('comment_post_id');
         // get the slug of post to work on
         $slug = $this->input->post('comment_post_slug');
-
         // get the post with the passed slug
         $data['post'] = $this->Post_model->get_posts($slug);
+        // if everything is ok, call create comment function
+        $this->Comment_model->create_comment($post_id);    
+          
+        $response = true;
+        echo json_encode($response);
+    }
 
-        // set form validation rules
-        $this->form_validation->set_rules('comment_name', 'Name', 'required');
-        $this->form_validation->set_rules('comment_email', 'Email', 'required');
-        $this->form_validation->set_rules('comment_body', 'Comment', 'required');
+    public function view(){
+         $post_id = $this->input->post('post_id');
+         if($this->session->userdata('logged_in')){
+           $user_email = $this->session->userdata['user_email'];
+           $data['user'] = $this->User_model->get_user_datas($user_email);
 
-        if ($this->form_validation->run() === false) {
-
-            // if any error occured, re-render the post view page
-            $this->load->view('templates/header');
-            $this->load->view('posts/view', $data);
-            $this->load->view('templates/footer');
-        } else {
-
-            // if everything is ok, call create comment function
-            $this->Comment_model->create_comment($post_id);
-
-            $this->session->set_flashdata('comment_created', 'the comment is created');
-
-            // render the post view page with the matching slug
-            redirect('posts/' . $slug);
-        }
+         }else{$data['user'] = false;}
+         
+         $data['comments'] = $this->Comment_model->get_comments($post_id);
+         echo json_encode($data);
     }
 
     // delete comments
-    public function delete($id)
+    public function delete()
     {
         // get the slug of post to work on
-        $slug = $this->input->post('comment_post_slug');
+        $id = $this->input->post('comment_id');
         // delete the post with matching id
         $this->db->where('pencil_db_comments_id', $id);
-        $this->db->delete('pencil_db_comments');
-        $this->session->set_flashdata('comment_deleted', 'the comment is deleted');
-        redirect('posts/' . $slug);
+        $this->db->delete('pencil_db_comments');  
+        $response = true;
+        echo json_encode($response);
+
     }
 }
