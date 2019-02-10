@@ -112,6 +112,8 @@ if ($this->session->flashdata('comment_deleted'))
 <div id="search_result_box_container">
 <div id="search_result_box" class="p-3 blog-body" style="display: none;overflow: hidden;">
 	<p class="lead text-center m-5">Field Is Empty, Type Some Keywords!</p>
+     <hr><div class='d-flex justify-content-center'><button id='search_box_close' class='btn shadow-lg btn-danger btn-lg'><i class='fas shadow-lg fa-times fa-2x'></i></button></div><br>
+
 </div>
 </div>
 

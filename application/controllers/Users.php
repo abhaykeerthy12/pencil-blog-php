@@ -110,6 +110,11 @@ class Users extends CI_Controller
     // signup
     public function register()
     {
+
+        if($this->session->userdata('logged_in')){
+                redirect('posts');
+        }
+        
         $data['title'] = "Sign up!";
 
         // some normal form validation rules
@@ -158,6 +163,11 @@ class Users extends CI_Controller
     // login
     public function login()
     {
+
+        if($this->session->userdata('logged_in')){
+                redirect('posts');
+        }
+
         $data['title'] = "Login!";
 
         // form->> rules

@@ -68,7 +68,7 @@
         </span><br><br>
         
         <!-- card title -->
-        <span class="card-title h5"><?php echo $post['pencil_db_posts_title'];?></span>
+        <span class="card-title"><?php echo $post['pencil_db_posts_title'];?></span>
         
         <?php endif; ?>
         <?php endforeach; ?>
@@ -144,7 +144,7 @@
         </span><br><br>
         
         <!-- card title -->
-        <span class="card-title h5"><?php echo $post['pencil_db_posts_title'];?></span>
+        <span class="card-title"><?php echo $post['pencil_db_posts_title'];?></span>
         
         <?php endif; ?>
         <?php endforeach; ?>

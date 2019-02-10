@@ -180,7 +180,7 @@ class Post_model extends CI_Model
     
              // get posts by category with the matching category id
             $this->db->order_by('pencil_db_posts.pencil_db_posts_id', 'DESC');
-
+            $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
             $this->db->where('pencil_db_posts_created_date >=', $from_date);
             $this->db->where('pencil_db_posts_created_date <=', $to_date);
             $this->db->limit($post_number);
@@ -188,6 +188,8 @@ class Post_model extends CI_Model
             // get the data
             $query = $this->db->get('pencil_db_posts');
             return $query->result_array();
+
+           
     }
 
     // add ip of new visiter and also increment the counter

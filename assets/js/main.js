@@ -13,7 +13,7 @@
 
     // searchbox close
     $("#search_result_box_container").on('click', '#search_box_close', function(e){
-      $("#search_result_box").slideUp();
+      $("#search_result_box").slideUp(100);
       $("#nav_search_box").val('');
     });
 
@@ -119,7 +119,7 @@
   $(window).on('load', function(){
   
     // call ajax functions
-    create_category();list_category();hit_counter();search_box();create_comment();delete_comment();show_comments();   
+    create_category();list_category();hit_counter();search_box();create_comment();delete_comment();show_comments();search_box_animation();   
 
     // call functions only on profile page
     if (window.location.pathname == "/pencil/users/profile") 
@@ -128,6 +128,35 @@
     // call functions only on main page
     if (window.location.pathname == "/pencil/posts") 
       show_posts();get_posts_by_category();load_more_posts();get_posts_by_date();
+
+
+    function search_box_animation(){
+
+        $('#filter_btn').on('click', function(event){
+          event.preventDefault();
+          $("#filter_box").slideToggle(100);
+
+          show_posts();
+
+          var status = $(this).html();
+
+          if(status === '<i class="fas fa-2x shadow-lg fa-sliders-h"></i>')
+          {
+               $(this).html('<i class="fas fa-2x shadow-lg fa-times"></i>');
+               $(this).addClass('btn-danger filter_btn_close');
+               $(this).removeClass('btn-primary');
+          }
+          else
+          {
+               $(this).html('<i class="fas fa-2x shadow-lg fa-sliders-h"></i>');
+               $(this).addClass('btn-primary');
+               $(this).removeClass('btn-danger filter_btn_close');
+               
+          }
+
+        });
+
+  }
 
 
   function show_comments(){
@@ -283,14 +312,14 @@
   }
   // category filetering using checkbox function
   function get_posts_by_category(){
-    var postcounter = 4;
+    var postcounter = 10;
     var category_id = [];
 
     $('#category_filter_submit').click(function(){
 
       // prevent default behaviour of submit button
       event.preventDefault();
-      postcounter = postcounter + 4;
+      postcounter = postcounter + 10;
 
       $("input[name='category_name']:checked").each(function(i){
               category_id[i] = $(this).val();
@@ -320,33 +349,39 @@
 
         // filter by date
         function get_posts_by_date(){
-          var postcounter = 4;
+          var postcounter = 10;
           
-  
+
   
                 $('#date_filter_box').on('click', '#date_filter', function(){
   
                     // prevent default behaviour of submit button
                     event.preventDefault();
-                    postcounter = postcounter + 4;
+                    postcounter = postcounter + 10;
   
   
                     var dates = [];
   
                    dates[0] = $('#from_date').val();
                    dates[1] = $('#to_date').val();
+
+                   if(dates[0] == "" && dates[1] == "")
+                      dates.length = 0;
                     
-  
+                    if(dates.length > 0){
                     var JSON_date = JSON.stringify(dates);
-  
                     // ajax to get posts based on selected categories
                     $.ajax({
                                 url:"http://localhost/pencil/posts/cardbydate",
                                 data: {dates: JSON_date, nextpostnumber: postcounter},
                                 type:'POST',
                                 dataType: 'json',
-                                success: function (data) {blog_card(data);},error: function () {console.log("my bad");}});
-                          });
+                                success: function (data) {blog_card(data);dates.length = 0;},error: function () {console.log("my bad");}
+                            });
+                   }else
+                      show_posts();
+
+                  });
   
               }
 
@@ -375,20 +410,26 @@
 
       // show posts
       function show_posts(){
-        var postcounter = 4;
+        var postcounter = 10;
         $.ajax({
           type: 'post',
           url: "http://localhost/pencil/posts/card",
           dataType: 'json',
           data: {nextpostnumber: postcounter},
-          success: function (data) {blog_card(data);},error: function () {console.log("my bad");}});
+          success: function (data) 
+          {
+            blog_card(data);
+            if(postcounter >= data['num_posts']){
+              $("#load_more_container").hide();
+            }
+          },error: function () {console.log("my bad");}});
       }
 
       // show posts
       function load_more_posts(){       
-        var postcounter = 4;
+        var postcounter = 10;
         $("#load_more").on('click', '.btn', function(){
-        postcounter = postcounter + 4;
+        postcounter = postcounter + 10;
         $.ajax({
           type: 'post',
           url: "http://localhost/pencil/posts/card",
@@ -407,9 +448,9 @@
       function blog_card(data){        
         var html = "NO POSTS";
         if(data['posts'].length > 0){        
-        html = "<div class='row'>";
+        html = "<div class='row d-flex justify-content-center'>";
         for(i=0; i<data['posts'].length; i++){
-        html += '<div class="card-deck col-lg-6"><div class="card p-0 shadow m-3" ><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
+        html += '<div class="card-deck col-lg-4"><div class="card p-0 shadow m-3" ><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
                 ' class="the_read_more_btn" style="color: #000">'+
                 '<img src="http://localhost/pencil/assets/images/posts/'+data['posts'][i].pencil_db_posts_post_image+'"'+
                 ' class="card-img-top img-fluid" style="height: 250px;width: 100%; align-self: center;">'+
@@ -422,7 +463,7 @@
         html +='<span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-clock"></i><span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_posts_created_date+'<span>&nbsp;&nbsp;</span>'+
                '|<span>&nbsp;&nbsp;</span><i class="far fa-eye"></i><span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_posts_views+'<span>&nbsp;&nbsp;</span>'+
                 '|<span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_categories_name+'<span>&nbsp;&nbsp;</span></span><br><br>'+
-                '<p class="card-title h5">'+data['posts'][i].pencil_db_posts_title+'</p></div>'+
+                '<div class="card-title">'+data['posts'][i].pencil_db_posts_title+'</div></div>'+
                 '</a>'+
                 '</div></div>';
         }html += "</div>";}$(".blog-body").html(html);
@@ -750,7 +791,7 @@
           $(".nav_search_btn").on('click', function (event) {
 
             
-            $("#search_result_box").slideDown();
+            $("#search_result_box").slideDown(200);
 
             
 
@@ -758,6 +799,7 @@
 
             if(search_term == ""){
               html = "<p class='lead text-center m-5'>Field Is Empty, Type Some Keywords!</p>";
+              html += "<hr><div class='d-flex justify-content-center'><button id='search_box_close' class='btn shadow-lg btn-danger btn-lg'><i class='fas shadow-lg fa-times fa-2x'></i></button></div><br>";
               $("#search_result_box").html(html);
 
             }else{
@@ -778,15 +820,15 @@
                   html += "<div class='row w-100' style='margin: auto'>";
                   for(i=0; i<data['posts'].length; i++){
 
-                   html += "<div class='card-deck d-flex col-lg-6 justify-content-center'>"+
-                            "<div class='card shadow-lg m-3 w-100' style='overflow: hidden'><a href='http://localhost/pencil/posts/"+data['posts'][i].pencil_db_posts_slug+"' data='"+data['posts'][i].pencil_db_posts_id+"' class='the_read_more_btn' style='color: #000'><div class='row'>"+
-                            "<div class='col-lg-6'><img class='card-img' src='http://localhost/pencil/assets/images/posts/"+data['posts'][i].pencil_db_posts_post_image+"'></div>"+
-                            "<div class='col-lg-6 w-100 card' style='border: none;'><div class='card-title h-3 p-4'>"+data['posts'][i].pencil_db_posts_title+"</div>";
+                   html += "<div class='card-deck d-flex col-lg-4 justify-content-center' style='margin-right: auto;margin-left: auto'>"+
+                            "<div class='card shadow-lg m-3 w-100' style='overflow: hidden'><a href='http://localhost/pencil/posts/"+data['posts'][i].pencil_db_posts_slug+"' data='"+data['posts'][i].pencil_db_posts_id+"' class='the_read_more_btn' style='color: #000'>"+
+                            "<div class='' style='overflow: hidden'><img class='img-fluid card-img-top m-0 p-0 w-100 ' src='http://localhost/pencil/assets/images/posts/"+data['posts'][i].pencil_db_posts_post_image+"'></div>"+
+                            "<div class='card-body w-100'>";
 
                    for(j=0; j<data['users'].length; j++){
                       if(data['posts'][i].pencil_db_posts_user_id == data['users'][j].pencil_db_users_id){
-                        html +=  "<div class='card-footer' style='border-top: 1px solid #eee'><p><span class='badge badge-light mr-1'>"+data['users'][j].pencil_db_users_username+"</span><span class='badge badge-light'>"+data['posts'][i].pencil_db_categories_name+"</span></p></div></div>"+
-                                "</div></a></div></div>";
+                        html +=  "<p><span class='badge badge-light mr-1'>"+data['users'][j].pencil_db_users_username+"</span><span class='badge badge-light'>"+data['posts'][i].pencil_db_categories_name+"</span></p><div class='card-title '>"+data['posts'][i].pencil_db_posts_title+"</div></div>"+
+                                "</div></a></div>";
                       }
                     }
                         
@@ -797,8 +839,11 @@
                 html += "<hr><div class='d-flex justify-content-center'><button id='search_box_close' class='btn shadow-lg btn-danger btn-lg'><i class='fas shadow-lg fa-times fa-2x'></i></button></div><br>";
 
                 $("#search_result_box").html(html);
-                search_term = "";
-                console.log("working!!!!");
+                search_term = "";         
+                $('.the_read_more_btn').on('click', function(){
+                 $("#nav_search_box").val(''); 
+                });
+
               },error: function () {
                 console.log("my bad from search box");
               }
