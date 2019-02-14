@@ -11,6 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/fonts/font_awesome/css/all.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/toastr.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/date-picker.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/animate.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/style.css">
 
 	</head>

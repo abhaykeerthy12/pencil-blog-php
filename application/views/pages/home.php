@@ -1,35 +1,14 @@
-<!-- the banner -->
-<section id="title_box"><br>
-  <div id="title_text">
-    <h1 class="ml6">
-    <span class="text-wrapper">
-      <span class="letters">Pencil</span>
-    </span>
-  </h1>
-    <h5 class="ml3">Let the ideas flow...</h5>
-  </div> 
+<!-- main bg image and text -->
+<section id="showcase">
+
+<div id="showcase_text" class="text-center">
+  <h1 class="display-1 animated bounceInDown">Pencil</h1>
+  <p class="animated bounceInLeft" style="font-family: 'Courgette';">Let the ideas flow...</p>
+  <button class="btn btn-primary animated bounceInUp shadow-lg">Lets go!</button>
+</div>
+
 </section>
-<!-- the banner ends -->
-
-
-<!-- giant quote -->
-
-<section class="giant-quote jumbotron text-center container">
-  <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12">
-
-
-
-      <p id="quote" class="ml3">"The more that you read, the more things you will know. <br>The more that you learn, the more places you’ll go."</p><br>
-      <p id="author" class="ml3">― Dr. Seuss</p>
-
-      
-    </div><br><br><br>
-  </div>
-</section><hr>
-
-<!-- the giant quote ends -->
-
+<!-- main image ends -->
 
 <!-- latest posts start -->
 <section class="latest_posts" style="margin-left: 5%;margin-right: 5%"><br>

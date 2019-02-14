@@ -17,43 +17,41 @@
     url('../fonts/courgette-v5-latin/courgette-v5-latin-regular.svg#Courgette') format('svg');
     /* Legacy iOS */
 }
-/*
-body{
-  
-}*/
 
-/*anime js style start*/
-.ml6 {
-  position: relative;
-  font-weight: 20;
-  font-size: 4.3em;
-  margin-top: 2.5%;
+/* ubuntu-regular - latin */
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/ubuntu-v12-latin/ubuntu-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Ubuntu Regular'), local('Ubuntu-Regular'),
+       url('../fonts/ubuntu-v12-latin/ubuntu-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/ubuntu-v12-latin/ubuntu-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/ubuntu-v12-latin/ubuntu-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/ubuntu-v12-latin/ubuntu-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/ubuntu-v12-latin/ubuntu-v12-latin-regular.svg#Ubuntu') format('svg'); /* Legacy iOS */
 }
 
-.ml6 .text-wrapper {
-  position: relative;
-  display: inline-block;
-  padding: 0 20px;
+body,h1,h2,h3,h4,h5,h6,p,a{
+  font-family: 'Ubuntu';  
+}
+
+#showcase{
+  background-image: url('../images/images/bg.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  height: 90vh;
   overflow: hidden;
 }
 
-.ml6 .letter {
-  display: inline-block;
-  line-height: 1em;
-}
-/*anime js style ends*/
-
-#title_box{
-  width: 100%;
-  height: 250px;
-  text-align: center;
-  background-image: url('../images/images/bg3.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  display: block;
+#showcase_text{
   color: #fff;
-  font-family: 'Courgette';
+  padding-top: 23vh;
+  text-shadow: 1px 2px 2px rgba(0,0,0,0.3);
+  font-family: 'Courgette';  
 }
 
 .navbar-brand{
