@@ -140,12 +140,20 @@
                 <div class="card-body">
                     <span class="comment_counter h5" style="font-size: 2em">0</span><br>
                     <span class="font-weight-bold text-muted">COMMENTS</span>
+                    <!-- display comment count -->
+                    <?php $comment_counter = 0; ?>
+                    <?php foreach ($comments as $comment): ?>
+                    <?php if($comment['pencil_db_comments_name'] == $this->session->userdata('user_username')) : ?>
+                      <?php $comment_counter++; ?>
+                    <?php endif; ?>
+                    <?php endforeach; ?>                 
                     <script>
-                        var a = '';
+                        var a = '<?php echo $comment_counter; ?>';
                         $(".comment_counter").animateNumber({number: a});
                     </script>
-                </div>
-                
+                    
+                    <?php $comment_counter = 0; ?>
+                </div>               
         </div>
 
         <!-- view counter -->

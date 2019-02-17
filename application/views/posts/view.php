@@ -15,9 +15,11 @@
 				<h1 class="text-wrap"><?php echo ucfirst($post['pencil_db_posts_title']); ?></h1><br>
 				
 				<a href="" class="text-muted" style="font-size: 13px;text-decoration: none;">
-					<img src="<?php echo site_url(); ?>assets/images/profile/<?php echo $user['pencil_db_users_image'];?>" class="rounded-circle img-fluid" style="height: 50px;width: 50px;">
-					<span>&nbsp&nbsp</span><?php echo $user['pencil_db_users_username']; ?><span>&nbsp&nbsp</span>|
-					<span>&nbsp&nbsp</span><i class="far fa-clock"></i><span>&nbsp&nbsp</span>Jan 2019<span>&nbsp&nbsp</span>|<span>&nbsp&nbsp</span><i class="far fa-eye"></i><span>&nbsp&nbsp</span>500<span>&nbsp&nbsp</span>
+					<img src="<?php echo site_url(); ?>assets/images/profile/<?php echo $user['pencil_db_users_image'];?>" class="rounded-circle img-fluid mr-1" style="height: 50px;width: 50px;">
+					<span class="mr-1"><?php echo $user['pencil_db_users_username']; ?></span>|
+					<span class="mr-1 ml-1"><i class="far fa-clock"></i></span>
+            		<span class="mr-1"><?php echo date('d-M-y', strtotime(str_replace('-','/', $post['pencil_db_posts_created_date'])));?></span>
+					|<span class="ml-1 mr-1"><i class="far fa-eye"></i></span><span class="mr-1"><?php echo $post['pencil_db_posts_views'] ?></span>
 					
 				</a><br><br>
 

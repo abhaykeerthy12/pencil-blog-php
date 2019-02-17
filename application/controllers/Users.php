@@ -22,6 +22,8 @@ class Users extends CI_Controller
 
         // get count of views for posts
         $data['views'] = $this->User_model->get_views($id)->result();
+            $data['comments'] = $this->Comment_model->get_comments(false);
+        
         // $data = array(
         //     'sum_simpan' => $this->User_model->get_views($id)->result()
         // ); 

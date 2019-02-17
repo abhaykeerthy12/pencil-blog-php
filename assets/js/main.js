@@ -146,8 +146,8 @@
           for(i=0; i<data['comments'].length; i++){
 
             html += '<ul class="list-unstyled"><li><div class="card container"><div class="clearfix"><br>'+
-                    '<img src="../assets/images/icons/placeholder-male.png" class="rounded-circle img-fluid" style="height: 50px;width: 50px;"><span>&nbsp;&nbsp;</span>'+
-                    '<span class="h4">'+data['comments'][i].pencil_db_comments_name+'</span><span>&nbsp;&nbsp;</span><span class="text-muted">'+data['comments'][i].pencil_db_comments_created_date+'</span>';
+                    '<img src="../assets/images/icons/placeholder-male.png" class="rounded-circle img-fluid mr-2" style="height: 50px;width: 50px;">'+
+                    '<span class="h5 mr-2">'+data['comments'][i].pencil_db_comments_name+'</span><span class="text-muted">'+moment(data['comments'][i].pencil_db_posts_created_date).format("MMM Do YYYY")+'</span>';
 
              if(data['user'].length > 0){ 
                 if(user_id_db == post_user_id || user_is_admin == "yes"){
@@ -778,7 +778,7 @@
                           if(data['posts'][i].pencil_db_posts_user_id == data['users'][j].pencil_db_users_id){
                             html +='<div class="card-footer p-2"><p><span><img src="http://localhost/pencil/assets/images/profile/'+data['users'][j].pencil_db_users_image+'" class="rounded-circle img-fluid mr-1" style="height: 30px;width: 30px;"></span>'+
                                    '<span class="badge badge-light">'+data['users'][j].pencil_db_users_username+'</span>';}}
-                      html +='<span class="badge float-right badge-light"><i class="fas fa-clock mr-1"></i>'+data['posts'][i].pencil_db_posts_created_date+'</span></p></div></a></div></div>';}
+                      html +='<span class="badge float-right badge-light"><i class="fas fa-clock mr-1"></i>'+moment(data['posts'][i].pencil_db_posts_created_date).format("DD-MMM-YY")+'</span></p></div></a></div></div>';}
                       html += "</section><hr><div class='d-flex justify-content-center'><button id='search_box_close' class='btn shadow-lg btn-danger btn-lg'><i class='fas shadow-lg fa-times fa-2x'></i></button></div><br>";}
                       $("#search_result_box").html(html);search_term = "";
                       $('.the_read_more_btn').on('click', function(){

@@ -55,8 +55,9 @@
           <span><img src="<?php echo site_url(); ?>assets/images/profile/<?php echo $user['pencil_db_users_image'];?>" class="rounded-circle img-fluid mr-1" style="height: 30px;width: 30px;"></span>
           <span class="badge badge-light"><?php echo $user['pencil_db_users_username'] ?></span> 
           <span class="badge float-right badge-light">
-            <i class="fas fa-clock mr-1"></i><?php echo $post['pencil_db_posts_created_date'];?>
-          </span>
+            <i class="fas fa-clock mr-1"></i>
+            <?php echo date('d-M-y', strtotime(str_replace('-','/', $post['pencil_db_posts_created_date'])));?> 
+         </span>
         <?php endif; ?>
         <?php endforeach; ?>
         </p>
@@ -135,8 +136,9 @@
           <span><img src="<?php echo site_url(); ?>assets/images/profile/<?php echo $user['pencil_db_users_image'];?>" class="rounded-circle img-fluid mr-1" style="height: 30px;width: 30px;"></span>
           <span class="badge badge-light"><?php echo $user['pencil_db_users_username'] ?></span> 
           <span class="badge float-right badge-light">
-            <i class="fas fa-clock mr-1"></i><?php echo $post['pencil_db_posts_created_date'];?>
-          </span>
+            <i class="fas fa-clock mr-1"></i>
+            <?php echo date('d-M-y', strtotime(str_replace('-','/', $post['pencil_db_posts_created_date'])));?> 
+         </span>
         <?php endif; ?>
         <?php endforeach; ?>
         </p>
