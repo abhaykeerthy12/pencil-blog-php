@@ -48,20 +48,19 @@
 
     toggler_cards('#edit_card_toggle_btn', '#edit_profile_form', "Change Anything?"); 
     toggler_cards('#user_profile_advanced_btn', '#user_profile_advanced', 'Advanced');
-    toggler_cards('.category_create_btn', '#create_category_form', 'Add Category');
     
-    // change text on two buttons in create category
-    $(".category_form_close_btn").click(function(event){
-      event.preventDefault();
+     function toggler_cards_category(btn, card, msg){
+        $(btn).click(function(){           
+          if ($(this).text() == msg){ 
+            $(this).text("Close");     
+          }else {
+            $(this).text(msg); 
+          }
+          $(card).toggle();});
+    }
 
-      if ($(".category_create_btn").text() == "Add Category") { 
-      $(".category_create_btn").text("Close"); 
-      } else { 
-      $(".category_create_btn").text("Add Category"); 
-    }; 
-
-    $('#create_category_form').slideUp();
-    });
+    toggler_cards_category('.category_create_btn', '#create_category_form', 'Add');
+    toggler_cards_category('.category_form_close_btn', '#create_category_form', 'Add');
 
 
     
@@ -402,26 +401,27 @@
 
       function blog_card(data){        
         var html = "NO POSTS";
+        var comment_count = 0;
         if(data['posts'].length > 0){        
-        html = "<div class='row d-flex justify-content-center'>";
+        html = '<section class="row d-flex justify-content-center">';
         for(i=0; i<data['posts'].length; i++){
-        html += '<div class="card-deck col-lg-4"><div class="card p-0 shadow m-3" ><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
+        html += '<div class="card-deck col-lg-4"><div class="card shadow-lg faster animated zoomIn p-0 m-3"><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
                 ' class="the_read_more_btn" style="color: #000">'+
-                '<img src="http://localhost/pencil/assets/images/posts/'+data['posts'][i].pencil_db_posts_post_image+'"'+
-                ' class="card-img-top img-fluid" style="height: 250px;width: 100%; align-self: center;">'+
-                '<div class="card-body"><span class="text-muted" style="font-size: 12px;text-decoration: none;">';
-        // show user details of the post author 
+                '<img src="http://localhost/pencil/assets/images/posts/'+data['posts'][i].pencil_db_posts_post_image+'" class="w-100 card-img img-fluid" style="height: 200px;">'+
+                '<div class="card-header p-2"><p><span class="badge badge-light"><i class="fas fa-tags mr-1"></i>'+data['posts'][i].pencil_db_categories_name+'</span>';       
+        if(data['comments'].length == false)
+          data['comments'].length = 0;          
+        for(k=0; k<data['comments'].length; k++){
+          if(data['comments'][k].pencil_db_comments_post_id === data['posts'][i].pencil_db_posts_id){comment_count++;}}
+        html += '<span class=" float-right"><span class="badge badge-light mr-1 "><i class="fas fa-comments mr-1"></i>'+comment_count+'</span>';comment_count = 0;
+        html += '<span class="badge badge-light"><i class="fas fa-eye mr-1"></i>'+data['posts'][i].pencil_db_posts_views+'</span></span></p></div>'+
+                '<div class="card-body p-0 pl-3 pr-3"><p class="card-title">'+data['posts'][i].pencil_db_posts_title+'</p></a></div>';
         for(j=0; j<data['users'].length; j++){
             if(data['posts'][i].pencil_db_posts_user_id == data['users'][j].pencil_db_users_id){
-              html +='<img src="http://localhost/pencil/assets/images/profile/'+data['users'][j].pencil_db_users_image+'" class="rounded-circle img-fluid mr-2" style="height: 30px;width: 30px;">'+ data['users'][j].pencil_db_users_username;
-        }}
-        html +='<span>&nbsp;&nbsp;</span>|<span>&nbsp;&nbsp;</span><i class="far fa-clock"></i><span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_posts_created_date+'<span>&nbsp;&nbsp;</span>'+
-               '|<span>&nbsp;&nbsp;</span><i class="far fa-eye"></i><span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_posts_views+'<span>&nbsp;&nbsp;</span>'+
-                '|<span>&nbsp;&nbsp;</span>'+data['posts'][i].pencil_db_categories_name+'<span>&nbsp;&nbsp;</span></span><br><br>'+
-                '<div class="card-title">'+data['posts'][i].pencil_db_posts_title+'</div></div>'+
-                '</a>'+
-                '</div></div>';
-        }html += "</div>";}$(".blog-body").html(html);
+              html +='<div class="card-footer p-2"><p><span><img src="http://localhost/pencil/assets/images/profile/'+data['users'][j].pencil_db_users_image+'" class="rounded-circle img-fluid mr-1" style="height: 30px;width: 30px;"></span>'+
+                     '<span class="badge badge-light">'+data['users'][j].pencil_db_users_username+'</span>';}}
+        html +='<span class="badge float-right badge-light"><i class="fas fa-clock mr-1"></i>'+data['posts'][i].pencil_db_posts_created_date+'</span></p></div></div></div>';
+        }html += "</section>";}$(".blog-body").html(html);
       }
 
       // list categories
@@ -590,7 +590,7 @@
 
         // create category using ajax
         function create_category(){
-          $('#category_create_form').on('click', '#create_category_btn', function(event){
+          $('section').on('click', '#create_category_btn', function(event){
               event.preventDefault();
               var cate_name =  $("#create_category_name").val(); 
               if(cate_name != ""){
@@ -611,7 +611,7 @@
                         }
                     });
             }else{
-              console.log("field empty");
+              toastr.warning("Field empty!");
             }
           });
         }
@@ -741,72 +741,48 @@
 
         // search box
         function search_box(){
-
           var html ="";
           $(".nav_search_btn").on('click', function (event) {
-
-            
-            $("#search_result_box").slideDown(200);
-
-            
-
-            var search_term = $("#nav_search_box").val().trim();
-
-            if(search_term == ""){
-              html = "<p class='lead text-center m-5'>Field Is Empty, Type Some Keywords!</p>";
-              html += "<hr><div class='d-flex justify-content-center'><button id='search_box_close' class='btn shadow-lg btn-danger btn-lg'><i class='fas shadow-lg fa-times fa-2x'></i></button></div><br>";
-              $("#search_result_box").html(html);
-
-            }else{
- 
-            $.ajax({
-
-              type: 'post',
-              url: "http://localhost/pencil/posts/search",
-              dataType: 'json',
-              data: {search_term: search_term},
-              success: function (data) {
-
-               
-                html = "<p class='lead text-center m-5'>No Posts Found, Search With Another Keyword!</p>";
-                if(data['posts'].length > 0){
-
-                  html ="<h3 class='m-3'>Search Results</h3><hr>";
-                  html += "<div class='row w-100' style='margin: auto'>";
-                  for(i=0; i<data['posts'].length; i++){
-
-                   html += "<div class='card-deck d-flex col-lg-4 justify-content-center' style='margin-right: auto;margin-left: auto'>"+
-                            "<div class='card shadow-lg m-3 w-100' style='overflow: hidden'><a href='http://localhost/pencil/posts/"+data['posts'][i].pencil_db_posts_slug+"' data='"+data['posts'][i].pencil_db_posts_id+"' class='the_read_more_btn' style='color: #000'>"+
-                            "<div class='' style='overflow: hidden'><img class='img-fluid card-img-top m-0 p-0 w-100 ' src='http://localhost/pencil/assets/images/posts/"+data['posts'][i].pencil_db_posts_post_image+"'></div>"+
-                            "<div class='card-body w-100'>";
-
-                   for(j=0; j<data['users'].length; j++){
-                      if(data['posts'][i].pencil_db_posts_user_id == data['users'][j].pencil_db_users_id){
-                        html +=  "<p><span class='badge badge-light mr-1'>"+data['users'][j].pencil_db_users_username+"</span><span class='badge badge-light'>"+data['posts'][i].pencil_db_categories_name+"</span></p><div class='card-title '>"+data['posts'][i].pencil_db_posts_title+"</div></div>"+
-                                "</div></a></div>";
-                      }
-                    }
-                        
-                  }
-                  html += "</div>";
-                  
-                }  
-                html += "<hr><div class='d-flex justify-content-center'><button id='search_box_close' class='btn shadow-lg btn-danger btn-lg'><i class='fas shadow-lg fa-times fa-2x'></i></button></div><br>";
-
-                $("#search_result_box").html(html);
-                search_term = "";         
-                $('.the_read_more_btn').on('click', function(){
-                 $("#nav_search_box").val(''); 
-                });
-
-              },error: function () {
-                console.log("my bad from search box");
-              }
-
-            });
-          }
-            
-          });
+          $("#search_result_box").slideDown(200);
+          var search_term = $("#nav_search_box").val().trim();
+          if(search_term == ""){
+            html = "<p class='lead text-center m-5'>Field Is Empty, Type Some Keywords!</p>";
+            html += "<hr><div class='d-flex justify-content-center'><button id='search_box_close' class='btn shadow-lg btn-danger btn-lg'><i class='fas shadow-lg fa-times fa-2x'></i></button></div><br>";
+            $("#search_result_box").html(html);
+          }else{
+                $.ajax({
+                type: 'post',
+                url: "http://localhost/pencil/posts/search",
+                dataType: 'json',
+                data: {search_term: search_term},
+                success: function (data){ 
+                     var comment_count = 0;
+                     html = "<p class='lead text-center m-5'>No Posts Matching Current Keyword!</p>";
+                     html += "<hr><div class='d-flex justify-content-center'><button id='search_box_close' class='btn shadow-lg btn-danger btn-lg'><i class='fas shadow-lg fa-times fa-2x'></i></button></div><br>";
+                      if(data['posts'].length > 0){        
+                      html = '<section class="row d-flex justify-content-center">';
+                      for(i=0; i<data['posts'].length; i++){
+                      html += '<div class="card-deck col-lg-4"><div class="card shadow-lg faster animated zoomIn p-0 m-3"><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
+                              ' class="the_read_more_btn" style="color: #000">'+
+                              '<img src="http://localhost/pencil/assets/images/posts/'+data['posts'][i].pencil_db_posts_post_image+'" class="w-100 card-img img-fluid" style="height: 200px;">'+
+                              '<div class="card-header p-2"><p><span class="badge badge-light"><i class="fas fa-tags mr-1"></i>'+data['posts'][i].pencil_db_categories_name+'</span>';                    
+                      if(data['comments'].length == false)
+                        data['comments'].length = 0;          
+                      for(k=0; k<data['comments'].length; k++){
+                        if(data['comments'][k].pencil_db_comments_post_id === data['posts'][i].pencil_db_posts_id){
+                          comment_count++;}}
+                      html += '<span class=" float-right"><span class="badge badge-light mr-1 "><i class="fas fa-comments mr-1"></i>'+comment_count+'</span>';comment_count = 0;
+                      html += '<span class="badge badge-light"><i class="fas fa-eye mr-1"></i>'+data['posts'][i].pencil_db_posts_views+'</span></span></p></div>'+
+                              '<div class="card-body p-0 pl-3 pr-3"><p class="card-title">'+data['posts'][i].pencil_db_posts_title+'</p></a></div>';
+                      for(j=0; j<data['users'].length; j++){
+                          if(data['posts'][i].pencil_db_posts_user_id == data['users'][j].pencil_db_users_id){
+                            html +='<div class="card-footer p-2"><p><span><img src="http://localhost/pencil/assets/images/profile/'+data['users'][j].pencil_db_users_image+'" class="rounded-circle img-fluid mr-1" style="height: 30px;width: 30px;"></span>'+
+                                   '<span class="badge badge-light">'+data['users'][j].pencil_db_users_username+'</span>';}}
+                      html +='<span class="badge float-right badge-light"><i class="fas fa-clock mr-1"></i>'+data['posts'][i].pencil_db_posts_created_date+'</span></p></div></div></div>';}html += "</section>";}
+                      $("#search_result_box").html(html);search_term = "";
+                      $('.the_read_more_btn').on('click', function(){
+                      $("#nav_search_box").val('');});
+                },error: function () {console.log("my bad from search box");}});}});
         }
         
 

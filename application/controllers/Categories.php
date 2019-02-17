@@ -36,11 +36,14 @@ class Categories extends CI_Controller
                  $data['posts'] = $this->Category_model->get_posts_by_category($condition);
                  $data['categories'] = $this->Category_model->get_categories();
                  $data['num_posts'] = $this->Post_model->num_posts();
+            $data['comments'] = $this->Comment_model->get_comments(false);
             $data['users'] = $this->User_model->get_all_users();
 
             }else{
                  $data['posts'] = $this->Post_model->get_posts(false);
                  $data['num_posts'] = $this->Post_model->num_posts();
+            $data['comments'] = $this->Comment_model->get_comments(false);
+                 
             $data['users'] = $this->User_model->get_all_users();
 
             }

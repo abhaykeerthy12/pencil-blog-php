@@ -32,7 +32,7 @@
        url('../fonts/ubuntu-v12-latin/ubuntu-v12-latin-regular.svg#Ubuntu') format('svg'); /* Legacy iOS */
 }
 
-body,h1,h2,h3,h4,h5,h6,p,a{
+body,h1,h2,h3,h4,h5,h6,p,a,.btn{
   font-family: 'Ubuntu';  
 }
 
@@ -52,6 +52,41 @@ body,h1,h2,h3,h4,h5,h6,p,a{
   padding-top: 23vh;
   text-shadow: 1px 2px 2px rgba(0,0,0,0.3);
   font-family: 'Courgette';  
+}
+
+
+#login_img{
+  background-image: url('../images/images/login.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  height: inherit;
+}
+
+
+#signup_img{
+  background-image: url('../images/images/signup.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  height: inherit;
+}
+
+
+.pic_text{
+  color: #fff;
+  margin-top: 33%;
+  margin-bottom: 30%;
+  text-shadow: 1px 2px 2px rgba(0,0,0,0.3);
+}
+
+.btn{
+    font-weight: bold;
+    text-shadow: 1px 2px 2px rgba(0,0,0,0.3);
 }
 
 .navbar-brand{
@@ -74,20 +109,6 @@ nav input[type=search]:active, input[type=search]:focus, .btn:focus,.btn:active 
    box-shadow: none;
 }
 
-.card-img-caption {
-  border-top-left-radius: calc(.25rem - 1px);
-  border-top-right-radius: calc(.25rem - 1px);
-}
-  
-.card-img-caption .card-img-top {
-  z-index: 0;
-}
-    
-.card-img-caption .card-text {
-  text-align: center;
-  width: 100%;
-  margin: 33% 0;
-}
 
 .card-footer,.card-header{
   background-color: #fff;
@@ -100,20 +121,6 @@ nav input[type=search]:active, input[type=search]:focus, .btn:focus,.btn:active 
   margin-bottom: 20px;
 }
 
-.giant-quote{
-  background-color: #fff;
-  height: 310px;
-  max-height: 500px;
-  display: block;
-}
-
-.giant-quote #quote{
-  font-size: 2em;
-}
-
-.giant-quote #author{
-  font-size: 1.5em;
-}
 
 .become_member .btn{
   width: 100px;
@@ -141,96 +148,11 @@ nav input[type=search]:active, input[type=search]:focus, .btn:focus,.btn:active 
   font-family: 'Courgette';
 }
 
-.login_section{
-  background-color: #eee;
-  height: 90%;
-}
-
-#login_box{
-  margin: auto;
-  height: 80%;
-  width: 80%;
-  background-color: #fff;
-  align-content: center;
-}
-
-#login_pic{
-  margin: auto;
-  align-content: center;
-  display: none;
-}
-
-#login_pic img{
-  margin: auto;
-  padding: 5em;
-  padding-top: 2em;
-}
-
-@media only screen and (min-width: 1025px) {
-        #login_pic{
-          display: block;
-        }
-} 
-
-#login_form input, #login_form .btn{
-  width: 100%;
-  border-radius: 10px;
-  height: 50px;
-}
-
-.signup_section, #create_post_section{
-  background-color: #eee;
-  padding: auto;
-  overflow: hidden;
-}
-
-#signup_box, #create_post_box{
-  margin: auto;
-  width: 80%;
-  background-color: #fff;
-  align-content: center;
-}
-
-#create_post_box input, #create_post_box .input-group{
-  margin-bottom: 1em;
-}
-
-#create_post_box #create_post_btn{
-  height: 50px;
-}
-
-
-#signup_form input{
-  width: 100%;
-  border-radius: 10px;
-  height: 40px;
-}
-
-#signup_form textarea{
-  width: 100%;
-  border-radius: 10px;
-  height: 50px;
-}
-
-#signup_form .btn{
-  width: 100%;
-  border-radius: 10px;
-  height: 50px;
-}
-
-#signup_form{
-  padding: 10px;
-  display: inline-block;
-}
 
 #post_single_img{
   max-height: 25em;
   max-width: 100%;
   margin: auto;
-}
-
-#title_text, #quote, #author{
-  display: none;
 }
 
 /* Set width to make card deck cards 100% width */

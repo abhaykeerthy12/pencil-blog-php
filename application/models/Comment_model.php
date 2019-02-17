@@ -26,9 +26,12 @@ class Comment_model extends CI_Model
 
     public function get_comments($post_id)
     {
-
-        // get comments for the post with matching id
-        $query = $this->db->get_where('pencil_db_comments', array('pencil_db_comments_post_id' => $post_id));
+        if($post_id){
+            // get comments for the post with matching id
+            $query = $this->db->get_where('pencil_db_comments', array('pencil_db_comments_post_id' => $post_id));
+        }else{
+            $query = $this->db->get('pencil_db_comments');         
+        }
         return $query->result_array();
     }
 }

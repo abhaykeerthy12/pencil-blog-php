@@ -11,6 +11,7 @@ class Posts extends CI_Controller
         // get posts with limits rules and limits passed (paginate)
         $data['posts'] = $this->Post_model->get_posts(false);
         $data['categories'] = $this->Category_model->get_categories();
+        $data['comments'] = $this->Comment_model->get_comments(false);
 
         $this->load->view('templates/header');
         $this->load->view('posts/index', $data);
@@ -28,6 +29,8 @@ class Posts extends CI_Controller
             $data['posts'] = $this->Post_model->get_posts(false);
             $data['num_posts'] = $this->Post_model->num_posts();
             $data['users'] = $this->User_model->get_all_users();
+            $data['comments'] = $this->Comment_model->get_comments(false);
+
 
         
 
@@ -46,6 +49,8 @@ class Posts extends CI_Controller
 
             $data['users'] = $this->User_model->get_all_users();
             $data['posts'] = $this->Post_model->get_posts_by_search($search_term);
+            $data['comments'] = $this->Comment_model->get_comments(false);
+
 
          }
         //  echo $search_term;
@@ -80,12 +85,16 @@ class Posts extends CI_Controller
      
              $data['categories'] = $this->Category_model->get_categories();
             $data['users'] = $this->User_model->get_all_users();
+        $data['comments'] = $this->Comment_model->get_comments(false);
+
 
 
         }else{
 
              $data['posts'] = $this->Post_model->get_posts(false);
             $data['users'] = $this->User_model->get_all_users();
+        $data['comments'] = $this->Comment_model->get_comments(false);
+
 
      
 
@@ -94,6 +103,8 @@ class Posts extends CI_Controller
 
             $data['posts'] = $this->Post_model->get_posts(false);
             $data['users'] = $this->User_model->get_all_users();
+        $data['comments'] = $this->Comment_model->get_comments(false);
+            
 
         
 

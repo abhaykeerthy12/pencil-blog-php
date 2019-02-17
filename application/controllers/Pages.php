@@ -17,6 +17,8 @@ class Pages extends CI_Controller
             $data['l_posts'] = $this->Post_model->home_posts(true, false);
             $data['p_posts'] = $this->Post_model->home_posts(false, true);
             $data['users'] = $this->User_model->get_all_users();
+            $data['comments'] = $this->Comment_model->get_comments(false);
+
             
 
             $this->load->view('templates/header');
