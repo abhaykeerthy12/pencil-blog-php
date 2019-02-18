@@ -6,7 +6,6 @@
 	<script type="text/javascript" src="<?php echo base_url(); ?>/assets/js/moment.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>/assets/js/toastr.min.js"></script>
 
-
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/fonts/font_awesome/css/all.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/toastr.min.css">
@@ -25,33 +24,33 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-				<a class="nav-link" href="<?php echo base_url(); ?>">Home <span class="sr-only">(current)</span></a>
+				<a class="nav-link" id="nav_home" href="<?php echo base_url(); ?>">Home <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-				<a class="nav-link" href="<?php echo base_url(); ?>posts">Blog</a>
+				<a class="nav-link" id="nav_blog" href="<?php echo base_url(); ?>posts">Blog</a>
 				</li>
 				<!-- if user is logged in -->
 				<?php if($this->session->userdata('logged_in')): ?>
 				<li class="nav-item">
-				<a class="nav-link" href="<?php echo base_url(); ?>posts/create">Create</a>
+				<a class="nav-link" id="nav_create" href="<?php echo base_url(); ?>posts/create">Create</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url(); ?>users/profile">Profile</a>
+					<a class="nav-link" id="nav_profile" href="<?php echo base_url(); ?>users/profile">Profile</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url(); ?>users/logout">Logout</a>
+					<a class="nav-link" id="nav_logout" href="<?php echo base_url(); ?>users/logout">Logout</a>
 				</li>
 				<?php else : ?>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url(); ?>users/login">Login</a>
+					<a class="nav-link" id="nav_login" href="<?php echo base_url(); ?>users/login">Login</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url(); ?>users/register">Signup</a>
+					<a class="nav-link" id="nav_signup" href="<?php echo base_url(); ?>users/register">Signup</a>
 				</li>
 				<?php endif; ?>
 				</li>
 				<li class="nav-item">
-				<a class="nav-link" href="<?php echo base_url(); ?>about">About</a>
+				<a class="nav-link" id="nav_about" href="<?php echo base_url(); ?>about">About</a>
 				</li>
 			</ul>
 			<div class="form-inline my-2 my-lg-0">

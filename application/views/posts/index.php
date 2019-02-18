@@ -73,7 +73,7 @@
 			</div>
 			
 		</div>
-
+		<?php if($categories) : ?>
 		<div class="card shadow-lg col-lg-12" style="overflow: hidden;margin: auto;">
 			<p class="p-1" style="border-bottom: 1px solid #eee;">
 			<span class="h5">Categories</span>
@@ -101,7 +101,7 @@
 			</ul>
 			
 		</div>
-
+		<?php endif; ?>
 	
 		</div>
 

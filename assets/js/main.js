@@ -1,6 +1,32 @@
 
   $(document).ready(function(e){
 
+    // highlight nav items on specific page
+    if (window.location.pathname == "/pencil/posts"){
+      $('#nav_blog').addClass('active');
+    }
+    if (window.location.pathname == "/pencil/about"){
+      $('#nav_about').addClass('active');
+    } 
+    if (window.location.pathname == "/pencil/"){
+      $('#nav_home').addClass('active');
+    } 
+    if (window.location.pathname == "/pencil/posts/create"){
+      $('#nav_create').addClass('active');
+    } 
+    if (window.location.pathname == "/pencil/users/profile"){
+      $('#nav_profile').addClass('active');
+    } 
+    if (window.location.pathname == "/pencil/users/login"){
+      $('#nav_login').addClass('active');
+    } 
+    if (window.location.pathname == "/pencil/users/register"){
+      $('#nav_signup').addClass('active');
+    }  
+    if (window.location.pathname == "/pencil/users/logout"){
+      $('#nav_logout').addClass('active');
+    }  
+
     // file upload style
     bsCustomFileInput.init();
 
