@@ -16,6 +16,7 @@ class Comment_model extends CI_Model
             'pencil_db_comments_post_id' => $post_id,
             'pencil_db_comments_name' => $this->input->post('comment_name'),
             'pencil_db_comments_email' => $this->input->post('comment_email'),
+            'pencil_db_comments_image' => $this->input->post('comment_image'),
             'pencil_db_comments_body' => $this->input->post('comment_body'),
 
         );

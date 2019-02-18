@@ -55,6 +55,7 @@
 									<input type="hidden" id="comment_post_user_id" value="<?php echo $post['pencil_db_posts_user_id']; ?>">
 
 									<input type="hidden" id="comment_name" name="comment_name" value="<?php echo $this->session->userdata('user_username') ?>">
+									<input type="hidden" id="comment_image" name="comment_image" value="<?php echo $this->session->userdata('user_image') ?>">
 			  						<input type="hidden" id="comment_email" name="comment_email" value="<?php echo $this->session->userdata('user_email') ?>">
 
 			  						<input type="hidden" id="user_logged_in" value="<?php echo $this->session->userdata('logged_in'); ?>">
@@ -80,6 +81,7 @@
 									<input type="hidden" id="comment_post_id" value="<?php echo $post['pencil_db_posts_id']; ?>">
 
 									<input type="hidden" id="user_logged_in" value="<?php echo $this->session->userdata('logged_in'); ?>">
+									<input type="hidden" id="comment_image" name="comment_image" value="no_image.png">
 
 									<input type="text" id="comment_name" class="form-control" placeholder="Name" name="comment_name"><br>
 			  						<input type="email" class="form-control" placeholder="Email" id="comment_email" name="comment_email"><br>

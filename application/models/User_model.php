@@ -64,6 +64,14 @@ class User_model extends CI_Model
             'pencil_db_users_image' => $user_image,
         );
 
+        // update comment image of user as well
+        $comment_data = array(
+            'pencil_db_comments_image' => $user_image,          
+        );
+
+        $this->db->where('pencil_db_comments_email', $this->input->post('user_email'));
+        $this->db->update('pencil_db_comments', $comment_data);
+
         $this->db->where('pencil_db_users_id', $this->input->post('user_id'));
         return $this->db->update('pencil_db_users', $data);
     }

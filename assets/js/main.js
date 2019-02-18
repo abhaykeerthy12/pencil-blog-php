@@ -145,7 +145,7 @@
           for(i=0; i<data['comments'].length; i++){
 
             html += '<ul class="list-unstyled"><li><div class="card container"><div class="clearfix"><br>'+
-                    '<img src="../assets/images/icons/placeholder-male.png" class="rounded-circle img-fluid mr-2" style="height: 50px;width: 50px;">'+
+                    '<img src="../assets/images/profile/'+data['comments'][i].pencil_db_comments_image+'" class="rounded-circle img-fluid mr-2" style="height: 50px;width: 50px;">'+
                     '<span class="h5 mr-2">'+data['comments'][i].pencil_db_comments_name+'</span><span class="text-muted">'+moment(data['comments'][i].pencil_db_posts_created_date).format("MMM Do YYYY")+'</span>';
 
              if(data['user'].length > 0){ 
@@ -183,6 +183,7 @@
       var comment_post_id = $('#comment_post_id').attr('value');
       var comment_post_slug = $('#comment_post_slug').attr('value');
       var comment_body = $('#comment_body').val();
+      var comment_image = $('#comment_image').val();
 
       if(user_logged_in){
 
@@ -200,13 +201,14 @@
         
         $.ajax({
           url: "http://localhost/pencil/comments/create",
-          dataType: 'JSON',
+          dataType: 'text',
           type: 'POST',
           data: {
             comment_post_id: comment_post_id,
             comment_post_slug: comment_post_slug,
             comment_name: comment_name,
             comment_email: comment_email,
+            comment_image: comment_image,
             comment_body: comment_body
           },
           success: function(response){ 

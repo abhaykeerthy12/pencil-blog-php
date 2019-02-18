@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 18, 2019 at 07:31 AM
+-- Generation Time: Feb 18, 2019 at 02:22 PM
 -- Server version: 10.3.11-MariaDB
 -- PHP Version: 7.2.14
 
@@ -46,6 +46,7 @@ CREATE TABLE `pencil_db_comments` (
   `pencil_db_comments_post_id` int(11) NOT NULL,
   `pencil_db_comments_name` varchar(255) NOT NULL,
   `pencil_db_comments_email` varchar(255) NOT NULL,
+  `pencil_db_comments_image` varchar(255) NOT NULL,
   `pencil_db_comments_body` text NOT NULL,
   `pencil_db_comments_created_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
