@@ -47,7 +47,6 @@
     }
 
     toggler_cards('#edit_card_toggle_btn', '#edit_profile_form', "Change Anything?"); 
-    toggler_cards('#user_profile_advanced_btn', '#user_profile_advanced', 'Advanced');
     
      function toggler_cards_category(btn, card, msg){
         $(btn).click(function(){           
@@ -73,7 +72,7 @@
   $(window).on('load', function(){
   
     // call ajax functions
-    create_category();list_category();hit_counter();search_box();create_comment();delete_comment();show_comments();search_box_animation();   
+    create_category();list_category();hit_counter();search_box();create_comment();delete_comment();show_comments();filter_box_animation();   
 
     // call functions only on profile page
     if (window.location.pathname == "/pencil/users/profile") 
@@ -84,13 +83,13 @@
       show_posts();get_posts_by_category();load_more_posts();get_posts_by_date();
 
 
-    function search_box_animation(){
+    function filter_box_animation(){
 
         $('#filter_btn').on('click', function(event){
           event.preventDefault();
           $("#filter_box").slideToggle(100);
 
-          show_posts();
+          // show_posts();
 
           var status = $(this).html();
 
@@ -266,14 +265,14 @@
   }
   // category filetering using checkbox function
   function get_posts_by_category(){
-    var postcounter = 10;
+    var postcounter = 9;
     var category_id = [];
 
     $('#category_filter_submit').click(function(){
 
       // prevent default behaviour of submit button
       event.preventDefault();
-      postcounter = postcounter + 10;
+      postcounter = postcounter + 9;
 
       $("input[name='category_name']:checked").each(function(i){
               category_id[i] = $(this).val();
@@ -303,7 +302,7 @@
 
         // filter by date
         function get_posts_by_date(){
-          var postcounter = 10;
+          var postcounter = 9;
           
 
   
@@ -311,7 +310,7 @@
   
                     // prevent default behaviour of submit button
                     event.preventDefault();
-                    postcounter = postcounter + 10;
+                    postcounter = postcounter + 9;
   
   
                     var dates = [];
@@ -364,7 +363,7 @@
 
       // show posts
       function show_posts(){
-        var postcounter = 10;
+        var postcounter = 9;
         $.ajax({
           type: 'post',
           url: "http://localhost/pencil/posts/card",
@@ -381,9 +380,9 @@
 
       // show posts
       function load_more_posts(){       
-        var postcounter = 10;
+        var postcounter = 9;
         $("#load_more").on('click', '.btn', function(){
-        postcounter = postcounter + 10;
+        postcounter = postcounter + 9;
         $.ajax({
           type: 'post',
           url: "http://localhost/pencil/posts/card",
@@ -393,19 +392,19 @@
             blog_card(data);
             if(postcounter >= data['num_posts']){
               $("#load_more_container").hide();
-              toastr.info("NO more Posts!");
+              toastr.info("No More Posts!");
             }
           },error: function () {console.log("my bad");}});
       });}
 
 
       function blog_card(data){        
-        var html = "NO POSTS";
+        var html = "<br><h1 class='text-muted m-5 text-center'>No Posts!</h1><br>";
         var comment_count = 0;
         if(data['posts'].length > 0){        
         html = '<section class="row d-flex justify-content-center">';
         for(i=0; i<data['posts'].length; i++){
-        html += '<div class="card-deck col-lg-4"><div class="card shadow-lg faster animated zoomIn p-0 m-3"><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
+        html += '<div class="card-deck col-lg-4"><div class="card shadow-lg animated bounceInUp p-0 m-3"><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
                 ' class="the_read_more_btn" style="color: #000">'+
                 '<img src="http://localhost/pencil/assets/images/posts/'+data['posts'][i].pencil_db_posts_post_image+'" class="w-100 card-img img-fluid" style="height: 200px;">'+
                 '<div class="card-header p-2"><p><span class="badge badge-light"><i class="fas fa-tags mr-1"></i>'+data['posts'][i].pencil_db_categories_name+'</span>';       
@@ -446,7 +445,7 @@
       }
 
 
-      //function show all product
+      
       function show_user_posts(){
 
         $.ajax({
@@ -598,16 +597,20 @@
                     $.ajax({
                         type: 'post',
                         url: 'http://localhost/pencil/categories/create',
-                        async: false,
                         dataType: 'text',
                         data: {
                           cate_name: cate_name
                         },
                         success : function(data){
                           list_category();
-                          $("#create_category_name").val("");
-                          $('.category_create_btn').click();
-                          toastr.success("Category Created!");
+                          console.log(data);
+                          if(data == "false"){
+                            toastr.error("Category Already Exists!");                           
+                          }else{
+                            $("#create_category_name").val("");
+                            $('.category_create_btn').click();
+                            toastr.success("Category Created!");
+                          }
                         }
                     });
             }else{
@@ -762,7 +765,7 @@
                       if(data['posts'].length > 0){        
                       html = '<section class="row d-flex justify-content-center">';
                       for(i=0; i<data['posts'].length; i++){
-                      html += '<div class="card-deck col-lg-4"><div class="card shadow-lg faster animated zoomIn p-0 m-3"><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
+                      html += '<div class="card-deck col-lg-4"><div class="card shadow-lg animated bounceInUp p-0 m-3"><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
                               ' class="the_read_more_btn" style="color: #000">'+
                               '<img src="http://localhost/pencil/assets/images/posts/'+data['posts'][i].pencil_db_posts_post_image+'" class="w-100 card-img img-fluid" style="height: 200px;">'+
                               '<div class="card-header p-2"><p><span class="badge badge-light"><i class="fas fa-tags mr-1"></i>'+data['posts'][i].pencil_db_categories_name+'</span>';                    

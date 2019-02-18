@@ -1,50 +1,26 @@
-<br><br>
-
-<!-- page starts -->
-
-<div id="create_card" class="card center container z-depth-5">
-	<!-- title -->
-	<h4 class="center-align"><?=$title;?></h4><br>
-	<div class="row">
-	<?php echo form_open('users/change_password'); ?>
-
-	<div class="col s12">
-		<div class="row">
-				<!-- old password field -->
-			    <div class="input-field col s12">
-			      <input type="password" id="old_password" name="old_password">
-			      <label for="old_password">Current Password</label>
-				</div>
-		</div>
-	</div>
-
-	<div class="col s12">
-		<div class="row">
-				<!-- new password field -->
-			    <div class="input-field col s12">
-			      <input type="password" id="new_password" name="new_password">
-			      <label for="new_password">New Password</label>
-				</div>
-		</div>
-	</div>
-  <div class="col s12">
-		<div class="row">
-				<!-- new password confirm field -->
-			    <div class="input-field col s12">
-			      <input type="password" id="new_password_confirm" name="new_password_confirm">
-			      <label for="new_password_confirm">Confirm New Password</label>
-				</div>
-		</div>
-	</div>
-
-	<!-- submit button (it is a floating button so it has more classes from materializecss)-->
-	<button type="submit" name="create_post_btn" class="btn-floating btn-large halfway-fab waves-effect waves-light deep-purple z-depth-5"><i class="fab fa-telegram-plane"></i></button>
-
-	<?php echo form_close(); ?>
-	</div>
-
-	<!-- show errors -->
-	<?php echo validation_errors('<p id="error_p" class="red lighten-3 center-align">', '</p>'); ?>
-	<br>
-
-</div>
+<br>
+<section id="change_pwd_card">
+  <div class="container">
+    <div class="card p-3 m-5 shadow-lg animated flipInX">
+      <h3 class="text-center m-3"><?=$title;?></h3><br>
+      <div class="container pr-5 pl-5">
+		<?php echo form_open('users/change_password'); ?>
+          <div class="form-group">
+			      <input type="password" placeholder="Old Password" class="form-control" name="old_password" autofocus required>
+          </div>
+          <div class="form-group">
+			      <input type="password" placeholder="New Password" class="form-control" name="new_password" required>
+          </div>
+          <div class="form-group">
+			      <input type="password" name="new_password_confirm" class="form-control" placeholder="Confirm Password" required>
+          </div>
+	    </div>
+	    <div class="card-footer d-flex justify-content-center">
+		    <button type="submit" name="button" class="btn btn-primary  p-2  rounded-circle shadow-lg"><i class="fas m-1 fa-3x fa-check-circle"></i></button>
+	    </div>
+		<?php echo form_close(); ?>
+  		<?php echo validation_errors('<p id="error_p" class="alert alert-danger text-center mr-5 ml-5">', '</p>'); ?>
+    </div>
+  </div>
+</section>
+<br><br><br>

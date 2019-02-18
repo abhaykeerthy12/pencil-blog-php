@@ -16,7 +16,7 @@
 
 		<div class="row p-4" id="filter_box" style="display: none;">
 
-		<p class="h4 col-lg-12 mb-3 pb-3 text-center" style="border-bottom: 1px solid #eee;">Refine by</p>
+		<p class="h4 col-lg-12 pb-3 text-center" style="border-bottom: 1px solid #eee;">Refine by</p>
 		
 		
 
@@ -32,27 +32,41 @@
 			<!-- from date -->
 			<div class="datetimepicker4 col-lg-6 form-group " >
 				
-				<p class="mt-3 mb-3">From :
+
+					<p class="row">
+						<span class="col-lg-2 pt-2 text-center">
+							From:
+						</span>
+						<span class="col-lg-8">
+								<input data-format="yyyy-MM-dd" id="from_date" placeholder="yyyy-mm-dd" class="form-control" type="text" required>							
+						</span>
+						<span class="pt-2 col-lg-2">
+							<button class="add-on btn btn-info shadow float-right"><i class="fas fa-calendar-alt"></i></button>
+						</span>
+
+					</p>
+					
 				
-				<button class="add-on btn btn-info shadow float-right"><i class="fas fa-calendar-alt"></i></button>
-
-				</p>
-
-				<input data-format="yyyy-MM-dd" id="from_date" placeholder="yyyy-mm-dd" class="form-control" type="text" required>
 
 	
 			</div>
 
 			<!-- To date -->
 			<div class="datetimepicker4 col-lg-6 form-group ">
-				
-				<p class="mt-3 mb-3">To :
-				
-				<button class="add-on btn btn-info shadow float-right"><i class="fas fa-calendar-alt"></i></button>
 
-				</p>
 
-				<input data-format="yyyy-MM-dd" id="to_date" placeholder="yyyy-mm-dd" class="form-control" type="text" required>
+				<p class="row">
+						<span class="col-lg-2 pt-2 text-center">
+							To:
+						</span>
+						<span class="col-lg-8">
+							<input data-format="yyyy-MM-dd" id="to_date" placeholder="yyyy-mm-dd" class="form-control" type="text" required>
+						</span>
+						<span class="pt-2 col-lg-2">
+							<button class="add-on btn btn-info shadow float-right"><i class="fas fa-calendar-alt"></i></button>
+						</span>
+
+					</p>
 
 	
 			</div>

@@ -1,21 +1,64 @@
-<h2 class="center-align"><?=$title?></h2>
+<br>
+<section id="about_page" style="overflow: hidden;">
+	<div class="container">
+		<h1 class="text-center animated bounceInDown mt-5">Pencil</h1>
+		<p class="text-center animated bounceInLeft" style="font-family: 'Courgette';">Let the ideas flow...</p><br>
+		<p class="text-center animated lightSpeedIn"><em>The Most Advanced Blog Application In Its Class</em></p>
+		<br>
 
-<!-- fake EULA starts-->
-<div class="card">
-	<h3 id="about_head" class="center-align">Pencil</h3>
-	<p class="center-align">Version: 1.0</p>
-	<p class="center-align">@ The Pencil Team</p>
-<ul class="collapsible">
-<li>
-	 	<div class="collapsible-header center"><h5>Terms and Conditions(EULA)</h5></div>
-	 	<div class="collapsible-body">
-		<div id="about_card" class="card container flow-text">
-			<h2>Welcome to Pencil</h2>
+		<!-- features card -->
+		<div class="card container p-4 shadow-lg animated flipInX">
+			<div class="row">
+				<div class="card container animated bounceInUp col-lg-4">
+					<div class="row">
+						<div class="col-lg-12 text-center">
+							<i class="fas fa-5x m-4 fa-shield-alt" style="color: #1976d2"></i>
+						</div>
+						<div class="col-lg-12 lead text-center">
+							RELIABLE
+						</div>
+					</div>
+				</div>
+				<div id="center_card" class="card container animated bounceInUp col-lg-4">
+					<div class="row">
+						<div class="col-lg-12 text-center">
+							<i class="fas fa-5x m-4 fa-anchor" style="color: #d32f2f"></i>
+						</div>
+						<div class="col-lg-12 lead text-center">
+							ROBUST
+						</div>
+					</div>
+				</div>
+				<div class="card container animated bounceInUp col-lg-4">
+					<div class="row">
+						<div class="col-lg-12 text-center">
+							<i class="fas fa-5x m-4 fa-mobile-alt" style="color: #607d8b"></i>
+						</div>
+						<div class="col-lg-12 lead text-center">
+							RESPONSIVE
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><br><br>
+		<!-- features card end -->
+
+		<div class="accordion shadow-lg animated bounceInUp" id="eula_accordian">
+		  <div class="card">
+		    <a data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			    <div class="card-header" id="headingOne">
+			      <h2 class="mb-0 d-flex justify-content-center">
+			          <em>EULA</em>	        
+			      </h2>
+			    </div>
+			</a>
+
+		    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#eula_accordian">
+		      <div class="card-body container" style="font-size: 12px;padding-left: 7%;padding-right: 7%;">
+		        <h2>Welcome to Pencil</h2>
 				<p>These terms and conditions outline the rules and regulations for the use of Pencil's Website.</p> <br />
-				<span style="text-transform: capitalize;"> <h5>Pencil</h5></span> is located at:<br />
-				<address>Kerala - , India<br />
-				</address>
-				<p>By accessing this website we assume you accept these terms and conditions in full. Do not continue to use Pencil's website
+				<span style="text-transform: capitalize;"> <h5>Pencil</h5></span><span> Is located at: Kerala - India</span><br>
+				<em><p>By accessing this website we assume you accept these terms and conditions in full. Do not continue to use Pencil's website
 				if you do not accept all of the terms and conditions stated on this page.</p>
 				<p>The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice
 				and any or all Agreements: “Client”, “You” and “Your” refers to you, the person accessing this website
@@ -161,14 +204,14 @@
 				in relation to the subject matter of this disclaimer, including liabilities arising in contract, in tort
 				(including negligence) and for breach of statutory duty.</p>
 				<p>To the extent that the website and the information and services on the website are provided free of charge,
-				we will not be liable for any loss or damage of any nature.</p>
-			<h2></h2>
-				<p></p>
-		</div>
+				we will not be liable for any loss or damage of any nature.</p></em>
+		      </div>
+		    </div>
+		  </div>
+		</div><br>
+		<!-- fake eula ends -->
+		
+		<p class="lead mt-5 mb-3 animated bounceInLeft text-center">THANK YOU FOR VISITING OUR WEBSITE</p>
+		<hr class="style-eight animated bounceInRight mb-3"><br>
 	</div>
-	</li>
-</ul>
-</div>
-</div>
-
-<!-- fake EULA ends -->
+</section>

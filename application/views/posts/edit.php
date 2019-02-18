@@ -7,9 +7,9 @@
 
     <div class="row pr-5 pl-5">
       <!-- first column -->
-      <div class=" col-lg-5">
+      <div class="col-lg-5">
       	<div id="create_post_form_title">
-        	<h3 class="text-center animated bounceInDown mb-4 mt-5">Update!</h3>
+        	<h3 class="text-center animated bounceInDown mb-5 mt-5">Update!</h3>
     	</div>
         <!-- title -->
          <div class="form-group mb-4">
@@ -32,23 +32,13 @@
        <!-- category -->
        <div class="form-group mb-4">
          <div class="input-group">
-             <select name="post_category" id="list_categories" class="custom-select">
-             	<option value="<?php echo $post['pencil_db_categories_id']; ?>">Choose new Category</option>          	
+             <select name="post_category" class="custom-select">
+             	  <option value="<?php echo $post['pencil_db_categories_id']; ?>">Choose new Category</option>
+                <?php foreach($categories as $category): ?>   
+                <option value="<?php echo $category['pencil_db_categories_id']; ?>"><?php echo $category['pencil_db_categories_name']; ?></option>
+                <?php endforeach; ?>    	
              </select>
-             <div class="input-group-append">
-               <button class="btn btn-info category_create_btn" type="button">Add</button>
-             </div>
          </div>
-       </div>
-
-       <div id="create_category_form" class="container mb-3" style="display: none;width: 80%;overflow: hidden;">
-       		<input type="hidden" name="page_url" value="<?php echo current_url() ?>">
-			<div class="input-group m-1 animated bounceInDown">
-			  <input type="text" id="create_category_name" name="category_name" class="form-control" placeholder="Enter Category Name">
-			  <div class="input-group-append">
-			    <button class="btn btn-success" id="create_category_btn" name="create_category_btn" type="button">Add</button>
-			  </div>
-			</div>
        </div>
 
       

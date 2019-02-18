@@ -27,7 +27,7 @@
 <div class="col-lg-6" id="login_img">
 <div class="d-flex justify-content-center">
   <div class="pic_text text-center">
-    <h3 class="animated slow slideInDown">New here?, Become a member!</h3>
+    <h3 class="animated slideInDown">New here?, Become a member!</h3>
     <div  class="animated  slideInUp">
     <p>Share your creations with the world!</p>
     <a href="<?php echo base_url(); ?>users/register" class="btn btn-primary shadow-lg"><strong>Sign Up!</strong></a>

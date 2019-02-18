@@ -12,7 +12,7 @@
 <!-- profile card -->
 <div class="container col-md-12 col-lg-12"><br>
 
-        <div class="card shadow">
+        <div class="card shadow animated flipInX">
             <div class="container text-center"><br>
 
             <img src="<?php echo site_url(); ?>assets/images/profile/<?php echo $this->session->userdata('user_image');?>" id="post_single_img" class="img-fluid rounded-circle d-flex justify-content-center shadow"
@@ -33,25 +33,12 @@
 <!-- profile card ends -->
 
 <!-- users categories card -->
-<div id="show_user_category">
+<div id="show_user_category" class="animated bounceInUp">
 
 
-</div>
+</div><br>
 <!-- users categories card ends -->
 
-<!-- advanced -->
-<div  id="user_profile_advanced" class="container col-md-12 col-lg-12"  style="display: none;"><br>
-<div class="card shadow d-flex justify-content-center p-3">          
-        <p class="h5 text-center p-1">Advanced</p><hr>
-        <button class="btn btn-block mt-2 mb-2 btn-info shadow">Deactivate Account</button>
-        <button class="btn btn-block mt-2 mb-2 btn-danger shadow">Delete Account</button>
-</div>
-</div>
-
-<div class="container col-md-12 col-lg-12"><br>
-    <button id="user_profile_advanced_btn" class="btn btn-block btn-secondary shadow">Advanced</button>
-</div><br>
-<!-- advanced ends -->
 
 </div>
 </div>
@@ -90,15 +77,19 @@
                 <div class="form-group col-lg-12">                                  
                     <textarea rows="2" class="form-control" name="user_bio" id="signup_bio" placeholder="Bio" ><?php echo $this->session->userdata('user_bio'); ?></textarea>
                 </div>
-                <div class="card-footer col-lg-12">
-                    <button type="submit" name="edit_post_btn" class="btn btn-block btn-primary shadow">Update</button>
+                <div class="card-footer d-flex justify-content-center col-lg-12">
+                    <button type="submit" name="edit_post_btn" class="btn btn-primary shadow">Update</button>
                 </div>
                 </div>			
             <?php echo form_close(); ?>
                 
             <?php echo validation_errors('<p id="error_p" class="alert alert-danger">', '</p>'); ?>
 
-			<p><a href="<?php echo base_url(); ?>users/login" class="form-text badge badge-pill badge-light" style="color: #222; font-size: 15px;text-decoration: none;">Change Password?</a></p>
+			<p class="d-flex justify-content-center">
+                <span><a href="<?php echo base_url(); ?>users/change_password" class="form-text mr-5 badge badge-pill badge-light" style="color: #222; font-size: 15px;text-decoration: none;">Change Password?</a></span>
+
+                <span><a href="<?php echo base_url(); ?>users/self_distruct" class="form-text badge badge-pill badge-light" style="color: #222; font-size: 15px;text-decoration: none;">Delete Account?</a></span>
+            </p>
 
         </div>
 
@@ -112,7 +103,7 @@
 
 
 <!-- row starts -->
-<div class="row" style="margin: auto;">
+<div id="profile_overview" class="row animated bounceInDown" style="margin: auto;">
 
 <!-- progress card -->
 <div class="col-md-12 col-lg-12" style="margin-top: 1em">
@@ -122,7 +113,7 @@
         <!-- counters row -->
         <div class="row card-body">
         <!-- post counter -->
-        <div class="card container text-center col-md-12 col-lg-4" style="margin: auto;border: none;border-right: 1px solid #ddd">            
+        <div class="card container text-center col-md-12 col-lg-4">            
                     <i class="fas fa-pencil-alt" style="color: #1976d2"></i>
                 <div class="card-body">
                     <span class="post_counter h5" style="font-size: 2em">0</span><br>
@@ -135,7 +126,7 @@
         </div>
 
         <!-- comment counter -->
-        <div class="card container text-center col-md-12 col-lg-4" style="margin: auto;border: none;border-right: 1px solid #ddd">
+        <div id="comment_counter" class="card container text-center col-md-12 col-lg-4">
                     <i class="far fa-comments" style="color: #f4511e"></i>
                 <div class="card-body">
                     <span class="comment_counter h5" style="font-size: 2em">0</span><br>
@@ -143,9 +134,11 @@
                     <!-- display comment count -->
                     <?php $comment_counter = 0; ?>
                     <?php foreach ($comments as $comment): ?>
-                    <?php if($comment['pencil_db_comments_name'] == $this->session->userdata('user_username')) : ?>
+                    <?php foreach ($user_posts as $post): ?>
+                    <?php if(($comment['pencil_db_comments_post_id'] == $post['pencil_db_posts_id']) && ($post['pencil_db_posts_user_id'] == $this->session->userdata('user_id'))) : ?>
                       <?php $comment_counter++; ?>
                     <?php endif; ?>
+                    <?php endforeach; ?>                 
                     <?php endforeach; ?>                 
                     <script>
                         var a = '<?php echo $comment_counter; ?>';
@@ -157,7 +150,7 @@
         </div>
 
         <!-- view counter -->
-        <div class="card container text-center col-md-12 col-lg-4" style="margin: auto;border: none;">
+        <div class="card container text-center col-md-12 col-lg-4">
                     <i class="far fa-eye" style="color: #009688"></i>
             <div class="card-body">
                 <span class="view_counter h5" style="font-size: 2em">0</span><br>
@@ -181,7 +174,7 @@
 <!-- row ends-->
 
 <!-- user posts card -->
-<div  id="show_user_posts"class="row container" style="margin: auto;">
+<div  id="show_user_posts" class="row container animated bounceInUp" style="margin: auto;">
 
 </div><br>
 <!-- user posts card ends -->
@@ -193,7 +186,7 @@
 
 
 <!-- user tabel row starts-->
-<div id="show_user_data" class="row container" style="margin: auto;">
+<div id="show_user_data" class="row container animated bounceInUp" style="margin: auto;">
 
 </div><br>
 <!-- user tabel row starts-->

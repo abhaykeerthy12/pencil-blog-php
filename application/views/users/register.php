@@ -5,8 +5,8 @@
 <div class="col-lg-6" id="signup_img">
   <div class="d-flex justify-content-center">
     <div class="pic_text text-center">
-      <h3 class="animated slow slideInDown">Already a member?</h3>
-      <div  class="animated  slideInUp">
+      <h3 class="animated slideInDown">Already a member?</h3>
+      <div  class="animated slideInUp">
       <p>Hop on and create!</p>
       <a href="<?php echo base_url(); ?>users/login" class="btn btn-primary shadow-lg" name="button"><strong>Login!</strong></a>
      </div>

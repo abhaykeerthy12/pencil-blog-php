@@ -19,10 +19,11 @@ class Users extends CI_Controller
 
         // get number of posts by the user
         $data['posts'] = $this->Post_model->get_posts_by_user($id, false);
+        $data['user_posts'] = $this->Post_model->get_posts_by_user($id, true);      
 
         // get count of views for posts
         $data['views'] = $this->User_model->get_views($id)->result();
-            $data['comments'] = $this->Comment_model->get_comments(false);
+        $data['comments'] = $this->Comment_model->get_comments(false);
         
         // $data = array(
         //     'sum_simpan' => $this->User_model->get_views($id)->result()
@@ -100,13 +101,16 @@ class Users extends CI_Controller
         $name = $this->input->post('author_name');
 
         // get all posts created by the selected author
-        $data['posts'] = $this->Post_model->get_posts_by_user($id, true);
+        $data['users'] = $this->User_model->get_all_users();
+        $data['comments'] = $this->Comment_model->get_comments(false);
+        $data['posts'] = $this->User_model->author_posts($id);
         $data['title'] = "Author's Posts";
 
         // render the posts index page to display the result
         $this->load->view('templates/header');
-        $this->load->view('posts/index', $data);
+        $this->load->view('users/author_posts', $data);
         $this->load->view('templates/footer');
+
     }
 
     // signup
@@ -344,6 +348,19 @@ class Users extends CI_Controller
         // delete the user with matching id
         $this->db->where('pencil_db_users_id', $u_id);
         $this->db->delete('pencil_db_users');
+        // delete the category user created
+        $this->db->where('pencil_db_categories_user_id', $u_id);
+        $this->db->delete('pencil_db_categories');
+        // get the post by user
+        $this->db->select('pencil_db_posts_id');
+        $this->db->where('pencil_db_posts_user_id', $u_id);
+        $query = $this->db->get('pencil_db_posts');    
+        $posts = $query->result_array();
+        foreach ($posts as $post) {
+            // delete the comments for that post
+            $this->db->where('pencil_db_comments_post_id', $post['pencil_db_posts_id']);
+            $this->db->delete('pencil_db_comments');  
+        }
         $this->db->where('pencil_db_posts_user_id', $u_id);
         $this->db->delete('pencil_db_posts');
         $this->session->set_flashdata('user_deleted', 'the user is deleted');
@@ -352,7 +369,7 @@ class Users extends CI_Controller
 
     public function self_distruct()
     {   
-        $data['title'] = "Confirm";
+        $data['title'] = "Delete Account";
 
         // form->> rules
         $this->form_validation->set_rules('confirm_password', 'Password', 'required');
@@ -370,7 +387,20 @@ class Users extends CI_Controller
                 // delete the user with matching id
                 $this->db->where('pencil_db_users_id', $this->session->userdata('user_id'));
                 $this->db->delete('pencil_db_users');
+                // delete the category user created
+                $this->db->where('pencil_db_categories_user_id', $this->session->userdata('user_id'));
+                $this->db->delete('pencil_db_categories');
+                // get the post by user
+                $this->db->select('pencil_db_posts_id');
                 $this->db->where('pencil_db_posts_user_id', $this->session->userdata('user_id'));
+                $query = $this->db->get('pencil_db_posts');    
+                $posts = $query->result_array();
+                foreach ($posts as $post) {
+                    // delete the comments for that post
+                    $this->db->where('pencil_db_comments_post_id', $post['pencil_db_posts_id']);
+                    $this->db->delete('pencil_db_comments');  
+                }
+                $this->db->where('pencil_db_posts_user_id', $this->session->userdata('user_id'));   
                 $this->db->delete('pencil_db_posts');
                 $this->session->set_flashdata('account_deleted', 'your pencil account is deleted');
                 redirect('users/logout');

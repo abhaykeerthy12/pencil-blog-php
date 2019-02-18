@@ -14,14 +14,16 @@
 				<div class="container">
 				<h1 class="text-wrap"><?php echo ucfirst($post['pencil_db_posts_title']); ?></h1><br>
 				
-				<a href="" class="text-muted" style="font-size: 13px;text-decoration: none;">
+				<p class="text-muted" style="font-size: 13px;">
 					<img src="<?php echo site_url(); ?>assets/images/profile/<?php echo $user['pencil_db_users_image'];?>" class="rounded-circle img-fluid mr-1" style="height: 50px;width: 50px;">
 					<span class="mr-1"><?php echo $user['pencil_db_users_username']; ?></span>|
 					<span class="mr-1 ml-1"><i class="far fa-clock"></i></span>
-            		<span class="mr-1"><?php echo date('d-M-y', strtotime(str_replace('-','/', $post['pencil_db_posts_created_date'])));?></span>
-					|<span class="ml-1 mr-1"><i class="far fa-eye"></i></span><span class="mr-1"><?php echo $post['pencil_db_posts_views'] ?></span>
-					
-				</a><br><br>
+            		<span class="mr-1"><?php echo date('d-M-y', strtotime(str_replace('-','/', $post['pencil_db_posts_created_date'])));?></span>|				
+					<span class="mr-1"><i class="fas fa-tags ml-1 mr-1"></i><?php echo $post['pencil_db_categories_name'];?></span>|
+					<span class="ml-1 mr-1">
+						<i class="far fa-eye"></i></span><span class="mr-1"><?php echo $post['pencil_db_posts_views'] ?>
+					</span>					
+				</p><br><br>
 
 				<div id="post_body" class="text-wrap">
 					<p><?php echo $post['pencil_db_posts_body'] ?></p>
@@ -40,7 +42,7 @@
 		
 					<div class="card shadow container" style="padding: 2em">
 
-						<h2>Leave a comment</h2><br>
+						<h2 class="mb-4">Leave a comment</h2>
 						
 						<!-- form starts -->
 							<?php if($post['pencil_db_posts_user_id'] == $this->session->userdata('user_id') || $this->session->userdata('logged_in')): ?>
@@ -133,34 +135,25 @@
 
 			<!-- Recommended Posts -->
 			<p class="h4 text-center">Recommended Posts</p><hr>
+			<?php foreach ($all_posts as $all_post) :?>
+				<?php if($all_post['pencil_db_posts_id'] != $post['pencil_db_posts_id']) : ?>
+					<div class="card">
+						  <img src="<?php echo site_url(); ?>assets/images/posts/<?php echo $all_post['pencil_db_posts_post_image']; ?>" class="card-img-top">
+						  <div class="card-header">
+						  	<p>
+						  		<span class="float-left badge badge-light">
+						  			<i class="fas fa-tags mr-1"></i>
+						  			<span><?php echo $all_post['pencil_db_categories_name']; ?></span>					  				
+						  		</span>					  		
+						  	</p>
+						  </div>
+						  <div class="card-body pt-1">
+						    <p class="card-title"><?php echo $all_post['pencil_db_posts_title']; ?></p>			
+						  </div>
+					</div><br>
+				<?php endif; ?>
+			<?php endforeach; ?>
 
-			<div class="card">
-				  <img src="<?php echo site_url(); ?>assets/images/posts/<?php echo $post['pencil_db_posts_post_image']; ?>" class="card-img-top">
-				  <div class="card-body">
-				    <h5 class="card-title">The Blog Title</h5>			
-				  </div>
-			</div><br>
-
-			<div class="card">
-				  <img src="<?php echo site_url(); ?>assets/images/posts/<?php echo $post['pencil_db_posts_post_image']; ?>" class="card-img-top">
-				  <div class="card-body">
-				    <h5 class="card-title">The Blog Title</h5>			
-				  </div>
-			</div><br>
-
-			<div class="card">
-				  <img src="<?php echo site_url(); ?>assets/images/posts/<?php echo $post['pencil_db_posts_post_image']; ?>" class="card-img-top">
-				  <div class="card-body">
-				    <h5 class="card-title">The Blog Title</h5>			
-				  </div>
-			</div><br>
-
-			<div class="card">
-				  <img src="<?php echo site_url(); ?>assets/images/posts/<?php echo $post['pencil_db_posts_post_image']; ?>" class="card-img-top">
-				  <div class="card-body">
-				    <h5 class="card-title">The Blog Title</h5>			
-				  </div>
-			</div><br>		
 	</div>
 	<!-- the small sidebar ends -->
 

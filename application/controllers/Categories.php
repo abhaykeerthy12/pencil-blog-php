@@ -18,8 +18,9 @@ class Categories extends CI_Controller
             redirect('users/login');
         }       
         // render the index page if everything is ok, also show a created message
-        $this->Category_model->create_category();
-        $this->session->set_flashdata('category_created', 'Your category has been created');
+        $status  = $this->Category_model->create_category();
+
+        echo json_encode($status);
     }
 
     // get posts based on selected category

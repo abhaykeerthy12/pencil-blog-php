@@ -120,6 +120,7 @@ class Posts extends CI_Controller
 
         // view the page selected in the list of posts in index page
         $data['post'] = $this->Post_model->get_posts($slug);
+        $data['all_posts'] = $this->Post_model->recommended_posts();
         $post_id = $data['post']['pencil_db_posts_id'];
         $u_id = $data['post']['pencil_db_posts_user_id'];
 

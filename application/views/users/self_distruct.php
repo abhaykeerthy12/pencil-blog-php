@@ -1,31 +1,24 @@
 <br><br>
 
 <!-- page starts -->
+<section id="self_distruct_card" class="mb-5 pb-5">
+<div class="container p-5 mb-5">
+	<div class="card shadow-lg p-5 animated flipInX">
+		<!-- title -->
+		<h3 class="text-center"><?=$title;?></h3><br>
+		<?php echo form_open('users/self_distruct'); ?>
 
-<div id="create_card" class="card center container z-depth-5">
-	<!-- title -->
-	<h4 class="center-align"><?=$title;?></h4><br>
-	<div class="row">
-	<?php echo form_open('users/self_distruct'); ?>
-
-	<div class="col s12">
-		<div class="row">
+		<div class="form-group pr-5 pl-5">
+			<div class="container pr-5 pl-5">
 				<!-- password field -->
-			    <div class="input-field col s12">
-			      <input type="password" id="confirm_password" name="confirm_password" autofocus>
-			      <label for="confirm_password">Password</label>
-				</div>
+		        <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" autofocus required>
+			</div>
+	    </div>
+	  	<div class="card-footer d-flex justify-content-center">
+			<button type="submit" class="btn btn-danger shadow-lg rounded-circle p-1"><i class="fas fa-3x m-1 fa-exclamation-circle"></i></button>
+			<?php echo form_close(); ?>
 		</div>
-  </div>
-  
-	<!-- submit button (it is a floating button so it has more classes from materializecss)-->
-	<button type="submit" name="create_post_btn" class="btn-floating btn-large halfway-fab waves-effect waves-light deep-purple z-depth-5"><i class="fab fa-telegram-plane"></i></button>
-
-	<?php echo form_close(); ?>
 	</div>
 
-	<!-- show errors -->
-	<?php echo validation_errors('<p id="error_p" class="red lighten-3 center-align">', '</p>'); ?>
-	<br>
-
 </div>
+</section>

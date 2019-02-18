@@ -12,14 +12,21 @@ class Category_model extends CI_Model
     public function create_category()
     {
         $cate_name = $this->input->post('cate_name');
-        // create an array with data entered by the user
-        $data = array(
-            'pencil_db_categories_name' => ucfirst($cate_name),
-            'pencil_db_categories_user_id' => $this->session->userdata('user_id'),
-        );
-
-        // insert the data
-        return $this->db->insert('pencil_db_categories', $data);
+        $query = $this->db->get_where('pencil_db_categories', array('pencil_db_categories_name' => $cate_name));
+        if (empty($query->row_array())) {
+            // create an array with data entered by the user
+            $data = array(
+                'pencil_db_categories_name' => ucfirst($cate_name),
+                'pencil_db_categories_user_id' => $this->session->userdata('user_id'),
+            );
+            // insert the data
+            $this->db->insert('pencil_db_categories', $data);
+            return true;
+            
+        } else {
+            return false;
+        }
+        
     }
 
     public function get_category($id)
@@ -36,6 +43,19 @@ class Category_model extends CI_Model
         // delete the category with the matching id
         $this->db->where('pencil_db_categories_id', $id);
         $this->db->delete('pencil_db_categories');
+        // get the post which had the category
+        $this->db->select('pencil_db_posts_id');
+        $this->db->where('pencil_db_posts_category_id', $id);
+        $query = $this->db->get('pencil_db_posts');    
+        $posts = $query->result_array();
+        foreach ($posts as $post) {
+            // delete the comments for that post
+            $this->db->where('pencil_db_comments_post_id', $post['pencil_db_posts_id']);
+            $this->db->delete('pencil_db_comments');  
+        }
+        // delete the post
+        $this->db->where('pencil_db_posts_category_id', $id);
+        $this->db->delete('pencil_db_posts');
         return true;
     }
 
@@ -80,7 +100,7 @@ class Category_model extends CI_Model
             $this->db->limit($post_number);
 
             // get the data
-            $query = $this->db->get_where('pencil_db_posts');
+            $query = $this->db->get('pencil_db_posts');
             return $query->result_array();
     }
 }

@@ -42,6 +42,15 @@ class Post_model extends CI_Model
 
     }
 
+    public function recommended_posts(){
+
+        $this->db->order_by('pencil_db_posts.pencil_db_posts_views', 'DESC');
+        $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
+        $this->db->limit(4);
+        $query = $this->db->get('pencil_db_posts');
+        return $query->result_array();
+    }
+
     public function home_posts($l_posts, $p_posts){
 
             if($l_posts){
@@ -126,6 +135,8 @@ class Post_model extends CI_Model
         // delete the post with matching id
         $this->db->where('pencil_db_posts_id', $id);
         $this->db->delete('pencil_db_posts');
+        $this->db->where('pencil_db_comments_post_id', $id);
+        $this->db->delete('pencil_db_comments');  
         return true;
     }
 

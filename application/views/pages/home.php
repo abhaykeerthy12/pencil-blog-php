@@ -4,18 +4,19 @@
 <div id="showcase_text" class="text-center">  
   <h1 style="font-family: 'Courgette'; " class="display-1 animated bounceInDown">Pencil</h1>
   <p class="animated bounceInLeft" style="font-family: 'Courgette';">Let the ideas flow...</p>
-  <button class="btn btn-primary animated bounceInUp shadow-lg">Lets go!</button>
+  <a class="btn btn-primary animated bounceInUp shadow-lg" href="<?php echo base_url(); ?>posts">Lets go!</a>
+
 </div>
 
 </section>
 <!-- main image ends -->
 
 <!-- latest posts start -->
-<section class="latest_posts" style="margin-left: 5%;margin-right: 5%"><br>
+<section class="latest_posts mt-4" style="margin-left: 5%;margin-right: 5%"><br>
 <div><h1>Latest Posts</h1><hr></div> 
-<div class="card-deck">
+<div class="card-deck row" style="margin: auto">
   <?php foreach ($l_posts as $post): ?>
-  <div class="card w-100 p-0 shadow-lg blog-body" >
+  <div class="card w-100 p-0 shadow-lg blog-body col-lg-4">
    <a class="the_read_more_btn" data="<?php echo $post['pencil_db_posts_id']; ?>" href="<?php echo site_url('/posts/' . $post['pencil_db_posts_slug']) ?>" style="color: black;">
 
     <!-- card img -->
@@ -75,7 +76,7 @@
 
 
 <!-- become member starts -->
-<section class="become_member text-center container">
+<section class="become_member text-center container"><br>
   <h2>Become a member!</h2>
   <div class="row container">
     <div class="col-sm-12 col-md-6 col-lg-6">
@@ -83,7 +84,7 @@
    </div>
     <div class="col-sm-12 col-md-6 col-lg-6 text-center container"><br><br><br>
     <p>We, The Pencil Team had an aim of developing a blog application with a different approach. Our aim was fueled with passion and hard-work, hope you enjoy the experience</p><br>
-    <a class="btn btn-primary shadow" style="color: white" href="signup.php">Join</a>
+    <a class="btn btn-primary shadow" style="color: white" href="signup.php">Join Us!</a>
     </div>
   </div><br>
 </section><hr><br>
@@ -94,9 +95,9 @@
 
 <div><h1>Popular Posts</h1><hr></div> 
 
-<div class="card-deck">
+<div class="card-deck row" style="margin: auto;">
   <?php foreach ($p_posts as $post): ?>
-  <div class="card w-100 p-0 shadow-lg blog-body" >
+  <div class="card w-100 p-0 shadow-lg blog-body col-lg-4">
    <a class="the_read_more_btn" data="<?php echo $post['pencil_db_posts_id']; ?>" href="<?php echo site_url('/posts/' . $post['pencil_db_posts_slug']) ?>" style="color: black;">
 
     <!-- card img -->

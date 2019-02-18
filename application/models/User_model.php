@@ -99,6 +99,13 @@ class User_model extends CI_Model
         }
     }
 
+    public function author_posts($id){
+         $this->db->order_by('pencil_db_posts.pencil_db_posts_id', 'DESC');
+         $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
+         $query = $this->db->get_where('pencil_db_posts', array('pencil_db_posts_user_id' => $id));
+         return $query->result_array();
+    }
+
     // get all users in database
     public function get_all_users()
     {
@@ -155,20 +162,10 @@ class User_model extends CI_Model
     public function get_views($id){
 
         if($id){
-
-            // $this->db->select_sum('pencil_db_posts_views');
-            // $this->db->from('pencil_db_posts');
-            // $this->db->where('pencil_db_posts_user_id', $id);
-            // $query = $this->db->get();
-            // return $query->result();
-
-            $this->db->select_sum('pencil_db_posts_views');
+          $this->db->select_sum('pencil_db_posts_views');
             $this->db->where('pencil_db_posts_user_id', $id);
-
             $query = $this->db->get('pencil_db_posts');
             return $query;
-
-            // return $this->db->query("SELECT SUM('pencil_db_posts_views') as total FROM pencil_db_posts WHERE 'pencil_db_posts_user_id' = '$id'");
 
         }
 
