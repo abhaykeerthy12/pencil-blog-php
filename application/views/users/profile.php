@@ -116,12 +116,8 @@
         <div class="card container text-center col-md-12 col-lg-4">            
                     <i class="fas fa-pencil-alt" style="color: #1976d2"></i>
                 <div class="card-body">
-                    <span class="post_counter h5" style="font-size: 2em">0</span><br>
+                    <span class="post_counter h5" style="font-size: 2em"><?php echo $posts; ?></span><br>
                     <span class="font-weight-bold text-muted">POSTS</span>
-                    <script>
-                        var a = '<?php echo $posts; ?>';
-                        $(".post_counter").animateNumber({number: a});
-                    </script>
                 </div>
         </div>
 
@@ -129,22 +125,17 @@
         <div id="comment_counter" class="card container text-center col-md-12 col-lg-4">
                     <i class="far fa-comments" style="color: #f4511e"></i>
                 <div class="card-body">
-                    <span class="comment_counter h5" style="font-size: 2em">0</span><br>
-                    <span class="font-weight-bold text-muted">COMMENTS</span>
                     <!-- display comment count -->
                     <?php $comment_counter = 0; ?>
                     <?php foreach ($comments as $comment): ?>
                     <?php foreach ($user_posts as $post): ?>
                     <?php if(($comment['pencil_db_comments_post_id'] == $post['pencil_db_posts_id']) && ($post['pencil_db_posts_user_id'] == $this->session->userdata('user_id'))) : ?>
-                      <?php $comment_counter++; ?>
+                    <?php $comment_counter++; ?>
                     <?php endif; ?>
                     <?php endforeach; ?>                 
                     <?php endforeach; ?>                 
-                    <script>
-                        var a = '<?php echo $comment_counter; ?>';
-                        $(".comment_counter").animateNumber({number: a});
-                    </script>
-                    
+                        <span class="comment_counter h5" style="font-size: 2em"><?php echo $comment_counter; ?></span><br>
+                        <span class="font-weight-bold text-muted">COMMENTS</span>
                     <?php $comment_counter = 0; ?>
                 </div>               
         </div>
@@ -153,13 +144,9 @@
         <div class="card container text-center col-md-12 col-lg-4">
                     <i class="far fa-eye" style="color: #009688"></i>
             <div class="card-body">
-                <span class="view_counter h5" style="font-size: 2em">0</span><br>
-                <span class="font-weight-bold text-muted">VIEWS</span>
                 <?php foreach ($views as $num): ?>
-                <script>
-                        var a = '<?php echo $num->pencil_db_posts_views; ?>';
-                        $(".view_counter").animateNumber({number: a});
-                </script>
+                    <span class="view_counter h5" style="font-size: 2em"><?php echo $num->pencil_db_posts_views; ?></span><br>
+                    <span class="font-weight-bold text-muted">VIEWS</span>
 			    <?php endforeach;?>
             </div>
         </div>

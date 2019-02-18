@@ -12,6 +12,7 @@
 <!-- main image ends -->
 
 <!-- latest posts start -->
+<?php if($l_posts) : ?>
 <section class="latest_posts mt-4" style="margin-left: 5%;margin-right: 5%"><br>
 <div><h1>Latest Posts</h1><hr></div> 
 <div class="card-deck row" style="margin: auto">
@@ -72,6 +73,7 @@
   <a class="btn btn-primary shadow-lg mt-3 btn-lg" href="<?php echo base_url(); ?>posts"><i class="shadow-lg fas fa-2x m-1  fa-angle-double-right"></i></a>
 </div>
 </section><hr>
+<?php endif; ?>
 <!-- latest posts ends -->
 
 
@@ -87,10 +89,12 @@
     <a class="btn btn-primary shadow" style="color: white" href="signup.php">Join Us!</a>
     </div>
   </div><br>
-</section><hr><br>
+</section>
 <!-- become member ends -->
 
 <!-- popular posts start -->
+<?php if($l_posts) : ?>
+<hr><br>
 <section class="popular_posts" style="margin-left: 5%;margin-right: 5%">
 
 <div><h1>Popular Posts</h1><hr></div> 
@@ -151,4 +155,5 @@
 </div>
  
 </section><br><br>
+<?php endif; ?>
 <!-- popular posts ends -->
