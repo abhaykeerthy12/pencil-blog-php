@@ -15,7 +15,7 @@
 <?php if($l_posts) : ?>
 <section class="latest_posts mt-4" style="margin-left: 5%;margin-right: 5%"><br>
 <div><h1>Latest Posts</h1><hr></div> 
-<div class="card-deck row" style="margin: auto">
+<div class="card-deck row" style="margin: auto;">
   <?php foreach ($l_posts as $post): ?>
   <div class="card w-100 p-0 shadow-lg blog-body col-lg-4">
    <a class="the_read_more_btn" data="<?php echo $post['pencil_db_posts_id']; ?>" href="<?php echo site_url('/posts/' . $post['pencil_db_posts_slug']) ?>" style="color: black;">
@@ -93,7 +93,7 @@
 <!-- become member ends -->
 
 <!-- popular posts start -->
-<?php if($l_posts) : ?>
+<?php if($p_posts) : ?>
 <hr><br>
 <section class="popular_posts" style="margin-left: 5%;margin-right: 5%">
 

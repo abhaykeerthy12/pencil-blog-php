@@ -102,6 +102,10 @@ if ($this->session->flashdata('user_registered'))
 	toastphp('You are now a member, Login!','success');
 if ($this->session->flashdata('post_updated')) 
 	toastphp('Post Updated!','success');
+if ($this->session->flashdata('old_password_error')) 
+	toastphp('Old Password is Wrong!','error');
+if ($this->session->flashdata('pwd_error')) 
+	toastphp('The Password is Wrong!','error');
 if ($this->session->flashdata('comment_deleted')) 
 	toastphp('Comment Deleted!','error');
 

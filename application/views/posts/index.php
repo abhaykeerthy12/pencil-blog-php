@@ -105,7 +105,7 @@
 	
 		</div>
 
-		<div class="blog-body">
+		<div class="blog-body animated bounceInUp">
 		
 		</div><br>	
 		

@@ -18,7 +18,7 @@
 	    <div class="card-footer d-flex justify-content-center">
 		    <button type="submit" name="button" class="btn btn-primary  p-2  rounded-circle shadow-lg"><i class="fas m-1 fa-3x fa-check-circle"></i></button>
 	    </div>
-		<?php echo form_close(); ?>
+		<?php echo form_close(); ?><br>
   		<?php echo validation_errors('<p id="error_p" class="alert alert-danger text-center mr-5 ml-5">', '</p>'); ?>
     </div>
   </div>

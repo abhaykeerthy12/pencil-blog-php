@@ -14,7 +14,7 @@
 				<div class="container">
 				<h1 class="text-wrap"><?php echo ucfirst($post['pencil_db_posts_title']); ?></h1><br>
 				
-				<p class="text-muted" style="font-size: 13px;">
+				<p class="text-muted mb-1" style="font-size: 13px;">
 					<img src="<?php echo site_url(); ?>assets/images/profile/<?php echo $user['pencil_db_users_image'];?>" class="rounded-circle img-fluid mr-1" style="height: 50px;width: 50px;">
 					<span class="mr-1"><?php echo $user['pencil_db_users_username']; ?></span>|
 					<span class="mr-1 ml-1"><i class="far fa-clock"></i></span>
@@ -23,7 +23,7 @@
 					<span class="ml-1 mr-1">
 						<i class="far fa-eye"></i></span><span class="mr-1"><?php echo $post['pencil_db_posts_views'] ?>
 					</span>					
-				</p><br><br>
+				</p>
 
 				<div id="post_body" class="text-wrap">
 					<p><?php echo $post['pencil_db_posts_body'] ?></p>
@@ -139,7 +139,8 @@
 			<p class="h4 text-center">Recommended Posts</p><hr>
 			<?php foreach ($all_posts as $all_post) :?>
 				<?php if($all_post['pencil_db_posts_id'] != $post['pencil_db_posts_id']) : ?>
-					<div class="card">
+					<div class="card blog-body">
+						 <a class="the_read_more_btn" data="<?php echo $all_post['pencil_db_posts_id']; ?>" href="<?php echo site_url('/posts/' . $all_post['pencil_db_posts_slug']) ?>" style="color: black;">
 						  <img src="<?php echo site_url(); ?>assets/images/posts/<?php echo $all_post['pencil_db_posts_post_image']; ?>" class="card-img-top">
 						  <div class="card-header">
 						  	<p>
@@ -149,9 +150,10 @@
 						  		</span>					  		
 						  	</p>
 						  </div>
-						  <div class="card-body pt-1">
+						  <div class="card-body pt-2">
 						    <p class="card-title"><?php echo $all_post['pencil_db_posts_title']; ?></p>			
 						  </div>
+						</a>
 					</div><br>
 				<?php endif; ?>
 			<?php endforeach; ?>

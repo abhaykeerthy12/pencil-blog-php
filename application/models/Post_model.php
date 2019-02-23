@@ -46,7 +46,7 @@ class Post_model extends CI_Model
 
         $this->db->order_by('pencil_db_posts.pencil_db_posts_views', 'DESC');
         $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
-        $this->db->limit(4);
+        $this->db->limit(5);
         $query = $this->db->get('pencil_db_posts');
         return $query->result_array();
     }
@@ -110,15 +110,14 @@ class Post_model extends CI_Model
     public function create_post($post_image)
     {
 
-        // create post with the specified data
-
+        $title = ucfirst($this->input->post('post_title'));
         // create a slug for the post from the title by url_title function(its inbuild, i don't know what it does :-P)
         $slug = url_title($this->input->post('post_title'));
-
+        // create post with the specified data
         // create the data array
         $data = array(
-            'pencil_db_posts_title' => $this->input->post('post_title'),
-            'pencil_db_posts_slug' => $slug,
+            'pencil_db_posts_title' => $title,
+            'pencil_db_posts_slug' => ucfirst($slug),
             'pencil_db_posts_body' => $this->input->post('post_body'),
             'pencil_db_posts_category_id' => $this->input->post('post_category'),
             'pencil_db_posts_post_image' => $post_image,
@@ -185,8 +184,6 @@ class Post_model extends CI_Model
         $from_date = $condition['dates'][0];
         $to_date = $condition['dates'][1];
 
-        $post_number = $this->input->post('nextpostnumber');
-        $post_number = 20;
 
     
              // get posts by category with the matching category id
@@ -194,7 +191,6 @@ class Post_model extends CI_Model
             $this->db->join('pencil_db_categories', 'pencil_db_categories.pencil_db_categories_id = pencil_db_posts.pencil_db_posts_category_id');
             $this->db->where('pencil_db_posts_created_date >=', $from_date);
             $this->db->where('pencil_db_posts_created_date <=', $to_date);
-            $this->db->limit($post_number);
 
             // get the data
             $query = $this->db->get('pencil_db_posts');

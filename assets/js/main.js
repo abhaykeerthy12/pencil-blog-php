@@ -293,14 +293,12 @@
   }
   // category filetering using checkbox function
   function get_posts_by_category(){
-    var postcounter = 9;
     var category_id = [];
 
     $('#category_filter_submit').click(function(){
 
       // prevent default behaviour of submit button
       event.preventDefault();
-      postcounter = postcounter + 9;
 
       $("input[name='category_name']:checked").each(function(i){
               category_id[i] = $(this).val();
@@ -308,6 +306,7 @@
 
       if(category_id.length == 0){
         show_posts();
+        $("#load_more_container").show();
       }
       
 
@@ -318,10 +317,14 @@
       // ajax to get posts based on selected categories
       $.ajax({
                   url:"http://localhost/pencil/categories/posts",
-                  data: {category: JSON_cat, nextpostnumber: postcounter},
+                  data: {category: JSON_cat},
                   type:'POST',
                   dataType: 'json',
-          success: function (data) {blog_card(data);category_id.length = 0;},error: function () {console.log("my bad");}});
+          success: function (data) {
+            blog_card(data);category_id.length = 0;
+              $("#load_more_container").hide();
+
+          },error: function () {console.log("my bad");}});
                   
         });
   }
@@ -330,7 +333,6 @@
 
         // filter by date
         function get_posts_by_date(){
-          var postcounter = 9;
           
 
   
@@ -338,7 +340,6 @@
   
                     // prevent default behaviour of submit button
                     event.preventDefault();
-                    postcounter = postcounter + 9;
   
   
                     var dates = [];
@@ -354,13 +355,19 @@
                     // ajax to get posts based on selected categories
                     $.ajax({
                                 url:"http://localhost/pencil/posts/cardbydate",
-                                data: {dates: JSON_date, nextpostnumber: postcounter},
+                                data: {dates: JSON_date},
                                 type:'POST',
                                 dataType: 'json',
-                                success: function (data) {blog_card(data);dates.length = 0;},error: function () {console.log("my bad");}
+                                success: function (data) {
+                                  blog_card(data);dates.length = 0;
+                                  $("#load_more_container").hide();
+
+                                },error: function () {console.log("my bad");}
                             });
                    }else
                       show_posts();
+                      $("#load_more_container").show();
+
 
                   });
   
@@ -432,7 +439,7 @@
         if(data['posts'].length > 0){        
         html = '<section class="row d-flex justify-content-center">';
         for(i=0; i<data['posts'].length; i++){
-        html += '<div class="card-deck col-lg-4"><div class="card shadow-lg animated bounceInUp p-0 m-3"><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
+        html += '<div class="card-deck col-lg-4"><div class="card shadow-lg p-0 m-3"><a href="http://localhost/pencil/posts/'+data['posts'][i].pencil_db_posts_slug+'" data="'+data['posts'][i].pencil_db_posts_id+'"'+
                 ' class="the_read_more_btn" style="color: #000">'+
                 '<img src="http://localhost/pencil/assets/images/posts/'+data['posts'][i].pencil_db_posts_post_image+'" class="w-100 card-img img-fluid" style="height: 200px;">'+
                 '<div class="card-header p-2"><p><span class="badge badge-light"><i class="fas fa-tags mr-1"></i>'+data['posts'][i].pencil_db_categories_name+'</span>';       
